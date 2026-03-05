@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFIELD Studio — Landing Page Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090d;
+  --surface:#0d0f17;
+  --surface2:#121520;
+  --accent:#ffffff;
+  --gold:#f0c040;
+  --blue:#3b82f6;
+  --green:#22c55e;
+  --red:#ef4444;
+  --purple:#a855f7;
+  --tg:#2AABEE;
+  --text:#e2e8f0;
+  --muted:#4a5568;
+  --border:rgba(255,255,255,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;cursor:none;
+  min-height:100vh;
+}
+
+/* ── CURSOR ── */
+.cur{
+  position:fixed;pointer-events:none;z-index:9999;
+  width:10px;height:10px;
+  background:white;border-radius:50%;
+  transform:translate(-5px,-5px);
+  mix-blend-mode:difference;
+  transition:width .2s,height .2s,transform .2s;
+}
+.cur-r{
+  position:fixed;pointer-events:none;z-index:9998;
+  width:36px;height:36px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  transform:translate(-18px,-18px);
+  transition:border-color .3s;
+}
+body:has(.card:hover) .cur{
+  width:24px;height:24px;
+  transform:translate(-12px,-12px);
+}
+
+/* ── GRID BG ── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 90% 90% at 50% 30%,black,transparent);
+}
+
+/* ambient */
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.orb1{width:700px;height:500px;background:rgba(99,102,241,.04);top:-200px;right:-200px;animation:drift 14s ease-in-out infinite}
+.orb2{width:500px;height:500px;background:rgba(6,182,212,.03);bottom:-100px;left:-100px;animation:drift 18s ease-in-out infinite reverse}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:18px 52px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,9,13,.85);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:18px;letter-spacing:3px;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  color:var(--text);
+}
+.logo span{color:rgba(255,255,255,.35)}
+.nav-c{display:flex;align-items:center;gap:32px}
+.nav-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;
+  color:var(--muted);
+  padding:6px 14px;
+  border:1px solid var(--border);
+}
+.nav-count{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:1px;
+  color:var(--green);
+  display:flex;align-items:center;gap:6px;
+}
+.nav-count::before{
+  content:'';width:6px;height:6px;
+  background:var(--green);border-radius:50%;
+  animation:blink 2s ease infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  padding:160px 52px 100px;
+  max-width:1400px;margin:0 auto;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 16px;
+  border:1px solid rgba(255,255,255,.1);
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:40px;
+  animation:fadeUp .7s ease both;
+}
+.hero-badge span{color:var(--green)}
+.hero h1{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(56px,8vw,120px);
+  line-height:.9;letter-spacing:-3px;
+  margin-bottom:32px;
+  animation:fadeUp .7s ease .1s both;
+}
+.hero h1 .dim{color:rgba(255,255,255,.2)}
+.hero h1 .acc{
+  background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.5) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-row{
+  display:flex;align-items:flex-end;
+  justify-content:space-between;gap:40px;flex-wrap:wrap;
+  animation:fadeUp .7s ease .2s both;
+}
+.hero-desc{
+  font-size:16px;font-weight:300;line-height:1.8;
+  color:rgba(226,232,240,.45);max-width:520px;
+}
+.hero-meta{
+  display:flex;gap:48px;
+  text-align:right;
+}
+.hm-item{}
+.hm-num{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:40px;color:white;line-height:1;
+}
+.hm-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-top:4px;
+}
+
+/* ── FILTER BAR ── */
+.filter-bar{
+  position:relative;z-index:1;
+  padding:0 52px 56px;
+  max-width:1400px;margin:0 auto;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.fb-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-right:8px;
+}
+.filter-btn{
+  padding:8px 20px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  background:transparent;color:var(--muted);
+  border:1px solid var(--border);cursor:none;
+  transition:all .3s;
+}
+.filter-btn.active,.filter-btn:hover{
+  background:rgba(255,255,255,.06);
+  color:white;border-color:rgba(255,255,255,.2);
+}
+.filter-btn[data-f="all"].active{border-color:white;color:white}
+
+/* ── GRID ── */
+.grid-wrap{
+  position:relative;z-index:1;
+  padding:0 52px 80px;
+  max-width:1400px;margin:0 auto;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--surface);
+  position:relative;overflow:hidden;cursor:none;
+  transition:background .3s;
+  display:flex;flex-direction:column;
+}
+.card:hover{background:var(--surface2)}
+
+/* Top glow line */
+.card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s cubic-bezier(.76,0,.24,1);
+}
+.card:hover::before{transform:scaleX(1)}
+
+/* Color per theme */
+.card[data-theme="tech"]::before{background:linear-gradient(90deg,#00d4ff,#7b61ff)}
+.card[data-theme="service"]::before{background:linear-gradient(90deg,#c8a96e,#e8c97a)}
+.card[data-theme="product"]::before{background:linear-gradient(90deg,#c9a84c,#e8c77a)}
+.card[data-theme="fashion"]::before{background:linear-gradient(90deg,#e63224,#ff6b5b)}
+.card[data-theme="telegram"]::before{background:linear-gradient(90deg,#2AABEE,#8b5cf6)}
+
+/* Preview area */
+.card-preview{
+  position:relative;
+  height:220px;overflow:hidden;
+  flex-shrink:0;
+}
+.preview-screen{
+  position:absolute;inset:0;
+  transform:scale(1.02);
+  transition:transform .6s cubic-bezier(.76,0,.24,1);
+  display:flex;align-items:center;justify-content:center;
+}
+.card:hover .preview-screen{transform:scale(1.06)}
+
+/* Theme previews */
+.prev-tech{
+  background:linear-gradient(160deg,#020408,#060d18);
+  border-bottom:1px solid rgba(0,212,255,.15);
+}
+.prev-service{
+  background:linear-gradient(160deg,#f0ece4,#e8e3da);
+}
+.prev-product{
+  background:linear-gradient(160deg,#0c0a07,#1a160f);
+}
+.prev-fashion{
+  background:linear-gradient(160deg,#0a0a0a,#1a0a0a);
+}
+.prev-telegram{
+  background:linear-gradient(160deg,#04060d,#070b18);
+}
+
+/* Preview UI mockups */
+.pui{
+  width:80%;position:relative;padding:16px;
+}
+/* Tech */
+.pui-tech .pui-bar{
+  display:flex;align-items:center;gap:6px;margin-bottom:12px;
+}
+.pui-tech .pui-dot{width:5px;height:5px;border-radius:50%}
+.pui-tech .pui-title{
+  font-family:'monospace';font-size:18px;font-weight:900;
+  background:linear-gradient(90deg,#00d4ff,#7b61ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;letter-spacing:2px;margin-bottom:8px;
+}
+.pui-tech .pui-line{
+  height:2px;border-radius:2px;margin-bottom:5px;
+  background:rgba(0,212,255,.15);
+}
+.pui-tech .pui-line.acc{background:rgba(0,212,255,.4);width:60%}
+.pui-tech .pui-grid{display:flex;gap:4px;margin-top:10px}
+.pui-tech .pui-box{
+  flex:1;height:30px;
+  background:rgba(0,212,255,.05);
+  border:1px solid rgba(0,212,255,.1);
+}
+/* Service */
+.pui-service .pui-logo{
+  font-family:'Georgia',serif;font-size:22px;
+  letter-spacing:5px;color:#1a1714;opacity:.7;
+  text-align:center;margin-bottom:12px;
+}
+.pui-service .pui-hero-text{
+  font-family:'Georgia',serif;font-size:28px;
+  color:#1a1714;line-height:1.1;margin-bottom:8px;
+}
+.pui-service .pui-hero-text em{color:#c8a96e;font-style:italic}
+.pui-service .pui-line{height:1px;background:rgba(26,23,20,.1);margin-bottom:5px}
+.pui-service .pui-btn{
+  display:inline-block;padding:6px 14px;
+  background:#1a1714;color:#f5f2ed;
+  font-size:8px;letter-spacing:2px;
+  margin-top:8px;
+}
+/* Product */
+.pui-product .pui-name{
+  font-family:'Georgia',serif;font-size:30px;
+  font-style:italic;color:#c9a84c;line-height:1;margin-bottom:4px;
+  text-align:center;
+}
+.pui-product .pui-sub{
+  font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(201,168,76,.5);text-align:center;margin-bottom:10px;
+}
+.pui-product .pui-cup{font-size:36px;text-align:center;filter:drop-shadow(0 0 10px rgba(201,168,76,.3))}
+/* Fashion */
+.pui-fashion .pui-h{
+  font-family:'Impact',sans-serif;font-size:32px;
+  letter-spacing:-1px;color:#f0ede8;line-height:1;margin-bottom:4px;
+}
+.pui-fashion .pui-acc{color:#e63224}
+.pui-fashion .pui-outline{
+  -webkit-text-stroke:1px #f0ede8;color:transparent;
+  font-family:'Impact',sans-serif;font-size:32px;
+  letter-spacing:-1px;line-height:1;display:block;
+}
+.pui-fashion .pui-tag{
+  font-family:monospace;font-size:8px;letter-spacing:2px;
+  color:#e63224;margin-top:8px;display:block;
+}
+/* Telegram */
+.pui-telegram .pui-icon{
+  width:40px;height:40px;
+  background:linear-gradient(135deg,#2AABEE,#229ED9);
+  border-radius:10px;margin:0 auto 10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;box-shadow:0 0 20px rgba(42,171,238,.3);
+}
+.pui-telegram .pui-h{
+  font-size:18px;font-weight:900;
+  text-align:center;color:#c8d8f0;margin-bottom:6px;
+}
+.pui-telegram .pui-sub{
+  font-family:monospace;font-size:8px;letter-spacing:2px;
+  color:rgba(42,171,238,.6);text-align:center;
+}
+
+/* Hover overlay */
+.card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(8,9,13,.9) 100%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:20px;
+}
+.card:hover .card-overlay{opacity:1}
+.view-btn{
+  padding:10px 24px;
+  background:white;color:var(--bg);
+  font-family:'Syne',sans-serif;font-size:11px;
+  font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  transform:translateY(10px);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.card:hover .view-btn{transform:translateY(0)}
+
+/* Card body */
+.card-body{
+  padding:28px 28px 24px;flex:1;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+}
+.card-top{}
+.card-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:2px;
+  color:var(--muted);margin-bottom:12px;
+}
+.card-title{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:20px;margin-bottom:6px;
+}
+.card-desc{
+  font-size:13px;font-weight:300;
+  color:rgba(226,232,240,.45);line-height:1.6;
+  margin-bottom:20px;
+}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{
+  padding:4px 10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:8px;letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--muted);
+}
+.tag.acc{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.5)}
+.card-bottom{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  margin-top:20px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+}
+.card-style{
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;color:var(--muted);
+}
+.style-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+}
+.card-arrow{
+  width:32px;height:32px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--muted);
+  transition:all .3s;
+}
+.card:hover .card-arrow{
+  background:white;color:var(--bg);border-color:white;
+  transform:rotate(45deg);
+}
+
+/* ── ADD CARD ── */
+.card-add{
+  background:var(--surface);
+  min-height:400px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:16px;cursor:none;
+  transition:background .3s;
+  border:1px dashed rgba(255,255,255,.08);
+}
+.card-add:hover{background:rgba(255,255,255,.02)}
+.add-icon{
+  width:56px;height:56px;
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;color:var(--muted);
+  transition:all .3s;
+}
+.card-add:hover .add-icon{
+  border-color:rgba(255,255,255,.3);color:white;
+  transform:rotate(90deg);
+}
+.add-text{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);transition:color .3s;
+  text-align:center;
+}
+.card-add:hover .add-text{color:rgba(255,255,255,.5)}
+
+/* ── BOTTOM CTA ── */
+.bottom-cta{
+  position:relative;z-index:1;
+  padding:120px 52px;
+  max-width:1400px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+  border-top:1px solid var(--border);
+}
+.bc-left .bc-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.bc-left .bc-tag::before{content:'//';color:rgba(255,255,255,.2)}
+.bc-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(36px,4vw,60px);
+  line-height:1.0;letter-spacing:-1px;margin-bottom:24px;
+}
+.bc-title span{color:rgba(255,255,255,.25)}
+.bc-desc{
+  font-size:15px;font-weight:300;
+  color:rgba(226,232,240,.4);line-height:1.8;
+}
+.bc-right{display:flex;flex-direction:column;gap:16px}
+.btn-main{
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  padding:18px 44px;
+  background:white;color:var(--bg);
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  position:relative;overflow:hidden;
+  transition:all .3s;
+}
+.btn-main::before{
+  content:'';position:absolute;inset:0;
+  background:var(--gold);
+  transform:translateX(-101%);
+  transition:transform .4s cubic-bezier(.76,0,.24,1);
+}
+.btn-main:hover::before{transform:translateX(0)}
+.btn-main span{position:relative;z-index:1}
+.btn-sec{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:18px 44px;
+  background:transparent;color:var(--text);
+  font-family:'Syne',sans-serif;font-weight:600;
+  font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  border:1px solid var(--border);
+  transition:all .3s;
+}
+.btn-sec:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.04)}
+.bc-note{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1px;
+  color:var(--muted);text-align:center;
+}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  padding:32px 52px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.f-logo{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:16px;letter-spacing:3px;color:var(--text);
+  text-decoration:none;cursor:none;
+}
+.f-logo span{color:rgba(255,255,255,.3)}
+.f-copy{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1px;color:var(--muted);
+}
+.f-links{display:flex;gap:24px}
+.f-links a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .3s;
+}
+.f-links a:hover{color:white}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.reveal.on{opacity:1;transform:translateY(0)}
+
+@media(max-width:1100px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  nav{padding:16px 20px}
+  .hero{padding:110px 20px 60px}
+  .filter-bar{padding:0 20px 40px}
+  .grid-wrap{padding:0 20px 60px}
+  .grid{grid-template-columns:1fr}
+  .bottom-cta{grid-template-columns:1fr;padding:80px 20px;gap:40px}
+  footer{padding:24px 20px}
+  .hero-meta{flex-direction:row;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">IFIELD<span>.studio</span></a>
+  <div class="nav-c">
+    <div class="nav-tag">Landing Pages</div>
+    <div class="nav-count" id="countDisplay">5 projects live</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Portfolio <span>✦</span> Web Design Studio</div>
+  <h1>
+    <span class="dim">We build</span><br>
+    <span class="acc">Legendary</span><br>
+    <span class="dim">Landings.</span>
+  </h1>
+  <div class="hero-row">
+    <p class="hero-desc">
+      Five unique templates. Five different industries. One studio.<br>
+      Pick your niche — we'll build the rest.
+    </p>
+    <div class="hero-meta">
+      <div class="hm-item">
+        <div class="hm-num" id="heroCount">5</div>
+        <div class="hm-label">Templates</div>
+      </div>
+      <div class="hm-item">
+        <div class="hm-num">5</div>
+        <div class="hm-label">Industries</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="fb-label">Filter:</span>
+  <button class="filter-btn active" data-f="all">All</button>
+  <button class="filter-btn" data-f="tech">Tech</button>
+  <button class="filter-btn" data-f="service">Service</button>
+  <button class="filter-btn" data-f="product">Product</button>
+  <button class="filter-btn" data-f="fashion">Fashion</button>
+  <button class="filter-btn" data-f="telegram">Telegram</button>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap">
+  <div class="grid" id="grid">
+
+    <!-- 1. Tech -->
+    <div class="card reveal" data-theme="tech" data-cat="tech">
+      <div class="card-preview">
+        <div class="preview-screen prev-tech">
+          <div class="pui pui-tech">
+            <div class="pui-bar">
+              <div class="pui-dot" style="background:#00d4ff;width:4px;height:4px;border-radius:50%"></div>
+              <div style="font-size:7px;letter-spacing:2px;color:rgba(0,212,255,.5)">NEXUS AI</div>
+            </div>
+            <div class="pui-title">INTELLIGENCE<br>REDEFINED</div>
+            <div class="pui-line acc"></div>
+            <div class="pui-line" style="width:80%"></div>
+            <div class="pui-line" style="width:50%"></div>
+            <div class="pui-grid">
+              <div class="pui-box"></div>
+              <div class="pui-box"></div>
+              <div class="pui-box"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <a href="iphone-landing.html" class="view-btn" target="_blank">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-num">01 · Tech & AI</div>
+          <div class="card-title">AI App Landing</div>
+          <p class="card-desc">Sci-fi dark theme. Phone mockup, animated stats, glow effects. Built for startups & SaaS.</p>
+          <div class="card-tags">
+            <span class="tag acc">Sci-Fi</span>
+            <span class="tag">Dark</span>
+            <span class="tag">Animated</span>
+            <span class="tag">SaaS</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div class="card-style">
+            <div class="style-dot" style="background:linear-gradient(135deg,#00d4ff,#7b61ff)"></div>
+            Cyber · Minimal
+          </div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Service -->
+    <div class="card reveal" data-theme="service" data-cat="service" style="transition-delay:.05s">
+      <div class="card-preview">
+        <div class="preview-screen prev-service">
+          <div class="pui pui-service">
+            <div class="pui-logo">FORMA</div>
+            <div class="pui-hero-text">Where craft<br>meets <em>vision.</em></div>
+            <div class="pui-line"></div>
+            <div class="pui-line" style="width:70%"></div>
+            <div class="pui-btn">Our Work</div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <a href="service-landing.html" class="view-btn" target="_blank">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-num">02 · Services</div>
+          <div class="card-title">Creative Studio</div>
+          <p class="card-desc">Luxury beige & gold. Marquee strip, service list, process steps. For agencies & freelancers.</p>
+          <div class="card-tags">
+            <span class="tag acc">Luxury</span>
+            <span class="tag">Light</span>
+            <span class="tag">Editorial</span>
+            <span class="tag">Studio</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div class="card-style">
+            <div class="style-dot" style="background:linear-gradient(135deg,#c8a96e,#e8c97a)"></div>
+            Organic · Refined
+          </div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Product -->
+    <div class="card reveal" data-theme="product" data-cat="product" style="transition-delay:.1s">
+      <div class="card-preview">
+        <div class="preview-screen prev-product">
+          <div class="pui pui-product">
+            <div class="pui-cup">🍵</div>
+            <div class="pui-name">KŌHA</div>
+            <div class="pui-sub">Ceremonial · Single Origin</div>
+            <div style="height:1px;background:rgba(201,168,76,.2);margin:10px 0"></div>
+            <div style="font-size:7px;letter-spacing:2px;color:rgba(201,168,76,.4);text-align:center">THE ART OF SACRED LEAF</div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <a href="tea-landing.html" class="view-btn" target="_blank">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-num">03 · Product</div>
+          <div class="card-title">Tea / Coffee Brand</div>
+          <p class="card-desc">Dark gold luxury. Animated cup with steam, product cards, ritual steps. For food & drink brands.</p>
+          <div class="card-tags">
+            <span class="tag acc">Gold</span>
+            <span class="tag">Dark</span>
+            <span class="tag">Organic</span>
+            <span class="tag">E-shop</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div class="card-style">
+            <div class="style-dot" style="background:linear-gradient(135deg,#c9a84c,#e8c77a)"></div>
+            Sacred · Dark Luxury
+          </div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Fashion -->
+    <div class="card reveal" data-theme="fashion" data-cat="fashion" style="transition-delay:.15s">
+      <div class="card-preview">
+        <div class="preview-screen prev-fashion">
+          <div class="pui pui-fashion">
+            <div class="pui-h">WEAR <span class="pui-acc">THE</span></div>
+            <span class="pui-outline">VOID.</span>
+            <span class="pui-tag">DROP 001 · SS26 · LIMITED</span>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <a href="fashion-landing.html" class="view-btn" target="_blank">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-num">04 · Fashion</div>
+          <div class="card-title">Streetwear Brand</div>
+          <p class="card-desc">Brutalist red & black. Live countdown timer, lookbook grid, manifesto. For clothing drops.</p>
+          <div class="card-tags">
+            <span class="tag acc">Brutalist</span>
+            <span class="tag">Bold</span>
+            <span class="tag">Drop</span>
+            <span class="tag">Countdown</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div class="card-style">
+            <div class="style-dot" style="background:linear-gradient(135deg,#e63224,#ff6b5b)"></div>
+            Raw · Aggressive
+          </div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Telegram -->
+    <div class="card reveal" data-theme="telegram" data-cat="telegram" style="transition-delay:.2s">
+      <div class="card-preview">
+        <div class="preview-screen prev-telegram">
+          <div class="pui pui-telegram">
+            <div class="pui-icon">✈️</div>
+            <div class="pui-h">SIGNAL</div>
+            <div class="pui-sub">48K+ SUBSCRIBERS · DAILY</div>
+            <div style="margin-top:10px;display:flex;justify-content:center;gap:4px">
+              <div style="width:50px;height:18px;background:rgba(42,171,238,.15);border:1px solid rgba(42,171,238,.2)"></div>
+              <div style="width:36px;height:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <a href="telegram-landing.html" class="view-btn" target="_blank">View Live →</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-num">05 · Telegram</div>
+          <div class="card-title">Channel Landing</div>
+          <p class="card-desc">Cyber blue dark. Message previews, subscriber counter, topic grid. For Telegram channels & blogs.</p>
+          <div class="card-tags">
+            <span class="tag acc">Cyber</span>
+            <span class="tag">Neon</span>
+            <span class="tag">Telegram</span>
+            <span class="tag">Counter</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div class="card-style">
+            <div class="style-dot" style="background:linear-gradient(135deg,#2AABEE,#8b5cf6)"></div>
+            Futuristic · Tech
+          </div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD NEW -->
+    <div class="card-add reveal" id="addCard" style="transition-delay:.25s">
+      <div class="add-icon">+</div>
+      <div class="add-text">Next template<br>coming soon</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:rgba(74,85,104,.5);margin-top:4px">Tell us what you need</div>
+    </div>
+
+  </div><!-- /grid -->
+</div><!-- /grid-wrap -->
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="bc-left">
+    <div class="bc-tag reveal">Ready to order?</div>
+    <h2 class="bc-title reveal">Need a custom<br><span>landing page?</span></h2>
+    <p class="bc-desc reveal">
+      Send your niche, brand colors, and content — we'll build a unique landing page using the same quality as you see above. Delivered in 3–5 days.
+    </p>
+  </div>
+  <div class="bc-right reveal">
+    <a href="#" class="btn-main"><span>Order on Fiverr →</span></a>
+    <a href="#" class="btn-sec">View All Templates</a>
+    <div class="bc-note">Starting from $149 · Fast delivery · Revision included</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="f-logo">IFIELD<span>.studio</span></a>
+  <div class="f-copy">© 2026 iField Studio · Built on iPhone 16 Pro · Made for legends</div>
+  <div class="f-links">
+    <a href="#">Fiverr</a>
+    <a href="#">Telegram</a>
+    <a href="#">Instagram</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function a(){
+  rx+=(mx-rx-18)*.1;ry+=(my-ry-18)*.1;
+  curR.style.left=rx+'px';curR.style.top=ry+'px';
+  requestAnimationFrame(a);
+})();
+
+// Scroll reveal
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Filter
+const btns=document.querySelectorAll('.filter-btn');
+const cards=document.querySelectorAll('.card[data-cat]');
+btns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    btns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    cards.forEach(c=>{
+      if(f==='all'||c.dataset.cat===f){
+        c.style.display='flex';
+        setTimeout(()=>c.style.opacity='1',10);
+      } else {
+        c.style.opacity='0';
+        setTimeout(()=>c.style.display='none',300);
+      }
+    });
+  });
+});
+
+// Card click → open file
+document.querySelectorAll('.card[data-theme]').forEach(card=>{
+  card.addEventListener('click',e=>{
+    if(e.target.classList.contains('view-btn'))return;
+    const theme=card.dataset.theme;
+    const map={tech:'iphone-landing.html',service:'service-landing.html',product:'tea-landing.html',fashion:'fashion-landing.html',telegram:'telegram-landing.html'};
+    if(map[theme])window.open(map[theme],'_blank');
+  });
+});
+</script>
+</body>
+</html>
