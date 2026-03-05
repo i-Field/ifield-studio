@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGNAL — The Channel You Were Waiting For</title>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04060d;
+  --surface:#070b16;
+  --blue:#2AABEE;
+  --blue2:#1a8fc2;
+  --purple:#8b5cf6;
+  --green:#00ff88;
+  --text:#c8d8f0;
+  --muted:#3a4a5e;
+  --border:rgba(42,171,238,.1);
+  --glow:rgba(42,171,238,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Oxanium',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── CURSOR ── */
+.cur{
+  position:fixed;pointer-events:none;z-index:9999;
+  width:16px;height:16px;
+  border:2px solid var(--blue);
+  transform:translate(-8px,-8px);
+  transition:width .15s,height .15s,transform .15s,border-color .2s;
+}
+.cur::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  width:4px;height:4px;
+  background:var(--blue);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.cur-trail{
+  position:fixed;pointer-events:none;z-index:9997;
+  width:40px;height:40px;
+  border:1px solid rgba(42,171,238,.2);
+  transform:translate(-20px,-20px);
+  transition:left .1s ease,top .1s ease;
+}
+body:has(a:hover) .cur{
+  width:32px;height:32px;
+  transform:translate(-16px,-16px);
+  border-color:var(--green);
+}
+body:has(a:hover) .cur::before{background:var(--green)}
+
+/* ── GRID BG ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(42,171,238,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(42,171,238,.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;z-index:0;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);
+}
+
+/* Ambient glow */
+.amb{
+  position:fixed;pointer-events:none;z-index:0;
+  border-radius:50%;filter:blur(100px);
+}
+.amb-1{
+  width:600px;height:400px;
+  background:rgba(42,171,238,.05);
+  top:-100px;right:-200px;
+  animation:drift 12s ease-in-out infinite;
+}
+.amb-2{
+  width:500px;height:500px;
+  background:rgba(139,92,246,.04);
+  bottom:0;left:-200px;
+  animation:drift 15s ease-in-out infinite reverse;
+}
+@keyframes drift{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(30px,-30px)}
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:20px 56px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(4,6,13,.8);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  display:flex;align-items:center;gap:12px;
+  font-size:18px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;text-decoration:none;cursor:none;
+}
+.logo-icon{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+.logo-text{color:var(--text)}
+.logo-text span{color:var(--blue)}
+.nav-stats{
+  display:flex;gap:32px;
+}
+.nav-stat{
+  text-align:center;
+}
+.ns-num{
+  font-size:14px;font-weight:700;color:var(--blue);line-height:1;
+}
+.ns-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;
+  margin-top:2px;
+}
+.nav-btn{
+  padding:10px 28px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:#fff;
+  font-family:'Oxanium',sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;text-decoration:none;cursor:none;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.nav-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  opacity:0;transition:opacity .3s;
+}
+.nav-btn:hover::before{opacity:1}
+.nav-btn span{position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 40px 80px;
+  z-index:1;
+  overflow:hidden;
+}
+
+/* Animated circle rings */
+.rings{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(42,171,238,.06);
+  animation:ringPulse 4s ease-in-out infinite;
+}
+.ring:nth-child(1){width:300px;height:300px;animation-delay:0s}
+.ring:nth-child(2){width:500px;height:500px;animation-delay:.5s;border-color:rgba(139,92,246,.04)}
+.ring:nth-child(3){width:700px;height:700px;animation-delay:1s}
+.ring:nth-child(4){width:900px;height:900px;animation-delay:1.5s;border-color:rgba(42,171,238,.03)}
+@keyframes ringPulse{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.03);opacity:.6}
+}
+
+/* TG Icon */
+.tg-icon-wrap{
+  position:relative;margin-bottom:40px;
+  animation:iconAppear .8s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes iconAppear{
+  from{opacity:0;transform:scale(.5) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.tg-icon{
+  width:88px;height:88px;
+  background:linear-gradient(135deg,#2AABEE,#229ED9);
+  border-radius:24px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;
+  box-shadow:0 0 40px rgba(42,171,238,.3),0 0 80px rgba(42,171,238,.1);
+  position:relative;
+  animation:iconPulse 3s ease-in-out infinite;
+}
+@keyframes iconPulse{
+  0%,100%{box-shadow:0 0 40px rgba(42,171,238,.3),0 0 80px rgba(42,171,238,.1)}
+  50%{box-shadow:0 0 60px rgba(42,171,238,.5),0 0 120px rgba(42,171,238,.2)}
+}
+.tg-badge{
+  position:absolute;top:-8px;right:-8px;
+  background:var(--green);
+  color:var(--bg);
+  font-size:8px;font-weight:700;letter-spacing:1px;
+  padding:4px 8px;
+  clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+}
+
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:3px;
+  color:var(--blue);text-transform:uppercase;
+  margin-bottom:28px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  animation:fadeUp .7s ease .1s both;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';width:32px;height:1px;background:var(--blue);opacity:.5;
+}
+
+.hero h1{
+  font-size:clamp(52px,8vw,120px);
+  font-weight:800;line-height:.9;
+  letter-spacing:-2px;
+  margin-bottom:32px;
+  animation:fadeUp .7s ease .2s both;
+}
+.hero h1 .gr{
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--blue));
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 3s linear infinite;
+}
+@keyframes shimmer{
+  0%{background-position:0% center}
+  100%{background-position:200% center}
+}
+
+.hero-desc{
+  font-size:17px;font-weight:300;line-height:1.8;
+  color:rgba(200,216,240,.5);
+  max-width:560px;margin:0 auto 52px;
+  animation:fadeUp .7s ease .3s both;
+}
+
+.hero-actions{
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .7s ease .4s both;
+}
+
+.btn-tg{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:18px 44px;
+  background:linear-gradient(135deg,#2AABEE,#229ED9);
+  color:#fff;
+  font-family:'Oxanium',sans-serif;
+  font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+  position:relative;overflow:hidden;
+  transition:all .3s;
+}
+.btn-tg::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--purple),var(--blue));
+  opacity:0;transition:opacity .4s;
+}
+.btn-tg:hover::before{opacity:1}
+.btn-tg:hover{box-shadow:0 0 40px rgba(42,171,238,.4)}
+.btn-tg span{position:relative;z-index:1}
+.btn-tg-icon{position:relative;z-index:1;font-size:18px}
+
+.btn-preview{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:18px 40px;
+  background:transparent;
+  color:var(--text);
+  font-family:'Oxanium',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  border:1px solid var(--border);
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+  transition:all .3s;
+}
+.btn-preview:hover{border-color:rgba(42,171,238,.3);background:var(--glow)}
+
+/* Live indicator */
+.live-wrap{
+  margin-top:56px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  animation:fadeUp .7s ease .5s both;
+}
+.live-dot{
+  width:8px;height:8px;background:var(--green);
+  border-radius:50%;
+  box-shadow:0 0 8px var(--green);
+  animation:livePulse 1.5s ease infinite;
+}
+@keyframes livePulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.4)}
+}
+.live-text{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:2px;color:var(--green);
+  text-transform:uppercase;
+}
+
+/* ── STATS BAR ── */
+.statsbar{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:48px 56px;
+  display:flex;justify-content:center;
+  gap:0;
+  background:var(--surface);
+}
+.sb-item{
+  flex:1;max-width:220px;
+  text-align:center;
+  padding:0 40px;
+  border-right:1px solid var(--border);
+}
+.sb-item:last-child{border-right:none}
+.sb-num{
+  font-size:44px;font-weight:800;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;line-height:1;
+  margin-bottom:8px;
+}
+.sb-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+}
+
+/* ── CONTENT PREVIEW ── */
+.preview{
+  position:relative;z-index:1;
+  padding:120px 56px;
+  max-width:1300px;margin:0 auto;
+}
+.sec-pre{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:3px;
+  color:var(--blue);text-transform:uppercase;
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.sec-pre::before{content:'>';color:var(--green)}
+.sec-title{
+  font-size:clamp(36px,4vw,60px);
+  font-weight:800;line-height:1.0;
+  letter-spacing:-1px;margin-bottom:16px;
+}
+.sec-title .acc{color:var(--blue)}
+.sec-sub{
+  font-size:15px;font-weight:300;
+  color:rgba(200,216,240,.45);
+  max-width:480px;line-height:1.8;
+  margin-bottom:64px;
+}
+
+/* Message cards */
+.msgs{
+  display:flex;flex-direction:column;gap:16px;
+  max-width:680px;
+}
+.msg{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:24px 28px;
+  position:relative;
+  transition:border-color .3s,background .3s;
+  animation:msgIn .6s ease both;
+}
+.msg::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:2px;
+  background:linear-gradient(180deg,var(--blue),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.msg:hover{
+  border-color:rgba(42,171,238,.25);
+  background:rgba(42,171,238,.03);
+}
+.msg:hover::before{opacity:1}
+@keyframes msgIn{
+  from{opacity:0;transform:translateX(-20px)}
+  to{opacity:1;transform:translateX(0)}
+}
+.msg-header{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:12px;
+}
+.msg-avatar{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+}
+.msg-name{
+  font-size:13px;font-weight:700;color:var(--blue);
+}
+.msg-time{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--muted);margin-left:auto;
+}
+.msg-text{
+  font-size:14px;font-weight:300;line-height:1.7;
+  color:rgba(200,216,240,.7);
+}
+.msg-tag{
+  display:inline-block;
+  margin-top:12px;padding:3px 10px;
+  background:rgba(42,171,238,.1);
+  border:1px solid rgba(42,171,238,.2);
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:1.5px;
+  color:var(--blue);text-transform:uppercase;
+}
+.msg-img{
+  margin-top:12px;
+  background:rgba(42,171,238,.05);
+  border:1px solid var(--border);
+  padding:20px;
+  font-size:10px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+  font-family:'JetBrains Mono',monospace;
+  display:flex;align-items:center;gap:8px;
+}
+.msg-views{
+  display:flex;align-items:center;gap:6px;
+  margin-top:12px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--muted);
+}
+
+/* Preview right col */
+.preview-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:start;
+}
+.preview-right{padding-top:40px}
+.feat-list{
+  display:flex;flex-direction:column;gap:1px;
+  background:var(--border);
+  margin-bottom:40px;
+}
+.feat{
+  background:var(--bg);
+  padding:28px 28px;
+  display:flex;align-items:flex-start;gap:16px;
+  transition:background .3s;
+  cursor:none;
+}
+.feat:hover{background:var(--glow)}
+.feat-icon{
+  width:40px;height:40px;flex-shrink:0;
+  background:rgba(42,171,238,.08);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+.feat-title{
+  font-size:16px;font-weight:700;
+  margin-bottom:6px;
+}
+.feat-desc{
+  font-size:12px;font-weight:300;
+  color:rgba(200,216,240,.4);line-height:1.6;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ── TOPICS ── */
+.topics{
+  position:relative;z-index:1;
+  padding:0 56px 120px;
+  max-width:1300px;margin:0 auto;
+}
+.topics-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);
+}
+.topic{
+  background:var(--bg);padding:40px 32px;
+  position:relative;overflow:hidden;cursor:none;
+  transition:background .3s;
+}
+.topic::after{
+  content:'';position:absolute;
+  top:0;right:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 32px 32px 0;
+  border-color:transparent rgba(42,171,238,.1) transparent transparent;
+  transition:border-color .3s;
+}
+.topic:hover{background:rgba(42,171,238,.03)}
+.topic:hover::after{border-color:transparent rgba(42,171,238,.3) transparent transparent}
+.topic-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:2px;color:rgba(42,171,238,.3);
+  margin-bottom:20px;
+}
+.topic-icon{font-size:32px;margin-bottom:16px;display:block}
+.topic-name{
+  font-size:20px;font-weight:700;margin-bottom:10px;
+}
+.topic-desc{
+  font-size:12px;font-weight:300;
+  color:rgba(200,216,240,.4);line-height:1.7;
+  font-family:'JetBrains Mono',monospace;
+}
+.topic-count{
+  margin-top:20px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--blue);letter-spacing:1px;
+}
+
+/* ── TESTIMONIALS ── */
+.testi{
+  position:relative;z-index:1;
+  padding:100px 56px;
+  background:var(--surface);
+  overflow:hidden;
+}
+.testi::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 80% at 50% 50%,rgba(42,171,238,.04),transparent);
+}
+.testi-inner{max-width:1300px;margin:0 auto;position:relative;z-index:1}
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  margin-top:56px;
+}
+.testi-card{
+  background:var(--bg);padding:40px 32px;
+  position:relative;transition:background .3s;
+}
+.testi-card:hover{background:rgba(42,171,238,.03)}
+.stars{color:var(--blue);font-size:14px;margin-bottom:20px;letter-spacing:2px}
+.testi-text{
+  font-size:14px;font-weight:300;line-height:1.8;
+  color:rgba(200,216,240,.6);margin-bottom:24px;
+  font-style:italic;
+}
+.testi-author{
+  display:flex;align-items:center;gap:12px;
+}
+.ta-avatar{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.ta-name{font-size:13px;font-weight:700}
+.ta-info{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;color:var(--muted);letter-spacing:1px;
+}
+
+/* ── CTA ── */
+.cta{
+  position:relative;z-index:1;
+  padding:160px 56px;
+  text-align:center;
+  overflow:hidden;
+}
+.cta::before{
+  content:'SIGNAL';
+  font-size:30vw;font-weight:800;letter-spacing:-4px;
+  color:rgba(42,171,238,.02);
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;white-space:nowrap;line-height:1;
+}
+.cta-inner{position:relative;z-index:1}
+.cta-pre{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:3px;color:var(--blue);
+  text-transform:uppercase;margin-bottom:32px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.cta-pre::before{content:'['}
+.cta-pre::after{content:']'}
+.cta-title{
+  font-size:clamp(48px,7vw,100px);
+  font-weight:800;line-height:.9;
+  letter-spacing:-2px;margin-bottom:24px;
+}
+.cta-title .gr{
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--green));
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 3s linear infinite;
+}
+.cta-sub{
+  font-size:16px;font-weight:300;
+  color:rgba(200,216,240,.4);
+  margin-bottom:56px;
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:1px;
+}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  padding:48px 56px;
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:40px;align-items:center;
+}
+.f-logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:16px;font-weight:700;letter-spacing:2px;text-decoration:none;
+}
+.f-copy{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;
+  color:var(--muted);text-align:center;line-height:1.7;
+}
+.f-links{
+  display:flex;gap:24px;justify-content:flex-end;
+}
+.f-links a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .3s;
+}
+.f-links a:hover{color:var(--blue)}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.reveal.on{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-stats{display:none}
+  .hero{padding:100px 24px 60px}
+  .statsbar{padding:32px 24px;gap:0;flex-wrap:wrap}
+  .sb-item{min-width:50%;border-right:none;border-bottom:1px solid var(--border);padding:20px}
+  .preview{padding:80px 24px}
+  .preview-grid{grid-template-columns:1fr}
+  .topics{padding:0 24px 80px}
+  .topics-grid{grid-template-columns:1fr}
+  .testi{padding:60px 24px}
+  .testi-grid{grid-template-columns:1fr}
+  .cta{padding:100px 24px}
+  footer{grid-template-columns:1fr;text-align:center;padding:32px 24px}
+  .f-links{justify-content:center}
+  .f-logo{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-trail" id="curTrail"></div>
+<div class="amb amb-1"></div>
+<div class="amb amb-2"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">⚡</div>
+    <span class="logo-text">SIG<span>NAL</span></span>
+  </a>
+  <div class="nav-stats">
+    <div class="nav-stat">
+      <div class="ns-num">48.2K</div>
+      <div class="ns-label">Subscribers</div>
+    </div>
+    <div class="nav-stat">
+      <div class="ns-num">94%</div>
+      <div class="ns-label">Read Rate</div>
+    </div>
+    <div class="nav-stat">
+      <div class="ns-num">Daily</div>
+      <div class="ns-label">Posts</div>
+    </div>
+  </div>
+  <a href="#" class="nav-btn"><span>Join Free</span></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <div class="tg-icon-wrap">
+    <div class="tg-icon">✈️</div>
+    <div class="tg-badge">LIVE</div>
+  </div>
+
+  <div class="hero-eyebrow">The Telegram Channel Worth Joining</div>
+
+  <h1>
+    Don't just<br>
+    <span class="gr">scroll.</span><br>
+    Learn.
+  </h1>
+
+  <p class="hero-desc">
+    48,000+ smart people read SIGNAL daily. Tech, money, ideas, and opportunities — filtered, sharp, and always ahead of the curve.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#" class="btn-tg">
+      <span class="btn-tg-icon">✈️</span>
+      <span>Join on Telegram</span>
+    </a>
+    <a href="#" class="btn-preview">Preview Content →</a>
+  </div>
+
+  <div class="live-wrap">
+    <div class="live-dot"></div>
+    <span class="live-text">New post 12 minutes ago</span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="statsbar">
+  <div class="sb-item reveal">
+    <div class="sb-num">48K+</div>
+    <div class="sb-label">Subscribers</div>
+  </div>
+  <div class="sb-item reveal" style="transition-delay:.1s">
+    <div class="sb-num">1,200+</div>
+    <div class="sb-label">Posts Published</div>
+  </div>
+  <div class="sb-item reveal" style="transition-delay:.2s">
+    <div class="sb-num">94%</div>
+    <div class="sb-label">Average Read Rate</div>
+  </div>
+  <div class="sb-item reveal" style="transition-delay:.3s">
+    <div class="sb-num">2yr</div>
+    <div class="sb-label">Running Strong</div>
+  </div>
+</div>
+
+<!-- CONTENT PREVIEW -->
+<section class="preview">
+  <div class="preview-grid">
+    <div class="preview-left">
+      <div class="sec-pre reveal">Latest Posts</div>
+      <h2 class="sec-title reveal">What you<br>get <span class="acc">daily.</span></h2>
+      <p class="sec-sub reveal">Real signal, zero noise. Every post is edited to be worth 60 seconds of your attention.</p>
+
+      <div class="msgs">
+        <div class="msg reveal">
+          <div class="msg-header">
+            <div class="msg-avatar">⚡</div>
+            <div class="msg-name">SIGNAL</div>
+            <div class="msg-time">09:14</div>
+          </div>
+          <div class="msg-text">OpenAI just dropped something nobody's talking about yet. Here's why it changes everything about how we build products in 2026...</div>
+          <div class="msg-tag">#AI · #Tech</div>
+          <div class="msg-views">👁 34,210 views · 892 shares</div>
+        </div>
+
+        <div class="msg reveal" style="transition-delay:.1s">
+          <div class="msg-header">
+            <div class="msg-avatar">⚡</div>
+            <div class="msg-name">SIGNAL</div>
+            <div class="msg-time">Yesterday</div>
+          </div>
+          <div class="msg-text">The freelancer who made $12K last month using only his phone. Breakdown of his exact stack and process 🧵</div>
+          <div class="msg-img">📊 · Infographic · Income Breakdown</div>
+          <div class="msg-tag">#Money · #Freelance</div>
+          <div class="msg-views">👁 41,880 views · 1.2K shares</div>
+        </div>
+
+        <div class="msg reveal" style="transition-delay:.2s">
+          <div class="msg-header">
+            <div class="msg-avatar">⚡</div>
+            <div class="msg-name">SIGNAL</div>
+            <div class="msg-time">2 days ago</div>
+          </div>
+          <div class="msg-text">5 Chrome extensions that save me 2 hours every day. Each one is free. Most people don't know #3 exists.</div>
+          <div class="msg-tag">#Tools · #Productivity</div>
+          <div class="msg-views">👁 28,445 views · 3.4K shares</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-right reveal">
+      <div class="sec-pre">Why Subscribe</div>
+      <h2 class="sec-title" style="font-size:36px;margin-bottom:40px">What makes<br><span class="acc">SIGNAL</span><br>different.</h2>
+
+      <div class="feat-list">
+        <div class="feat">
+          <div class="feat-icon">🎯</div>
+          <div>
+            <div class="feat-title">Zero Clickbait</div>
+            <div class="feat-desc">Every post delivers. No titles that overpromise.</div>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">⚡</div>
+          <div>
+            <div class="feat-title">Daily at 9am</div>
+            <div class="feat-desc">Consistent signal in your morning routine.</div>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🧠</div>
+          <div>
+            <div class="feat-title">Curated Intel</div>
+            <div class="feat-desc">We read 50 sources so you read one.</div>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🌐</div>
+          <div>
+            <div class="feat-title">English + UA</div>
+            <div class="feat-desc">Bilingual content for global audience.</div>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🔒</div>
+          <div>
+            <div class="feat-title">Free Forever</div>
+            <div class="feat-desc">No paywalls. No upsells. Just content.</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="btn-tg" style="width:100%;justify-content:center">
+        <span class="btn-tg-icon">✈️</span>
+        <span>Subscribe Now</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="topics">
+  <div class="sec-pre reveal">What We Cover</div>
+  <h2 class="sec-title reveal">Six topics.<br><span class="acc">One channel.</span></h2>
+  <p class="sec-sub reveal">Deep knowledge across the categories that matter in 2026.</p>
+
+  <div class="topics-grid">
+    <div class="topic reveal">
+      <div class="topic-num">01 ·</div>
+      <span class="topic-icon">🤖</span>
+      <div class="topic-name">Artificial Intelligence</div>
+      <p class="topic-desc">Tools, breakthroughs, and practical applications you can use today.</p>
+      <div class="topic-count">↗ 340 posts published</div>
+    </div>
+    <div class="topic reveal" style="transition-delay:.1s">
+      <div class="topic-num">02 ·</div>
+      <span class="topic-icon">💰</span>
+      <div class="topic-name">Money & Investing</div>
+      <p class="topic-desc">Markets, crypto, passive income, and building real wealth online.</p>
+      <div class="topic-count">↗ 280 posts published</div>
+    </div>
+    <div class="topic reveal" style="transition-delay:.2s">
+      <div class="topic-num">03 ·</div>
+      <span class="topic-icon">📱</span>
+      <div class="topic-name">Tech & Gadgets</div>
+      <p class="topic-desc">What's worth buying, what's overhyped, and what's coming next.</p>
+      <div class="topic-count">↗ 195 posts published</div>
+    </div>
+    <div class="topic reveal" style="transition-delay:.3s">
+      <div class="topic-num">04 ·</div>
+      <span class="topic-icon">🚀</span>
+      <div class="topic-name">Startups & Business</div>
+      <p class="topic-desc">Founder stories, business models, and ideas worth stealing.</p>
+      <div class="topic-count">↗ 220 posts published</div>
+    </div>
+    <div class="topic reveal" style="transition-delay:.4s">
+      <div class="topic-num">05 ·</div>
+      <span class="topic-icon">🛠️</span>
+      <div class="topic-name">Productivity & Tools</div>
+      <p class="topic-desc">Workflows, apps, and systems that give you back time.</p>
+      <div class="topic-count">↗ 165 posts published</div>
+    </div>
+    <div class="topic reveal" style="transition-delay:.5s">
+      <div class="topic-num">06 ·</div>
+      <span class="topic-icon">🌍</span>
+      <div class="topic-name">World & Future</div>
+      <p class="topic-desc">Geopolitics, climate tech, and the forces shaping what's next.</p>
+      <div class="topic-count">↗ 145 posts published</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi">
+  <div class="testi-inner">
+    <div class="sec-pre reveal">Subscribers Say</div>
+    <h2 class="sec-title reveal">Real people.<br><span class="acc">Real results.</span></h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"I cancelled 4 newsletters after joining SIGNAL. This one does it all. Every morning I open it first."</p>
+        <div class="testi-author">
+          <div class="ta-avatar">👨‍💻</div>
+          <div>
+            <div class="ta-name">Alex M.</div>
+            <div class="ta-info">Software Engineer · Berlin</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.1s">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Found 3 tools through SIGNAL that literally changed how I run my business. Worth following just for that."</p>
+        <div class="testi-author">
+          <div class="ta-avatar">👩‍🚀</div>
+          <div>
+            <div class="ta-name">Inna V.</div>
+            <div class="ta-info">Founder · Kyiv</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.2s">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Finally a channel that doesn't waste my time. Short, dense, always relevant. Shared it with my whole team."</p>
+        <div class="testi-author">
+          <div class="ta-avatar">🧑‍💼</div>
+          <div>
+            <div class="ta-name">Marco T.</div>
+            <div class="ta-info">Product Manager · Milan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-inner">
+    <div class="cta-pre reveal">Free to join</div>
+    <h2 class="cta-title reveal">
+      Join <span class="gr">48,000</span><br>
+      smart people.
+    </h2>
+    <p class="cta-sub reveal">// One tap. No spam. Unsubscribe anytime.</p>
+    <a href="#" class="btn-tg reveal" style="font-size:16px;padding:22px 60px">
+      <span class="btn-tg-icon">✈️</span>
+      <span>Open in Telegram</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="f-logo">
+    <div class="logo-icon">⚡</div>
+    <span style="color:var(--text)">SIG<span style="color:var(--blue)">NAL</span></span>
+  </a>
+  <div class="f-copy reveal">
+    © 2026 SIGNAL Channel.<br>
+    Built for people who think ahead.
+  </div>
+  <div class="f-links reveal">
+    <a href="#">Telegram</a>
+    <a href="#">Twitter</a>
+    <a href="#">Advertise</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),ct=document.getElementById('curTrail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function a(){
+  tx+=(mx-tx-20)*.08;ty+=(my-ty-20)*.08;
+  ct.style.left=tx+'px';ct.style.top=ty+'px';
+  requestAnimationFrame(a);
+})();
+
+// Scroll reveal
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Animate subscriber counter
+function countUp(el,target,suffix=''){
+  let start=0,dur=2000,startT=null;
+  function step(t){
+    if(!startT)startT=t;
+    const p=Math.min((t-startT)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    const val=Math.floor(ease*target);
+    el.textContent=val.toLocaleString()+suffix;
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+// Run counter when stats bar visible
+const sbObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const nums=e.target.querySelectorAll('.sb-num');
+      const vals=[48200,1200,94,2];
+      const suffs=['+','+',' %','yr'];
+      nums.forEach((n,i)=>{
+        if(i<vals.length)countUp(n,vals[i],suffs[i]);
+      });
+      sbObs.unobserve(e.target);
+    }
+  });
+},{threshold:.3});
+const sb=document.querySelector('.statsbar');
+if(sb)sbObs.observe(sb);
+</script>
+</body>
+</html>
