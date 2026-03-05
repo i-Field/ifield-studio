@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KŌHA — Ceremonial Tea</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0a07;
+  --surface: #131009;
+  --surface2: #1a160f;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --cream: #f0e8d5;
+  --text: #e8dfc8;
+  --muted: #6b6050;
+  --border: rgba(201,168,76,0.12);
+  --glow: rgba(201,168,76,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CURSOR ─── */
+.cur{
+  position:fixed;pointer-events:none;z-index:9999;
+  width:10px;height:10px;
+  background:var(--gold);
+  border-radius:50%;
+  transform:translate(-5px,-5px);
+  mix-blend-mode:screen;
+  transition:width .2s,height .2s,background .2s;
+}
+.cur-r{
+  position:fixed;pointer-events:none;z-index:9998;
+  width:40px;height:40px;
+  border:1px solid rgba(201,168,76,.35);
+  border-radius:50%;
+  transform:translate(-20px,-20px);
+}
+body:has(a:hover) .cur,body:has(button:hover) .cur{
+  width:20px;height:20px;
+  background:var(--gold2);
+  transform:translate(-10px,-10px);
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:.6;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:24px 60px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(180deg,rgba(12,10,7,.9) 0%,transparent 100%);
+}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:24px;letter-spacing:6px;
+  text-transform:uppercase;color:var(--gold);
+}
+.logo span{font-style:italic;color:var(--cream)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .3s;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-btn{
+  font-family:'Jost',sans-serif;font-size:10px;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold);background:transparent;
+  border:1px solid rgba(201,168,76,.4);
+  padding:10px 24px;cursor:none;text-decoration:none;
+  transition:all .4s;
+}
+.nav-btn:hover{background:var(--gold);color:var(--bg)}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+/* Radial ambient */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 60%,rgba(201,168,76,.06) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%,rgba(201,168,76,.04) 0%,transparent 60%);
+}
+
+/* Steam particles */
+.steam{position:absolute;pointer-events:none}
+.steam-p{
+  position:absolute;
+  width:2px;border-radius:4px;
+  background:linear-gradient(180deg,rgba(201,168,76,.4),transparent);
+  animation:steamRise 4s ease-in infinite;
+  opacity:0;
+}
+@keyframes steamRise{
+  0%{opacity:0;transform:translateY(0) scaleX(1)}
+  20%{opacity:.6}
+  80%{opacity:.2}
+  100%{opacity:0;transform:translateY(-120px) scaleX(2)}
+}
+
+.hero-inner{
+  position:relative;z-index:2;
+  text-align:center;padding:120px 40px 80px;
+  max-width:1000px;
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:16px;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:48px;
+  animation:riseIn .9s ease both;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';width:40px;height:1px;background:var(--gold);opacity:.5;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(60px,9vw,130px);
+  font-weight:400;line-height:.92;
+  letter-spacing:-2px;
+  margin-bottom:40px;
+  animation:riseIn .9s ease .1s both;
+}
+.hero h1 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  display:block;
+}
+
+.hero-desc{
+  font-size:16px;font-weight:300;line-height:1.9;
+  color:rgba(232,223,200,.55);
+  max-width:480px;margin:0 auto 56px;
+  letter-spacing:.3px;
+  animation:riseIn .9s ease .2s both;
+}
+
+.hero-actions{
+  display:flex;gap:20px;justify-content:center;flex-wrap:wrap;
+  animation:riseIn .9s ease .3s both;
+}
+
+.btn-gold{
+  padding:16px 44px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--bg);
+  font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:500;text-decoration:none;cursor:none;
+  border:none;position:relative;overflow:hidden;
+  transition:all .4s;
+}
+.btn-gold::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.15);
+  transform:translateX(-100%) skewX(-15deg);
+  transition:transform .5s;
+}
+.btn-gold:hover::before{transform:translateX(150%) skewX(-15deg)}
+.btn-gold:hover{box-shadow:0 8px 40px rgba(201,168,76,.35)}
+
+.btn-outline{
+  padding:16px 44px;
+  background:transparent;
+  color:var(--text);
+  font-family:'Jost',sans-serif;
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  text-decoration:none;cursor:none;
+  border:1px solid rgba(232,223,200,.2);
+  transition:all .4s;
+}
+.btn-outline:hover{border-color:rgba(201,168,76,.4);color:var(--gold)}
+
+/* Tea cup illustration */
+.cup-wrap{
+  margin-top:80px;
+  position:relative;display:inline-block;
+  animation:riseIn .9s ease .4s both;
+}
+
+.cup-svg-wrap{
+  position:relative;
+  animation:cupFloat 6s ease-in-out infinite;
+}
+@keyframes cupFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-16px)}
+}
+
+.steam-group{
+  position:absolute;top:-60px;left:50%;
+  transform:translateX(-50%);
+  width:80px;display:flex;justify-content:space-around;
+}
+
+/* ─── DIVIDER ─── */
+.divider{
+  display:flex;align-items:center;gap:20px;
+  padding:0 60px;
+  opacity:.3;
+}
+.divider-line{flex:1;height:1px;background:var(--gold)}
+.divider-symbol{
+  font-family:'Playfair Display',serif;
+  font-size:18px;color:var(--gold);
+}
+
+/* ─── PRODUCT STRIP ─── */
+.strip{
+  padding:80px 0;
+  overflow:hidden;position:relative;
+}
+.strip-track{
+  display:flex;gap:0;
+  animation:stripScroll 30s linear infinite;
+  width:max-content;
+}
+.strip-item{
+  padding:0 60px;
+  font-family:'Playfair Display',serif;
+  font-size:13px;font-style:italic;
+  letter-spacing:2px;color:rgba(201,168,76,.4);
+  display:flex;align-items:center;gap:60px;white-space:nowrap;
+}
+.strip-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--gold);opacity:.3;flex-shrink:0;
+}
+@keyframes stripScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* ─── ABOUT ─── */
+.about{
+  padding:140px 60px;
+  display:grid;grid-template-columns:1fr 1fr;gap:100px;
+  max-width:1200px;margin:0 auto;align-items:center;
+}
+.about-left .tag{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:32px;
+  display:flex;align-items:center;gap:12px;
+}
+.about-left .tag::before{
+  content:'';width:24px;height:1px;background:var(--gold);
+}
+.about-left h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,3.5vw,56px);
+  font-weight:400;line-height:1.1;
+  margin-bottom:28px;
+}
+.about-left h2 em{font-style:italic;color:var(--gold)}
+.about-left p{
+  font-size:15px;font-weight:300;line-height:1.9;
+  color:rgba(232,223,200,.55);margin-bottom:20px;
+}
+.about-right{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);
+}
+.stat-box{
+  background:var(--surface);
+  padding:48px 36px;text-align:center;
+  transition:background .3s;
+}
+.stat-box:hover{background:var(--surface2)}
+.stat-n{
+  font-family:'Playfair Display',serif;
+  font-size:48px;font-weight:400;
+  color:var(--gold);line-height:1;margin-bottom:10px;
+}
+.stat-l{
+  font-size:10px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ─── PRODUCTS ─── */
+.products{
+  padding:140px 60px;
+  background:var(--surface);
+  position:relative;overflow:hidden;
+}
+.products::before{
+  content:'';position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.04),transparent 70%);
+  top:50%;right:-200px;transform:translateY(-50%);
+}
+.products-inner{max-width:1200px;margin:0 auto}
+.sec-header{
+  display:flex;align-items:flex-end;
+  justify-content:space-between;margin-bottom:64px;
+}
+.sec-tag{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+}
+.sec-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,3.5vw,54px);
+  font-weight:400;line-height:1.1;
+}
+.sec-title em{font-style:italic;color:var(--gold)}
+.see-all{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;cursor:none;
+  display:flex;align-items:center;gap:8px;
+  padding-bottom:2px;border-bottom:1px solid var(--muted);
+  transition:all .3s;white-space:nowrap;margin-bottom:8px;
+}
+.see-all:hover{color:var(--gold);border-color:var(--gold)}
+
+.products-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:rgba(201,168,76,.08);
+}
+.product-card{
+  background:var(--bg);
+  padding:48px 36px;position:relative;
+  overflow:hidden;cursor:none;
+  transition:background .4s;
+  group:true;
+}
+.product-card::before{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);
+  transition:transform .5s cubic-bezier(.76,0,.24,1);
+}
+.product-card:hover{background:rgba(201,168,76,.03)}
+.product-card:hover::before{transform:scaleX(1)}
+
+.product-num{
+  font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.4);
+  margin-bottom:36px;
+}
+.product-icon{
+  font-size:40px;margin-bottom:28px;
+  transition:transform .4s;
+  display:block;
+}
+.product-card:hover .product-icon{transform:scale(1.1) rotate(-5deg)}
+.product-name{
+  font-family:'Playfair Display',serif;
+  font-size:26px;font-weight:400;
+  margin-bottom:12px;line-height:1.2;
+}
+.product-origin{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+}
+.product-desc{
+  font-size:13px;font-weight:300;line-height:1.7;
+  color:rgba(232,223,200,.45);margin-bottom:32px;
+}
+.product-price{
+  font-family:'Playfair Display',serif;
+  font-size:22px;color:var(--gold);
+}
+.product-price span{font-size:13px;color:var(--muted);font-family:'Jost',sans-serif}
+.product-add{
+  position:absolute;bottom:36px;right:36px;
+  width:44px;height:44px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:20px;
+  cursor:none;transition:all .3s;
+}
+.product-card:hover .product-add{
+  background:var(--gold);color:var(--bg);
+  border-color:var(--gold);
+}
+
+/* ─── RITUAL ─── */
+.ritual{
+  padding:160px 60px;
+  max-width:1200px;margin:0 auto;
+  text-align:center;
+}
+.ritual-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,5vw,76px);
+  font-weight:400;line-height:1.05;
+  margin-bottom:80px;
+}
+.ritual-title em{font-style:italic;color:var(--gold);display:block}
+.ritual-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  text-align:left;
+}
+.ritual-step{
+  background:var(--bg);
+  padding:48px 32px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.ritual-step:hover{background:var(--glow)}
+.r-num{
+  font-family:'Playfair Display',serif;
+  font-size:64px;font-weight:400;
+  color:rgba(201,168,76,.08);
+  position:absolute;top:16px;right:20px;
+  line-height:1;pointer-events:none;
+}
+.r-icon{font-size:28px;margin-bottom:24px;display:block}
+.r-title{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:400;
+  margin-bottom:12px;
+}
+.r-desc{
+  font-size:13px;font-weight:300;line-height:1.7;
+  color:rgba(232,223,200,.45);
+}
+
+/* ─── TESTIMONIAL ─── */
+.testimonial{
+  padding:100px 60px;
+  background:var(--surface);
+  text-align:center;position:relative;
+  overflow:hidden;
+}
+.testimonial::before{
+  content:'❝';
+  font-family:'Playfair Display',serif;
+  font-size:200px;color:rgba(201,168,76,.04);
+  position:absolute;top:-20px;left:50%;
+  transform:translateX(-50%);
+  line-height:1;pointer-events:none;
+}
+.quote{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,2.5vw,34px);
+  font-weight:400;font-style:italic;
+  line-height:1.5;max-width:800px;
+  margin:0 auto 40px;position:relative;z-index:1;
+}
+.quote-author{
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);
+}
+
+/* ─── CTA ─── */
+.cta{
+  padding:160px 60px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.cta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(201,168,76,.06),transparent);
+}
+/* Decorative circles */
+.cta::after{
+  content:'';position:absolute;
+  width:500px;height:500px;
+  border:1px solid rgba(201,168,76,.06);
+  border-radius:50%;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.cta-inner{position:relative;z-index:1}
+.cta-pre{
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:32px;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+}
+.cta-pre::before,.cta-pre::after{
+  content:'';width:30px;height:1px;background:var(--gold);opacity:.5;
+}
+.cta-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,7vw,100px);
+  font-weight:400;line-height:.95;
+  letter-spacing:-2px;margin-bottom:48px;
+}
+.cta-title em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;display:block;
+}
+
+/* ─── FOOTER ─── */
+footer{
+  padding:60px;
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:40px;align-items:center;
+}
+.footer-left{
+  font-size:12px;letter-spacing:.3px;
+  color:var(--muted);line-height:1.7;
+}
+.footer-logo{
+  font-family:'Playfair Display',serif;
+  font-size:28px;letter-spacing:6px;
+  text-transform:uppercase;color:var(--gold);
+  text-align:center;
+}
+.footer-logo span{font-style:italic;color:var(--cream)}
+.footer-right{
+  display:flex;gap:28px;justify-content:flex-end;flex-wrap:wrap;
+}
+.footer-right a{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .3s;
+}
+.footer-right a:hover{color:var(--gold)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes riseIn{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{
+  opacity:0;transform:translateY(36px);
+  transition:opacity .9s ease,transform .9s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav{padding:20px 24px}
+  .nav-links{display:none}
+  .about{grid-template-columns:1fr;padding:80px 24px;gap:60px}
+  .products{padding:80px 24px}
+  .products-grid{grid-template-columns:1fr}
+  .ritual{padding:80px 24px}
+  .ritual-steps{grid-template-columns:1fr 1fr}
+  .cta{padding:100px 24px}
+  footer{grid-template-columns:1fr;text-align:center;padding:40px 24px}
+  .footer-right{justify-content:center}
+  .sec-header{flex-direction:column;align-items:flex-start;gap:24px}
+  .about-right{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .hero h1{font-size:60px}
+  .ritual-steps{grid-template-columns:1fr}
+  .about-right{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">KŌ<span>HA</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Collection</a></li>
+    <li><a href="#">Ritual</a></li>
+    <li><a href="#">Origins</a></li>
+    <li><a href="#">Journal</a></li>
+  </ul>
+  <a href="#" class="nav-btn">Shop Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Ceremonial Grade · Single Origin</div>
+
+    <h1>The Art of<br><em>Sacred Leaf.</em></h1>
+
+    <p class="hero-desc">
+      Rare teas harvested at peak elevation. Every cup is a journey — from ancient mountains to your moment of stillness.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#" class="btn-gold">Explore Collection</a>
+      <a href="#" class="btn-outline">Our Story</a>
+    </div>
+
+    <!-- Cup SVG -->
+    <div class="cup-wrap">
+      <div class="cup-svg-wrap">
+        <!-- Steam -->
+        <div class="steam-group">
+          <div class="steam-p" style="height:50px;animation-delay:0s;animation-duration:3.5s;left:20%"></div>
+          <div class="steam-p" style="height:70px;animation-delay:.6s;animation-duration:4s;left:48%"></div>
+          <div class="steam-p" style="height:45px;animation-delay:1.2s;animation-duration:3.8s;left:76%"></div>
+        </div>
+        <svg width="180" height="160" viewBox="0 0 180 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Saucer -->
+          <ellipse cx="90" cy="148" rx="72" ry="10" fill="rgba(201,168,76,0.12)" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>
+          <!-- Cup body -->
+          <path d="M38 85 Q36 120 52 138 Q68 152 90 152 Q112 152 128 138 Q144 120 142 85 Z" fill="url(#cupGrad)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+          <!-- Cup rim -->
+          <ellipse cx="90" cy="85" rx="52" ry="12" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+          <!-- Tea surface -->
+          <ellipse cx="90" cy="85" rx="48" ry="10" fill="url(#teaGrad)" opacity="0.9"/>
+          <!-- Ripple -->
+          <ellipse cx="90" cy="85" rx="28" ry="5" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1" opacity="0.6"/>
+          <!-- Handle -->
+          <path d="M142 95 Q165 95 165 112 Q165 130 142 128" stroke="rgba(201,168,76,0.35)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Highlight -->
+          <path d="M50 95 Q48 115 54 130" stroke="rgba(255,255,255,0.06)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="cupGrad" x1="38" y1="85" x2="142" y2="152" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1e1a12"/>
+              <stop offset="100%" stop-color="#0c0a07"/>
+            </linearGradient>
+            <radialGradient id="teaGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#6b4c1a" stop-opacity="0.8"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <div class="strip-item">Ceremonial Matcha <span class="strip-dot"></span></div>
+    <div class="strip-item">White Peony <span class="strip-dot"></span></div>
+    <div class="strip-item">Silver Needle <span class="strip-dot"></span></div>
+    <div class="strip-item">Aged Pu-erh <span class="strip-dot"></span></div>
+    <div class="strip-item">Da Hong Pao <span class="strip-dot"></span></div>
+    <div class="strip-item">Gyokuro <span class="strip-dot"></span></div>
+    <div class="strip-item">Ceremonial Matcha <span class="strip-dot"></span></div>
+    <div class="strip-item">White Peony <span class="strip-dot"></span></div>
+    <div class="strip-item">Silver Needle <span class="strip-dot"></span></div>
+    <div class="strip-item">Aged Pu-erh <span class="strip-dot"></span></div>
+    <div class="strip-item">Da Hong Pao <span class="strip-dot"></span></div>
+    <div class="strip-item">Gyokuro <span class="strip-dot"></span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-left">
+    <div class="tag reveal">Our Philosophy</div>
+    <h2 class="reveal">Ancient wisdom,<br><em>modern ritual.</em></h2>
+    <p class="reveal">Every leaf we source carries a story centuries old. We work directly with family-owned gardens at elevations above 2,000 metres, where clouds and patience create something extraordinary.</p>
+    <p class="reveal">KŌHA exists for those who understand that the finest things in life cannot be rushed.</p>
+  </div>
+  <div class="about-right reveal">
+    <div class="stat-box">
+      <div class="stat-n">12</div>
+      <div class="stat-l">Origins</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">40+</div>
+      <div class="stat-l">Varietals</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">8</div>
+      <div class="stat-l">Generations</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-n">100%</div>
+      <div class="stat-l">Organic</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="products-inner">
+    <div class="sec-header reveal">
+      <div>
+        <div class="sec-tag">Our Collection</div>
+        <h2 class="sec-title">Rare finds,<br><em>carefully chosen.</em></h2>
+      </div>
+      <a href="#" class="see-all">View All →</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <div class="product-num">No. 001</div>
+        <span class="product-icon">🍵</span>
+        <div class="product-name">Ceremonial Matcha</div>
+        <div class="product-origin">Uji, Japan</div>
+        <p class="product-desc">First harvest stone-ground. Vivid emerald, sweet umami, long finish.</p>
+        <div class="product-price">$48 <span>/ 30g</span></div>
+        <div class="product-add">+</div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:.1s">
+        <div class="product-num">No. 002</div>
+        <span class="product-icon">🌸</span>
+        <div class="product-name">Silver Needle</div>
+        <div class="product-origin">Fujian, China</div>
+        <p class="product-desc">Youngest buds only. Delicate floral, honey whisper, pure serenity.</p>
+        <div class="product-price">$62 <span>/ 25g</span></div>
+        <div class="product-add">+</div>
+      </div>
+      <div class="product-card reveal" style="transition-delay:.2s">
+        <div class="product-num">No. 003</div>
+        <span class="product-icon">🏔️</span>
+        <div class="product-name">Aged Pu-erh</div>
+        <div class="product-origin">Yunnan, China</div>
+        <p class="product-desc">15-year compression. Earthy depth, forest floor, timeless complexity.</p>
+        <div class="product-price">$95 <span>/ 50g</span></div>
+        <div class="product-add">+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RITUAL -->
+<section class="ritual">
+  <h2 class="ritual-title reveal">The <em>four steps</em><br>of ceremony.</h2>
+  <div class="ritual-steps">
+    <div class="ritual-step reveal">
+      <div class="r-num">I</div>
+      <span class="r-icon">💧</span>
+      <div class="r-title">Water</div>
+      <p class="r-desc">Temperature is everything. Each varietal demands its own degree of heat — honour it.</p>
+    </div>
+    <div class="ritual-step reveal" style="transition-delay:.1s">
+      <div class="r-num">II</div>
+      <span class="r-icon">⚖️</span>
+      <div class="r-title">Measure</div>
+      <p class="r-desc">Precision creates consistency. Weigh your leaf, don't guess. Ritual demands respect.</p>
+    </div>
+    <div class="ritual-step reveal" style="transition-delay:.2s">
+      <div class="r-num">III</div>
+      <span class="r-icon">⏳</span>
+      <div class="r-title">Steep</div>
+      <p class="r-desc">Patience. Let time do what force cannot. The leaf reveals itself slowly.</p>
+    </div>
+    <div class="ritual-step reveal" style="transition-delay:.3s">
+      <div class="r-num">IV</div>
+      <span class="r-icon">🌿</span>
+      <div class="r-title">Presence</div>
+      <p class="r-desc">Put the phone down. This cup was made for this moment. Be here entirely.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial">
+  <blockquote class="quote reveal">
+    "KŌHA changed how I understand stillness. This isn't just tea — it's a practice, a pause, a portal."
+  </blockquote>
+  <div class="quote-author reveal">— Mia T., Tokyo</div>
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-inner">
+    <div class="cta-pre reveal">Begin your ritual</div>
+    <h2 class="cta-title reveal">Your first<br><em>perfect cup.</em></h2>
+    <div class="reveal">
+      <a href="#" class="btn-gold">Shop the Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left reveal">
+    Sourced with reverence.<br>Shipped with care.<br>
+    <span style="color:rgba(107,96,80,.5);font-size:11px">© 2026 KŌHA. All rights reserved.</span>
+  </div>
+  <div class="footer-logo reveal">KŌ<span>HA</span></div>
+  <div class="footer-right reveal">
+    <a href="#">Instagram</a>
+    <a href="#">Journal</a>
+    <a href="#">Origins</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function anim(){
+  rx+=(mx-rx-20)*.1;ry+=(my-ry-20)*.1;
+  curR.style.left=rx+'px';curR.style.top=ry+'px';
+  requestAnimationFrame(anim);
+})();
+
+// Steam particles
+const sg=document.querySelector('.steam-group');
+document.querySelectorAll('.steam-p').forEach((p,i)=>{
+  p.style.animationDelay=(i*.6)+'s';
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
