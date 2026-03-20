@@ -3,559 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IFIELD Studio — Landing Page Catalog</title>
+<title>iField Studio — Premium Landing Pages</title>
+<meta name="description" content="Premium landing pages built on iPhone 16 Pro. Fast delivery, unique design, 3 languages.">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#08090d;
-  --surface:#0d0f17;
-  --surface2:#121520;
-  --accent:#ffffff;
-  --gold:#f0c040;
-  --blue:#3b82f6;
-  --green:#22c55e;
-  --red:#ef4444;
-  --purple:#a855f7;
-  --tg:#2AABEE;
-  --text:#e2e8f0;
-  --muted:#4a5568;
-  --border:rgba(255,255,255,.06);
+  --bg:#08090d;--surface:#0d0f17;--surface2:#121520;
+  --gold:#f0c040;--green:#22c55e;--blue:#3b82f6;
+  --text:#e2e8f0;--muted:#4a5568;--border:rgba(255,255,255,.06);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  overflow-x:hidden;cursor:none;
-  min-height:100vh;
-}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none;min-height:100vh}
 
-/* ── CURSOR ── */
-.cur{
-  position:fixed;pointer-events:none;z-index:9999;
-  width:10px;height:10px;
-  background:white;border-radius:50%;
-  transform:translate(-5px,-5px);
-  mix-blend-mode:difference;
-  transition:width .2s,height .2s,transform .2s;
-}
-.cur-r{
-  position:fixed;pointer-events:none;z-index:9998;
-  width:36px;height:36px;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:50%;
-  transform:translate(-18px,-18px);
-  transition:border-color .3s;
-}
-body:has(.card:hover) .cur{
-  width:24px;height:24px;
-  transform:translate(-12px,-12px);
-}
+/* CURSOR */
+.cur{position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;background:white;border-radius:50%;transform:translate(-5px,-5px);mix-blend-mode:difference;transition:width .2s,height .2s,transform .2s}
+.cur-r{position:fixed;pointer-events:none;z-index:9998;width:36px;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:translate(-18px,-18px)}
+body:has(a:hover) .cur,body:has(button:hover) .cur{width:20px;height:20px;transform:translate(-10px,-10px)}
 
-/* ── GRID BG ── */
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
-  background-size:52px 52px;
-  mask-image:radial-gradient(ellipse 90% 90% at 50% 30%,black,transparent);
-}
-
-/* ambient */
+/* GRID BG */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 90% 90% at 50% 30%,black,transparent)}
 .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
 .orb1{width:700px;height:500px;background:rgba(99,102,241,.04);top:-200px;right:-200px;animation:drift 14s ease-in-out infinite}
 .orb2{width:500px;height:500px;background:rgba(6,182,212,.03);bottom:-100px;left:-100px;animation:drift 18s ease-in-out infinite reverse}
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  padding:18px 52px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(8,9,13,.85);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
-}
-.logo{
-  font-family:'Syne',sans-serif;font-weight:800;
-  font-size:18px;letter-spacing:3px;text-transform:uppercase;
-  text-decoration:none;cursor:none;
-  color:var(--text);
-}
-.logo span{color:rgba(255,255,255,.35)}
-.nav-c{display:flex;align-items:center;gap:32px}
-.nav-tag{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:2px;
-  color:var(--muted);
-  padding:6px 14px;
-  border:1px solid var(--border);
-}
-.nav-count{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;letter-spacing:1px;
-  color:var(--green);
-  display:flex;align-items:center;gap:6px;
-}
-.nav-count::before{
-  content:'';width:6px;height:6px;
-  background:var(--green);border-radius:50%;
-  animation:blink 2s ease infinite;
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 52px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,9,13,.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;cursor:none;color:var(--text)}
+.logo span{color:rgba(255,255,255,.3)}
+.nav-c{display:flex;align-items:center;gap:20px}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;cursor:none}
+.nav-links a:hover{color:white}
+.lang-sw{display:flex;gap:4px}
+.lang-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:5px 10px;background:transparent;border:1px solid var(--border);color:var(--muted);cursor:none;transition:all .2s}
+.lang-btn.active{background:rgba(255,255,255,.08);color:white;border-color:rgba(255,255,255,.2)}
+.nav-count{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--green);display:flex;align-items:center;gap:6px}
+.nav-count::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 2s ease infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* ── HERO ── */
-.hero{
-  position:relative;z-index:1;
-  padding:160px 52px 100px;
-  max-width:1400px;margin:0 auto;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:6px 16px;
-  border:1px solid rgba(255,255,255,.1);
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:40px;
-  animation:fadeUp .7s ease both;
-}
+/* HERO */
+.hero{position:relative;z-index:1;padding:160px 52px 100px;max-width:1400px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(255,255,255,.1);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:40px;animation:fadeUp .7s ease both}
 .hero-badge span{color:var(--green)}
-.hero h1{
-  font-family:'Syne',sans-serif;font-weight:800;
-  font-size:clamp(56px,8vw,120px);
-  line-height:.9;letter-spacing:-3px;
-  margin-bottom:32px;
-  animation:fadeUp .7s ease .1s both;
-}
+.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(52px,8vw,114px);line-height:.9;letter-spacing:-3px;margin-bottom:32px;animation:fadeUp .7s ease .1s both}
 .hero h1 .dim{color:rgba(255,255,255,.2)}
-.hero h1 .acc{
-  background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.5) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.hero-row{
-  display:flex;align-items:flex-end;
-  justify-content:space-between;gap:40px;flex-wrap:wrap;
-  animation:fadeUp .7s ease .2s both;
-}
-.hero-desc{
-  font-size:16px;font-weight:300;line-height:1.8;
-  color:rgba(226,232,240,.45);max-width:520px;
-}
-.hero-meta{
-  display:flex;gap:48px;
-  text-align:right;
-}
-.hm-item{}
-.hm-num{
-  font-family:'Syne',sans-serif;font-weight:800;
-  font-size:40px;color:white;line-height:1;
-}
-.hm-label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-top:4px;
-}
+.hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap;animation:fadeUp .7s ease .2s both}
+.hero-desc{font-size:16px;font-weight:300;line-height:1.8;color:rgba(226,232,240,.45);max-width:520px}
+.hero-meta{display:flex;gap:48px;text-align:right}
+.hm-num{font-family:'Syne',sans-serif;font-weight:800;font-size:40px;color:white;line-height:1}
+.hm-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
 
-/* ── FILTER BAR ── */
-.filter-bar{
-  position:relative;z-index:1;
-  padding:0 52px 56px;
-  max-width:1400px;margin:0 auto;
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-}
-.fb-label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-right:8px;
-}
-.filter-btn{
-  padding:8px 20px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
-  background:transparent;color:var(--muted);
-  border:1px solid var(--border);cursor:none;
-  transition:all .3s;
-}
-.filter-btn.active,.filter-btn:hover{
-  background:rgba(255,255,255,.06);
-  color:white;border-color:rgba(255,255,255,.2);
-}
-.filter-btn[data-f="all"].active{border-color:white;color:white}
+/* FILTER */
+.filter-bar{position:relative;z-index:1;padding:0 52px 56px;max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.fb-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.filter-btn{padding:8px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:transparent;color:var(--muted);border:1px solid var(--border);cursor:none;transition:all .3s}
+.filter-btn.active,.filter-btn:hover{background:rgba(255,255,255,.06);color:white;border-color:rgba(255,255,255,.2)}
 
-/* ── GRID ── */
-.grid-wrap{
-  position:relative;z-index:1;
-  padding:0 52px 80px;
-  max-width:1400px;margin:0 auto;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--border);
-}
+/* GRID */
+.grid-wrap{position:relative;z-index:1;padding:0 52px 80px;max-width:1400px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
 
-/* ── CARD ── */
-.card{
-  background:var(--surface);
-  position:relative;overflow:hidden;cursor:none;
-  transition:background .3s;
-  display:flex;flex-direction:column;
-}
+/* CARD */
+.card{background:var(--surface);position:relative;overflow:hidden;cursor:none;transition:background .3s;display:flex;flex-direction:column}
 .card:hover{background:var(--surface2)}
-
-/* Top glow line */
-.card::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:2px;
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .5s cubic-bezier(.76,0,.24,1);
-}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.76,0,.24,1)}
 .card:hover::before{transform:scaleX(1)}
-
-/* Color per theme */
 .card[data-theme="tech"]::before{background:linear-gradient(90deg,#00d4ff,#7b61ff)}
 .card[data-theme="service"]::before{background:linear-gradient(90deg,#c8a96e,#e8c97a)}
 .card[data-theme="product"]::before{background:linear-gradient(90deg,#c9a84c,#e8c77a)}
 .card[data-theme="fashion"]::before{background:linear-gradient(90deg,#e63224,#ff6b5b)}
 .card[data-theme="telegram"]::before{background:linear-gradient(90deg,#2AABEE,#8b5cf6)}
-
-/* Preview area */
-.card-preview{
-  position:relative;
-  height:220px;overflow:hidden;
-  flex-shrink:0;
-}
-.preview-screen{
-  position:absolute;inset:0;
-  transform:scale(1.02);
-  transition:transform .6s cubic-bezier(.76,0,.24,1);
-  display:flex;align-items:center;justify-content:center;
-}
+.card-preview{position:relative;height:220px;overflow:hidden;flex-shrink:0}
+.preview-screen{position:absolute;inset:0;transform:scale(1.02);transition:transform .6s cubic-bezier(.76,0,.24,1);display:flex;align-items:center;justify-content:center}
 .card:hover .preview-screen{transform:scale(1.06)}
-
-/* Theme previews */
-.prev-tech{
-  background:linear-gradient(160deg,#020408,#060d18);
-  border-bottom:1px solid rgba(0,212,255,.15);
-}
-.prev-service{
-  background:linear-gradient(160deg,#f0ece4,#e8e3da);
-}
-.prev-product{
-  background:linear-gradient(160deg,#0c0a07,#1a160f);
-}
-.prev-fashion{
-  background:linear-gradient(160deg,#0a0a0a,#1a0a0a);
-}
-.prev-telegram{
-  background:linear-gradient(160deg,#04060d,#070b18);
-}
-
-/* Preview UI mockups */
-.pui{
-  width:80%;position:relative;padding:16px;
-}
-/* Tech */
-.pui-tech .pui-bar{
-  display:flex;align-items:center;gap:6px;margin-bottom:12px;
-}
-.pui-tech .pui-dot{width:5px;height:5px;border-radius:50%}
-.pui-tech .pui-title{
-  font-family:'monospace';font-size:18px;font-weight:900;
-  background:linear-gradient(90deg,#00d4ff,#7b61ff);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;letter-spacing:2px;margin-bottom:8px;
-}
-.pui-tech .pui-line{
-  height:2px;border-radius:2px;margin-bottom:5px;
-  background:rgba(0,212,255,.15);
-}
+.prev-tech{background:linear-gradient(160deg,#020408,#060d18);border-bottom:1px solid rgba(0,212,255,.15)}
+.prev-service{background:linear-gradient(160deg,#f0ece4,#e8e3da)}
+.prev-product{background:linear-gradient(160deg,#0c0a07,#1a160f)}
+.prev-fashion{background:linear-gradient(160deg,#0a0a0a,#1a0a0a)}
+.prev-telegram{background:linear-gradient(160deg,#04060d,#070b18)}
+.pui{width:80%;position:relative;padding:16px}
+.pui-tech .pui-title{font-family:'monospace';font-size:18px;font-weight:900;background:linear-gradient(90deg,#00d4ff,#7b61ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:2px;margin-bottom:8px}
+.pui-tech .pui-line{height:2px;border-radius:2px;margin-bottom:5px;background:rgba(0,212,255,.15)}
 .pui-tech .pui-line.acc{background:rgba(0,212,255,.4);width:60%}
 .pui-tech .pui-grid{display:flex;gap:4px;margin-top:10px}
-.pui-tech .pui-box{
-  flex:1;height:30px;
-  background:rgba(0,212,255,.05);
-  border:1px solid rgba(0,212,255,.1);
-}
-/* Service */
-.pui-service .pui-logo{
-  font-family:'Georgia',serif;font-size:22px;
-  letter-spacing:5px;color:#1a1714;opacity:.7;
-  text-align:center;margin-bottom:12px;
-}
-.pui-service .pui-hero-text{
-  font-family:'Georgia',serif;font-size:28px;
-  color:#1a1714;line-height:1.1;margin-bottom:8px;
-}
+.pui-tech .pui-box{flex:1;height:30px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.1)}
+.pui-service .pui-logo{font-family:'Georgia',serif;font-size:22px;letter-spacing:5px;color:#1a1714;opacity:.7;text-align:center;margin-bottom:12px}
+.pui-service .pui-hero-text{font-family:'Georgia',serif;font-size:28px;color:#1a1714;line-height:1.1;margin-bottom:8px}
 .pui-service .pui-hero-text em{color:#c8a96e;font-style:italic}
 .pui-service .pui-line{height:1px;background:rgba(26,23,20,.1);margin-bottom:5px}
-.pui-service .pui-btn{
-  display:inline-block;padding:6px 14px;
-  background:#1a1714;color:#f5f2ed;
-  font-size:8px;letter-spacing:2px;
-  margin-top:8px;
-}
-/* Product */
-.pui-product .pui-name{
-  font-family:'Georgia',serif;font-size:30px;
-  font-style:italic;color:#c9a84c;line-height:1;margin-bottom:4px;
-  text-align:center;
-}
-.pui-product .pui-sub{
-  font-size:8px;letter-spacing:3px;text-transform:uppercase;
-  color:rgba(201,168,76,.5);text-align:center;margin-bottom:10px;
-}
+.pui-service .pui-btn{display:inline-block;padding:6px 14px;background:#1a1714;color:#f5f2ed;font-size:8px;letter-spacing:2px;margin-top:8px}
+.pui-product .pui-name{font-family:'Georgia',serif;font-size:30px;font-style:italic;color:#c9a84c;line-height:1;margin-bottom:4px;text-align:center}
+.pui-product .pui-sub{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.5);text-align:center;margin-bottom:10px}
 .pui-product .pui-cup{font-size:36px;text-align:center;filter:drop-shadow(0 0 10px rgba(201,168,76,.3))}
-/* Fashion */
-.pui-fashion .pui-h{
-  font-family:'Impact',sans-serif;font-size:32px;
-  letter-spacing:-1px;color:#f0ede8;line-height:1;margin-bottom:4px;
-}
+.pui-fashion .pui-h{font-family:'Impact',sans-serif;font-size:32px;letter-spacing:-1px;color:#f0ede8;line-height:1;margin-bottom:4px}
 .pui-fashion .pui-acc{color:#e63224}
-.pui-fashion .pui-outline{
-  -webkit-text-stroke:1px #f0ede8;color:transparent;
-  font-family:'Impact',sans-serif;font-size:32px;
-  letter-spacing:-1px;line-height:1;display:block;
-}
-.pui-fashion .pui-tag{
-  font-family:monospace;font-size:8px;letter-spacing:2px;
-  color:#e63224;margin-top:8px;display:block;
-}
-/* Telegram */
-.pui-telegram .pui-icon{
-  width:40px;height:40px;
-  background:linear-gradient(135deg,#2AABEE,#229ED9);
-  border-radius:10px;margin:0 auto 10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;box-shadow:0 0 20px rgba(42,171,238,.3);
-}
-.pui-telegram .pui-h{
-  font-size:18px;font-weight:900;
-  text-align:center;color:#c8d8f0;margin-bottom:6px;
-}
-.pui-telegram .pui-sub{
-  font-family:monospace;font-size:8px;letter-spacing:2px;
-  color:rgba(42,171,238,.6);text-align:center;
-}
-
-/* Hover overlay */
-.card-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 40%,rgba(8,9,13,.9) 100%);
-  opacity:0;transition:opacity .4s;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:20px;
-}
+.pui-fashion .pui-outline{-webkit-text-stroke:1px #f0ede8;color:transparent;font-family:'Impact',sans-serif;font-size:32px;letter-spacing:-1px;line-height:1;display:block}
+.pui-fashion .pui-tag{font-family:monospace;font-size:8px;letter-spacing:2px;color:#e63224;margin-top:8px;display:block}
+.pui-telegram .pui-icon{width:40px;height:40px;background:linear-gradient(135deg,#2AABEE,#229ED9);border-radius:10px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 20px rgba(42,171,238,.3)}
+.pui-telegram .pui-h{font-size:18px;font-weight:900;text-align:center;color:#c8d8f0;margin-bottom:6px}
+.pui-telegram .pui-sub{font-family:monospace;font-size:8px;letter-spacing:2px;color:rgba(42,171,238,.6);text-align:center}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(8,9,13,.9) 100%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px}
 .card:hover .card-overlay{opacity:1}
-.view-btn{
-  padding:10px 24px;
-  background:white;color:var(--bg);
-  font-family:'Syne',sans-serif;font-size:11px;
-  font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  text-decoration:none;cursor:none;
-  transform:translateY(10px);
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-}
+.view-btn{padding:10px 24px;background:white;color:var(--bg);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;cursor:none;transform:translateY(10px);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
 .card:hover .view-btn{transform:translateY(0)}
-
-/* Card body */
-.card-body{
-  padding:28px 28px 24px;flex:1;
-  display:flex;flex-direction:column;
-  justify-content:space-between;
-}
-.card-top{}
-.card-num{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;letter-spacing:2px;
-  color:var(--muted);margin-bottom:12px;
-}
-.card-title{
-  font-family:'Syne',sans-serif;font-weight:700;
-  font-size:20px;margin-bottom:6px;
-}
-.card-desc{
-  font-size:13px;font-weight:300;
-  color:rgba(226,232,240,.45);line-height:1.6;
-  margin-bottom:20px;
-}
+.card-body{padding:28px 28px 24px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.card-num{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:12px}
+.card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;margin-bottom:6px}
+.card-desc{font-size:13px;font-weight:300;color:rgba(226,232,240,.45);line-height:1.6;margin-bottom:20px}
 .card-tags{display:flex;gap:6px;flex-wrap:wrap}
-.tag{
-  padding:4px 10px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:8px;letter-spacing:1.5px;text-transform:uppercase;
-  border:1px solid var(--border);color:var(--muted);
-}
+.tag{padding:4px 10px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
 .tag.acc{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.5)}
-.card-bottom{
-  display:flex;align-items:center;
-  justify-content:space-between;
-  margin-top:20px;
-  padding-top:20px;
-  border-top:1px solid var(--border);
-}
-.card-style{
-  display:flex;align-items:center;gap:8px;
-  font-size:11px;color:var(--muted);
-}
-.style-dot{
-  width:8px;height:8px;border-radius:50%;flex-shrink:0;
-}
-.card-arrow{
-  width:32px;height:32px;
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--muted);
-  transition:all .3s;
-}
-.card:hover .card-arrow{
-  background:white;color:var(--bg);border-color:white;
-  transform:rotate(45deg);
-}
-
-/* ── ADD CARD ── */
-.card-add{
-  background:var(--surface);
-  min-height:400px;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:16px;cursor:none;
-  transition:background .3s;
-  border:1px dashed rgba(255,255,255,.08);
-}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.card-style{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+.style-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.card-arrow{width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);transition:all .3s}
+.card:hover .card-arrow{background:white;color:var(--bg);border-color:white;transform:rotate(45deg)}
+.card-add{background:var(--surface);min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:none;transition:background .3s;border:1px dashed rgba(255,255,255,.06)}
 .card-add:hover{background:rgba(255,255,255,.02)}
-.add-icon{
-  width:56px;height:56px;
-  border:1px solid rgba(255,255,255,.1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;color:var(--muted);
-  transition:all .3s;
-}
-.card-add:hover .add-icon{
-  border-color:rgba(255,255,255,.3);color:white;
-  transform:rotate(90deg);
-}
-.add-text{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);transition:color .3s;
-  text-align:center;
-}
+.add-icon{width:56px;height:56px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--muted);transition:all .3s}
+.card-add:hover .add-icon{border-color:rgba(255,255,255,.3);color:white;transform:rotate(90deg)}
+.add-text{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);transition:color .3s;text-align:center}
 .card-add:hover .add-text{color:rgba(255,255,255,.5)}
 
-/* ── BOTTOM CTA ── */
-.bottom-cta{
-  position:relative;z-index:1;
-  padding:120px 52px;
-  max-width:1400px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:80px;align-items:center;
-  border-top:1px solid var(--border);
-}
-.bc-left .bc-tag{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:24px;
-  display:flex;align-items:center;gap:10px;
-}
-.bc-left .bc-tag::before{content:'//';color:rgba(255,255,255,.2)}
-.bc-title{
-  font-family:'Syne',sans-serif;font-weight:800;
-  font-size:clamp(36px,4vw,60px);
-  line-height:1.0;letter-spacing:-1px;margin-bottom:24px;
-}
-.bc-title span{color:rgba(255,255,255,.25)}
-.bc-desc{
-  font-size:15px;font-weight:300;
-  color:rgba(226,232,240,.4);line-height:1.8;
-}
-.bc-right{display:flex;flex-direction:column;gap:16px}
-.btn-main{
-  display:inline-flex;align-items:center;justify-content:center;gap:12px;
-  padding:18px 44px;
-  background:white;color:var(--bg);
-  font-family:'Syne',sans-serif;font-weight:700;
-  font-size:13px;letter-spacing:2px;text-transform:uppercase;
-  text-decoration:none;cursor:none;
-  position:relative;overflow:hidden;
-  transition:all .3s;
-}
-.btn-main::before{
-  content:'';position:absolute;inset:0;
-  background:var(--gold);
-  transform:translateX(-101%);
-  transition:transform .4s cubic-bezier(.76,0,.24,1);
-}
+/* PRICING */
+.section{position:relative;z-index:1;padding:120px 52px;border-top:1px solid var(--border)}
+.sec-pre{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sec-pre::before{content:'//';color:rgba(255,255,255,.15)}
+.sec-h{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,60px);line-height:1;letter-spacing:-1px;margin-bottom:64px}
+.sec-h span{color:rgba(255,255,255,.2)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.price-card{background:var(--surface);padding:48px 36px;position:relative;transition:background .3s}
+.price-card:hover{background:var(--surface2)}
+.price-card.featured{background:var(--surface2);border-top:2px solid white}
+.pc-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:white;color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:4px 14px;white-space:nowrap}
+.pc-tier{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:24px}
+.pc-price{font-family:'Syne',sans-serif;font-weight:800;font-size:56px;line-height:1;margin-bottom:4px}
+.pc-per{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:32px}
+.pc-items{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.pc-item{font-size:13px;font-weight:300;color:rgba(226,232,240,.6);display:flex;align-items:center;gap:8px}
+.pc-item.off{color:rgba(74,85,104,.5)}
+.pc-btn{display:block;text-align:center;padding:14px 28px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;cursor:none;border:1px solid;transition:all .3s}
+.pc-btn:hover{opacity:.8}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.as-box{background:var(--surface);padding:36px 28px;text-align:center;transition:background .3s}
+.as-box:hover{background:var(--surface2)}
+.as-num{font-family:'Syne',sans-serif;font-weight:800;font-size:44px;line-height:1;margin-bottom:8px}
+.as-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+/* CONTACT FORM */
+.form-wrap{max-width:800px;margin:0 auto}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:1px}
+.form-field{background:var(--surface)}
+.form-field input,.form-field select,.form-field textarea{width:100%;background:transparent;border:none;outline:none;padding:20px 24px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);font-weight:300}
+.form-field:focus-within{background:rgba(255,255,255,.03)}
+input::placeholder,textarea::placeholder{color:rgba(74,85,104,.7)}
+select option{background:#0d0f17;color:#e2e8f0}
+.form-field textarea{resize:none;line-height:1.7}
+.form-field select{appearance:none;cursor:pointer}
+
+/* BUTTONS */
+.btn-main{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:18px 44px;background:white;color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;cursor:none;position:relative;overflow:hidden;transition:all .3s;border:none}
+.btn-main::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-101%);transition:transform .4s cubic-bezier(.76,0,.24,1)}
 .btn-main:hover::before{transform:translateX(0)}
 .btn-main span{position:relative;z-index:1}
-.btn-sec{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:18px 44px;
-  background:transparent;color:var(--text);
-  font-family:'Syne',sans-serif;font-weight:600;
-  font-size:13px;letter-spacing:2px;text-transform:uppercase;
-  text-decoration:none;cursor:none;
-  border:1px solid var(--border);
-  transition:all .3s;
-}
+.btn-sec{display:inline-flex;align-items:center;justify-content:center;padding:18px 44px;background:transparent;color:var(--text);font-family:'Syne',sans-serif;font-weight:600;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;cursor:none;border:1px solid var(--border);transition:all .3s}
 .btn-sec:hover{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.04)}
-.bc-note{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:1px;
-  color:var(--muted);text-align:center;
-}
+.btn-send{width:100%;padding:20px;background:white;color:var(--bg);font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:3px;text-transform:uppercase;border:none;cursor:none;transition:all .3s;position:relative;overflow:hidden}
+.btn-send::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-101%);transition:transform .4s cubic-bezier(.76,0,.24,1)}
+.btn-send:hover::before{transform:translateX(0)}
+.btn-send span{position:relative;z-index:1}
 
-/* ── FOOTER ── */
-footer{
-  position:relative;z-index:1;
-  padding:32px 52px;
-  border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:16px;
-}
-.f-logo{
-  font-family:'Syne',sans-serif;font-weight:800;
-  font-size:16px;letter-spacing:3px;color:var(--text);
-  text-decoration:none;cursor:none;
-}
+/* BOTTOM CTA */
+.bottom-cta{position:relative;z-index:1;padding:120px 52px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-top:1px solid var(--border)}
+.bc-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.bc-tag::before{content:'//';color:rgba(255,255,255,.15)}
+.bc-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,60px);line-height:1;letter-spacing:-1px;margin-bottom:24px}
+.bc-title span{color:rgba(255,255,255,.2)}
+.bc-desc{font-size:15px;font-weight:300;color:rgba(226,232,240,.4);line-height:1.8}
+.bc-right{display:flex;flex-direction:column;gap:16px}
+.bc-note{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-align:center}
+
+/* FOOTER */
+footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr auto 1fr;gap:40px;align-items:center}
+.f-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:3px;color:var(--text);text-decoration:none;cursor:none}
 .f-logo span{color:rgba(255,255,255,.3)}
-.f-copy{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:1px;color:var(--muted);
-}
-.f-links{display:flex;gap:24px}
-.f-links a{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;transition:color .3s;
-}
+.f-copy{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-align:center;line-height:1.8}
+.f-links{display:flex;gap:24px;justify-content:flex-end}
+.f-links a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;cursor:none}
 .f-links a:hover{color:white}
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.reveal{
-  opacity:0;transform:translateY(24px);
-  transition:opacity .8s ease,transform .8s ease;
-}
+/* FORM STATUS */
+.form-status{display:none;margin-top:16px;padding:16px 24px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-align:center}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
 .reveal.on{opacity:1;transform:translateY(0)}
 
-@media(max-width:1100px){
-  .grid{grid-template-columns:repeat(2,1fr)}
-}
+/* RESPONSIVE */
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}.price-grid{grid-template-columns:1fr}}
 @media(max-width:700px){
-  nav{padding:16px 20px}
-  .hero{padding:110px 20px 60px}
-  .filter-bar{padding:0 20px 40px}
-  .grid-wrap{padding:0 20px 60px}
-  .grid{grid-template-columns:1fr}
+  nav{padding:14px 20px}.nav-links{display:none}
+  .hero{padding:110px 20px 60px}.filter-bar{padding:0 20px 40px}
+  .grid-wrap{padding:0 20px 60px}.grid{grid-template-columns:1fr}
+  .section{padding:80px 20px}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .form-row{grid-template-columns:1fr}
   .bottom-cta{grid-template-columns:1fr;padding:80px 20px;gap:40px}
-  footer{padding:24px 20px}
-  .hero-meta{flex-direction:row;gap:24px}
+  footer{grid-template-columns:1fr;text-align:center;padding:32px 20px}
+  .f-links{justify-content:center}
+  .hero-meta{gap:24px}
+  .lang-sw{display:none}
 }
 </style>
 </head>
@@ -570,400 +232,278 @@ footer{
 <nav>
   <a href="#" class="logo">IFIELD<span>.studio</span></a>
   <div class="nav-c">
-    <div class="nav-tag">Landing Pages</div>
-    <div class="nav-count" id="countDisplay">5 projects live</div>
+    <ul class="nav-links">
+      <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="lang-sw">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ua')">UA</button>
+      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    </div>
+    <div class="nav-count" id="navCount">5 projects live</div>
   </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">Portfolio <span>✦</span> Web Design Studio</div>
+  <div class="hero-badge" data-i18n="hero_badge">Portfolio <span>✦</span> Web Design Studio</div>
   <h1>
-    <span class="dim">We build</span><br>
-    <span class="acc">Legendary</span><br>
-    <span class="dim">Landings.</span>
+    <span class="dim" data-i18n="hero_h1_1">We build</span><br>
+    <span style="background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.5) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-i18n="hero_h1_2">Legendary</span><br>
+    <span class="dim" data-i18n="hero_h1_3">Landings.</span>
   </h1>
   <div class="hero-row">
-    <p class="hero-desc">
-      Five unique templates. Five different industries. One studio.<br>
-      Pick your niche — we'll build the rest.
-    </p>
+    <p class="hero-desc" data-i18n="hero_desc">Five unique templates. Five industries. One studio.<br>Pick your niche — we build the rest.</p>
     <div class="hero-meta">
-      <div class="hm-item">
-        <div class="hm-num" id="heroCount">5</div>
-        <div class="hm-label">Templates</div>
-      </div>
-      <div class="hm-item">
-        <div class="hm-num">5</div>
-        <div class="hm-label">Industries</div>
-      </div>
+      <div><div class="hm-num">5</div><div class="hm-label" data-i18n="hero_templates">Templates</div></div>
+      <div><div class="hm-num">3-5</div><div class="hm-label" data-i18n="hero_days">Days</div></div>
     </div>
   </div>
 </div>
 
-<!-- FILTER BAR -->
+<!-- FILTER -->
 <div class="filter-bar">
-  <span class="fb-label">Filter:</span>
-  <button class="filter-btn active" data-f="all">All</button>
+  <span class="fb-label" data-i18n="filter_label">Filter:</span>
+  <button class="filter-btn active" data-f="all" data-i18n="filter_all">All</button>
   <button class="filter-btn" data-f="tech">Tech</button>
-  <button class="filter-btn" data-f="service">Service</button>
-  <button class="filter-btn" data-f="product">Product</button>
+  <button class="filter-btn" data-f="service" data-i18n="filter_service">Service</button>
+  <button class="filter-btn" data-f="product" data-i18n="filter_product">Product</button>
   <button class="filter-btn" data-f="fashion">Fashion</button>
   <button class="filter-btn" data-f="telegram">Telegram</button>
 </div>
 
-<!-- GRID -->
+<!-- CARDS -->
 <div class="grid-wrap">
-  <div class="grid" id="grid">
+<div class="grid" id="grid">
 
-    <!-- 1. Tech -->
-    <div class="card reveal" data-theme="tech" data-cat="tech">
-      <div class="card-preview">
-        <div class="preview-screen prev-tech">
-          <div class="pui pui-tech">
-            <div class="pui-bar">
-              <div class="pui-dot" style="background:#00d4ff;width:4px;height:4px;border-radius:50%"></div>
-              <div style="font-size:7px;letter-spacing:2px;color:rgba(0,212,255,.5)">NEXUS AI</div>
-            </div>
-            <div class="pui-title">INTELLIGENCE<br>REDEFINED</div>
-            <div class="pui-line acc"></div>
-            <div class="pui-line" style="width:80%"></div>
-            <div class="pui-line" style="width:50%"></div>
-            <div class="pui-grid">
-              <div class="pui-box"></div>
-              <div class="pui-box"></div>
-              <div class="pui-box"></div>
-            </div>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <a href="iphone-landing.html" class="view-btn" target="_blank">View Live →</a>
+  <div class="card reveal" data-theme="tech" data-cat="tech">
+    <div class="card-preview">
+      <div class="preview-screen prev-tech">
+        <div class="pui pui-tech">
+          <div style="font-size:7px;letter-spacing:2px;color:rgba(0,212,255,.5);margin-bottom:8px">NEXUS AI</div>
+          <div class="pui-title">INTELLIGENCE<br>REDEFINED</div>
+          <div class="pui-line acc"></div><div class="pui-line" style="width:80%"></div><div class="pui-line" style="width:50%"></div>
+          <div class="pui-grid"><div class="pui-box"></div><div class="pui-box"></div><div class="pui-box"></div></div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-num">01 · Tech & AI</div>
-          <div class="card-title">AI App Landing</div>
-          <p class="card-desc">Sci-fi dark theme. Phone mockup, animated stats, glow effects. Built for startups & SaaS.</p>
-          <div class="card-tags">
-            <span class="tag acc">Sci-Fi</span>
-            <span class="tag">Dark</span>
-            <span class="tag">Animated</span>
-            <span class="tag">SaaS</span>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-style">
-            <div class="style-dot" style="background:linear-gradient(135deg,#00d4ff,#7b61ff)"></div>
-            Cyber · Minimal
-          </div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
+      <div class="card-overlay"><a href="iphone-landing.html" class="view-btn" target="_blank" data-i18n="view_live">View Live →</a></div>
     </div>
-
-    <!-- 2. Service -->
-    <div class="card reveal" data-theme="service" data-cat="service" style="transition-delay:.05s">
-      <div class="card-preview">
-        <div class="preview-screen prev-service">
-          <div class="pui pui-service">
-            <div class="pui-logo">FORMA</div>
-            <div class="pui-hero-text">Where craft<br>meets <em>vision.</em></div>
-            <div class="pui-line"></div>
-            <div class="pui-line" style="width:70%"></div>
-            <div class="pui-btn">Our Work</div>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <a href="service-landing.html" class="view-btn" target="_blank">View Live →</a>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-num">02 · Services</div>
-          <div class="card-title">Creative Studio</div>
-          <p class="card-desc">Luxury beige & gold. Marquee strip, service list, process steps. For agencies & freelancers.</p>
-          <div class="card-tags">
-            <span class="tag acc">Luxury</span>
-            <span class="tag">Light</span>
-            <span class="tag">Editorial</span>
-            <span class="tag">Studio</span>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-style">
-            <div class="style-dot" style="background:linear-gradient(135deg,#c8a96e,#e8c97a)"></div>
-            Organic · Refined
-          </div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
+    <div class="card-body">
+      <div><div class="card-num">01 · Tech & AI</div><div class="card-title" data-i18n="card1_title">AI App Landing</div><p class="card-desc" data-i18n="card1_desc">Sci-fi dark theme. Phone mockup, animated stats, glow effects.</p><div class="card-tags"><span class="tag acc">Sci-Fi</span><span class="tag">Dark</span><span class="tag">Animated</span></div></div>
+      <div class="card-bottom"><div class="card-style"><div class="style-dot" style="background:linear-gradient(135deg,#00d4ff,#7b61ff)"></div>Cyber · Minimal</div><div class="card-arrow">→</div></div>
     </div>
+  </div>
 
-    <!-- 3. Product -->
-    <div class="card reveal" data-theme="product" data-cat="product" style="transition-delay:.1s">
-      <div class="card-preview">
-        <div class="preview-screen prev-product">
-          <div class="pui pui-product">
-            <div class="pui-cup">🍵</div>
-            <div class="pui-name">KŌHA</div>
-            <div class="pui-sub">Ceremonial · Single Origin</div>
-            <div style="height:1px;background:rgba(201,168,76,.2);margin:10px 0"></div>
-            <div style="font-size:7px;letter-spacing:2px;color:rgba(201,168,76,.4);text-align:center">THE ART OF SACRED LEAF</div>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <a href="tea-landing.html" class="view-btn" target="_blank">View Live →</a>
+  <div class="card reveal" data-theme="service" data-cat="service" style="transition-delay:.05s">
+    <div class="card-preview">
+      <div class="preview-screen prev-service">
+        <div class="pui pui-service">
+          <div class="pui-logo">FORMA</div>
+          <div class="pui-hero-text">Where craft<br>meets <em>vision.</em></div>
+          <div class="pui-line"></div><div class="pui-line" style="width:70%"></div>
+          <div class="pui-btn">Our Work</div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-num">03 · Product</div>
-          <div class="card-title">Tea / Coffee Brand</div>
-          <p class="card-desc">Dark gold luxury. Animated cup with steam, product cards, ritual steps. For food & drink brands.</p>
-          <div class="card-tags">
-            <span class="tag acc">Gold</span>
-            <span class="tag">Dark</span>
-            <span class="tag">Organic</span>
-            <span class="tag">E-shop</span>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-style">
-            <div class="style-dot" style="background:linear-gradient(135deg,#c9a84c,#e8c77a)"></div>
-            Sacred · Dark Luxury
-          </div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
+      <div class="card-overlay"><a href="service-landing.html" class="view-btn" target="_blank" data-i18n="view_live">View Live →</a></div>
     </div>
-
-    <!-- 4. Fashion -->
-    <div class="card reveal" data-theme="fashion" data-cat="fashion" style="transition-delay:.15s">
-      <div class="card-preview">
-        <div class="preview-screen prev-fashion">
-          <div class="pui pui-fashion">
-            <div class="pui-h">WEAR <span class="pui-acc">THE</span></div>
-            <span class="pui-outline">VOID.</span>
-            <span class="pui-tag">DROP 001 · SS26 · LIMITED</span>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <a href="fashion-landing.html" class="view-btn" target="_blank">View Live →</a>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-num">04 · Fashion</div>
-          <div class="card-title">Streetwear Brand</div>
-          <p class="card-desc">Brutalist red & black. Live countdown timer, lookbook grid, manifesto. For clothing drops.</p>
-          <div class="card-tags">
-            <span class="tag acc">Brutalist</span>
-            <span class="tag">Bold</span>
-            <span class="tag">Drop</span>
-            <span class="tag">Countdown</span>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-style">
-            <div class="style-dot" style="background:linear-gradient(135deg,#e63224,#ff6b5b)"></div>
-            Raw · Aggressive
-          </div>
-          <div class="card-arrow">→</div>
-        </div>
-      </div>
+    <div class="card-body">
+      <div><div class="card-num">02 · Services</div><div class="card-title" data-i18n="card2_title">Creative Studio</div><p class="card-desc" data-i18n="card2_desc">Luxury beige & gold. Marquee strip, service list, process steps.</p><div class="card-tags"><span class="tag acc">Luxury</span><span class="tag">Light</span><span class="tag">Editorial</span></div></div>
+      <div class="card-bottom"><div class="card-style"><div class="style-dot" style="background:linear-gradient(135deg,#c8a96e,#e8c97a)"></div>Organic · Refined</div><div class="card-arrow">→</div></div>
     </div>
+  </div>
 
-    <!-- 5. Telegram -->
-    <div class="card reveal" data-theme="telegram" data-cat="telegram" style="transition-delay:.2s">
-      <div class="card-preview">
-        <div class="preview-screen prev-telegram">
-          <div class="pui pui-telegram">
-            <div class="pui-icon">✈️</div>
-            <div class="pui-h">SIGNAL</div>
-            <div class="pui-sub">48K+ SUBSCRIBERS · DAILY</div>
-            <div style="margin-top:10px;display:flex;justify-content:center;gap:4px">
-              <div style="width:50px;height:18px;background:rgba(42,171,238,.15);border:1px solid rgba(42,171,238,.2)"></div>
-              <div style="width:36px;height:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)"></div>
-            </div>
-          </div>
-        </div>
-        <div class="card-overlay">
-          <a href="telegram-landing.html" class="view-btn" target="_blank">View Live →</a>
+  <div class="card reveal" data-theme="product" data-cat="product" style="transition-delay:.1s">
+    <div class="card-preview">
+      <div class="preview-screen prev-product">
+        <div class="pui pui-product">
+          <div class="pui-cup">🍵</div>
+          <div class="pui-name">KŌHA</div>
+          <div class="pui-sub">Ceremonial · Single Origin</div>
+          <div style="height:1px;background:rgba(201,168,76,.2);margin:10px 0"></div>
+          <div style="font-size:7px;letter-spacing:2px;color:rgba(201,168,76,.4);text-align:center">THE ART OF SACRED LEAF</div>
         </div>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-num">05 · Telegram</div>
-          <div class="card-title">Channel Landing</div>
-          <p class="card-desc">Cyber blue dark. Message previews, subscriber counter, topic grid. For Telegram channels & blogs.</p>
-          <div class="card-tags">
-            <span class="tag acc">Cyber</span>
-            <span class="tag">Neon</span>
-            <span class="tag">Telegram</span>
-            <span class="tag">Counter</span>
-          </div>
-        </div>
-        <div class="card-bottom">
-          <div class="card-style">
-            <div class="style-dot" style="background:linear-gradient(135deg,#2AABEE,#8b5cf6)"></div>
-            Futuristic · Tech
-          </div>
-          <div class="card-arrow">→</div>
+      <div class="card-overlay"><a href="tea-landing.html" class="view-btn" target="_blank" data-i18n="view_live">View Live →</a></div>
+    </div>
+    <div class="card-body">
+      <div><div class="card-num">03 · Product</div><div class="card-title" data-i18n="card3_title">Tea / Coffee Brand</div><p class="card-desc" data-i18n="card3_desc">Dark gold luxury. Animated cup with steam, product cards, ritual steps.</p><div class="card-tags"><span class="tag acc">Gold</span><span class="tag">Dark</span><span class="tag">Organic</span></div></div>
+      <div class="card-bottom"><div class="card-style"><div class="style-dot" style="background:linear-gradient(135deg,#c9a84c,#e8c77a)"></div>Sacred · Dark Luxury</div><div class="card-arrow">→</div></div>
+    </div>
+  </div>
+
+  <div class="card reveal" data-theme="fashion" data-cat="fashion" style="transition-delay:.15s">
+    <div class="card-preview">
+      <div class="preview-screen prev-fashion">
+        <div class="pui pui-fashion">
+          <div class="pui-h">WEAR <span class="pui-acc">THE</span></div>
+          <span class="pui-outline">VOID.</span>
+          <span class="pui-tag">DROP 001 · SS26 · LIMITED</span>
         </div>
       </div>
+      <div class="card-overlay"><a href="fashion-landing.html" class="view-btn" target="_blank" data-i18n="view_live">View Live →</a></div>
     </div>
-
-    <!-- ADD NEW -->
-    <div class="card-add reveal" id="addCard" style="transition-delay:.25s">
-      <div class="add-icon">+</div>
-      <div class="add-text">Next template<br>coming soon</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:rgba(74,85,104,.5);margin-top:4px">Tell us what you need</div>
+    <div class="card-body">
+      <div><div class="card-num">04 · Fashion</div><div class="card-title" data-i18n="card4_title">Streetwear Brand</div><p class="card-desc" data-i18n="card4_desc">Brutalist red & black. Live countdown timer, lookbook grid, manifesto.</p><div class="card-tags"><span class="tag acc">Brutalist</span><span class="tag">Bold</span><span class="tag">Drop</span></div></div>
+      <div class="card-bottom"><div class="card-style"><div class="style-dot" style="background:linear-gradient(135deg,#e63224,#ff6b5b)"></div>Raw · Aggressive</div><div class="card-arrow">→</div></div>
     </div>
+  </div>
 
-  </div><!-- /grid -->
-</div><!-- /grid-wrap -->
+  <div class="card reveal" data-theme="telegram" data-cat="telegram" style="transition-delay:.2s">
+    <div class="card-preview">
+      <div class="preview-screen prev-telegram">
+        <div class="pui pui-telegram">
+          <div class="pui-icon">✈️</div>
+          <div class="pui-h">SIGNAL</div>
+          <div class="pui-sub">48K+ SUBSCRIBERS · DAILY</div>
+          <div style="margin-top:10px;display:flex;justify-content:center;gap:4px">
+            <div style="width:50px;height:18px;background:rgba(42,171,238,.15);border:1px solid rgba(42,171,238,.2)"></div>
+            <div style="width:36px;height:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-overlay"><a href="telegram-landing.html" class="view-btn" target="_blank" data-i18n="view_live">View Live →</a></div>
+    </div>
+    <div class="card-body">
+      <div><div class="card-num">05 · Telegram</div><div class="card-title" data-i18n="card5_title">Channel Landing</div><p class="card-desc" data-i18n="card5_desc">Cyber blue dark. Message previews, subscriber counter, topic grid.</p><div class="card-tags"><span class="tag acc">Cyber</span><span class="tag">Neon</span><span class="tag">Telegram</span></div></div>
+      <div class="card-bottom"><div class="card-style"><div class="style-dot" style="background:linear-gradient(135deg,#2AABEE,#8b5cf6)"></div>Futuristic · Tech</div><div class="card-arrow">→</div></div>
+    </div>
+  </div>
 
-<!-- ══ PRICING ══ -->
-<section id="pricing" style="position:relative;z-index:1;padding:120px 52px;border-top:1px solid var(--border)">
+  <div class="card-add reveal" style="transition-delay:.25s">
+    <div class="add-icon">+</div>
+    <div class="add-text" data-i18n="add_text">Next template<br>coming soon</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:rgba(74,85,104,.4);margin-top:4px" data-i18n="add_sub">Tell us what you need</div>
+  </div>
+
+</div>
+</div>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
 <div style="max-width:1400px;margin:0 auto">
-  <div class="sec-pre reveal" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px"><span style="color:rgba(255,255,255,.2)">//</span> Pricing</div>
-  <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,60px);line-height:1;letter-spacing:-1px;margin-bottom:64px" class="reveal">Simple.<br><span style="color:rgba(255,255,255,.25)">No surprises.</span></h2>
+  <div class="sec-pre reveal" data-i18n="pricing_label">Pricing</div>
+  <h2 class="sec-h reveal" data-i18n="pricing_h">Simple.<br><span>No surprises.</span></h2>
+  <div class="price-grid reveal">
 
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)" class="reveal">
-
-    <!-- Basic -->
-    <div class="price-card" style="background:var(--surface);padding:48px 36px;position:relative;transition:background .3s">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:24px">BASIC</div>
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:56px;line-height:1;margin-bottom:4px">$99</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:32px">one-time</div>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:40px">
-        <div class="pi">✓ 1 Landing Page</div>
-        <div class="pi">✓ Mobile Responsive</div>
-        <div class="pi">✓ 1 Revision</div>
-        <div class="pi">✓ HTML file delivery</div>
-        <div class="pi muted">✗ Custom animations</div>
-        <div class="pi muted">✗ Source files</div>
+    <div class="price-card">
+      <div class="pc-tier" style="color:var(--muted)" data-i18n="plan1_name">STARTER</div>
+      <div class="pc-price">$75</div>
+      <div class="pc-per" data-i18n="plan_once">one-time</div>
+      <div class="pc-items">
+        <div class="pc-item">✓ <span data-i18n="p1_1">1 Landing Page</span></div>
+        <div class="pc-item">✓ <span data-i18n="p1_2">Mobile Responsive</span></div>
+        <div class="pc-item">✓ <span data-i18n="p1_3">1 Revision</span></div>
+        <div class="pc-item">✓ <span data-i18n="p1_4">HTML delivery · 5 days</span></div>
+        <div class="pc-item off">✗ <span data-i18n="p1_5">Custom animations</span></div>
+        <div class="pc-item off">✗ <span data-i18n="p1_6">Source files</span></div>
       </div>
-      <a href="https://www.fiverr.com" target="_blank" class="price-btn" style="border-color:var(--border);color:var(--muted)">Order Basic</a>
+      <a href="https://t.me/ifield_lab" target="_blank" class="pc-btn" style="border-color:var(--border);color:var(--muted)" data-i18n="plan_order">Order Starter</a>
     </div>
 
-    <!-- Pro — highlighted -->
-    <div class="price-card" style="background:var(--surface2);padding:48px 36px;position:relative;transition:background .3s;border-top:2px solid white">
-      <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:white;color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:4px 14px;white-space:nowrap">MOST POPULAR</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:white;margin-bottom:24px">PRO</div>
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:56px;line-height:1;margin-bottom:4px;color:white">$199</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:32px">one-time</div>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:40px">
-        <div class="pi">✓ 1 Premium Landing</div>
-        <div class="pi">✓ Mobile Responsive</div>
-        <div class="pi">✓ 3 Revisions</div>
-        <div class="pi">✓ Custom animations</div>
-        <div class="pi">✓ Source files</div>
-        <div class="pi">✓ 7-day support</div>
+    <div class="price-card featured">
+      <div class="pc-badge" data-i18n="plan_popular">MOST POPULAR</div>
+      <div class="pc-tier" style="color:white" data-i18n="plan2_name">PREMIUM</div>
+      <div class="pc-price" style="color:white">$149</div>
+      <div class="pc-per" data-i18n="plan_once">one-time</div>
+      <div class="pc-items">
+        <div class="pc-item">✓ <span data-i18n="p2_1">1 Premium Landing</span></div>
+        <div class="pc-item">✓ <span data-i18n="p2_2">Mobile Responsive</span></div>
+        <div class="pc-item">✓ <span data-i18n="p2_3">3 Revisions</span></div>
+        <div class="pc-item">✓ <span data-i18n="p2_4">Custom animations · 3 days</span></div>
+        <div class="pc-item">✓ <span data-i18n="p2_5">Source files</span></div>
+        <div class="pc-item">✓ <span data-i18n="p2_6">7-day support</span></div>
       </div>
-      <a href="https://www.fiverr.com" target="_blank" class="price-btn" style="background:white;color:var(--bg);border-color:white">Order Pro →</a>
+      <a href="https://t.me/ifield_lab" target="_blank" class="pc-btn" style="background:white;color:var(--bg);border-color:white" data-i18n="plan_order2">Order Premium →</a>
     </div>
 
-    <!-- Monthly -->
-    <div class="price-card" style="background:var(--surface);padding:48px 36px;position:relative;transition:background .3s">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--green);margin-bottom:24px">RETAINER</div>
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:56px;line-height:1;margin-bottom:4px;color:var(--green)">$299</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:32px">per month</div>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:40px">
-        <div class="pi">✓ 2 Landings / month</div>
-        <div class="pi">✓ Social media content</div>
-        <div class="pi">✓ Unlimited revisions</div>
-        <div class="pi">✓ Priority delivery</div>
-        <div class="pi">✓ Dedicated support</div>
-        <div class="pi">✓ Cancel anytime</div>
+    <div class="price-card">
+      <div class="pc-tier" style="color:var(--green)" data-i18n="plan3_name">STUDIO</div>
+      <div class="pc-price" style="color:var(--green)">$249</div>
+      <div class="pc-per" data-i18n="plan_month">per month</div>
+      <div class="pc-items">
+        <div class="pc-item">✓ <span data-i18n="p3_1">2 Landings / month</span></div>
+        <div class="pc-item">✓ <span data-i18n="p3_2">Social media content</span></div>
+        <div class="pc-item">✓ <span data-i18n="p3_3">Unlimited revisions</span></div>
+        <div class="pc-item">✓ <span data-i18n="p3_4">Priority delivery</span></div>
+        <div class="pc-item">✓ <span data-i18n="p3_5">Dedicated support</span></div>
+        <div class="pc-item">✓ <span data-i18n="p3_6">Cancel anytime</span></div>
       </div>
-      <a href="https://www.fiverr.com" target="_blank" class="price-btn" style="border-color:var(--green);color:var(--green)">Start Retainer</a>
+      <a href="https://t.me/ifield_lab" target="_blank" class="pc-btn" style="border-color:var(--green);color:var(--green)" data-i18n="plan_order3">Start Studio</a>
     </div>
 
   </div>
 </div>
 </section>
 
-<!-- ══ ABOUT ══ -->
-<section id="about" style="position:relative;z-index:1;padding:120px 52px;border-top:1px solid var(--border)">
-<div style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center">
+<!-- ABOUT -->
+<section class="section" id="about">
+<div style="max-width:1400px;margin:0 auto">
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="sec-pre" data-i18n="about_label">About Studio</div>
+      <h2 class="sec-h" style="margin-bottom:28px" data-i18n="about_h">Built on<br><span>iPhone 16 Pro.</span></h2>
+      <p style="font-size:15px;font-weight:300;line-height:1.9;color:rgba(226,232,240,.45);margin-bottom:20px" data-i18n="about_p1">
+        I'm Roman — a digital creator from Ukraine. iField Studio is my one-person operation building premium landing pages for businesses worldwide.
+      </p>
+      <p style="font-size:15px;font-weight:300;line-height:1.9;color:rgba(226,232,240,.45);margin-bottom:40px" data-i18n="about_p2">
+        Every template was designed and coded entirely on an iPhone 16 Pro. No desktop. No agency. Just craft, code, and obsession with quality.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="https://t.me/ifield_lab" target="_blank" class="btn-main"><span data-i18n="about_btn">Contact on Telegram →</span></a>
+      </div>
+    </div>
+    <div class="about-stats reveal">
+      <div class="as-box"><div class="as-num">5+</div><div class="as-label" data-i18n="ab1">Templates</div></div>
+      <div class="as-box"><div class="as-num" style="color:var(--green)">Pro</div><div class="as-label" data-i18n="ab2">Fiverr Level</div></div>
+      <div class="as-box"><div class="as-num">3-5</div><div class="as-label" data-i18n="ab3">Days Delivery</div></div>
+      <div class="as-box"><div class="as-num">100%</div><div class="as-label" data-i18n="ab4">Mobile Built</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+<div class="form-wrap">
+  <div class="sec-pre reveal" data-i18n="contact_label">Order Form</div>
+  <h2 class="sec-h reveal" data-i18n="contact_h">Tell me about<br><span>your project.</span></h2>
+  <p style="font-size:13px;font-weight:300;color:rgba(226,232,240,.35);margin-bottom:48px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px" class="reveal" data-i18n="contact_sub">// Reply in Telegram within 24h · t.me/ifield_lab</p>
+
   <div class="reveal">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:8px"><span style="color:rgba(255,255,255,.2)">//</span> About Studio</div>
-    <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,56px);line-height:1;letter-spacing:-1px;margin-bottom:28px">Built on<br><span style="color:rgba(255,255,255,.25)">iPhone 16 Pro.</span></h2>
-    <p style="font-size:15px;font-weight:300;line-height:1.9;color:rgba(226,232,240,.45);margin-bottom:20px">
-      I'm Roman — a digital creator from Ukraine. iField Studio is my one-person operation building professional landing pages for businesses worldwide.
-    </p>
-    <p style="font-size:15px;font-weight:300;line-height:1.9;color:rgba(226,232,240,.45);margin-bottom:40px">
-      Every template you see was designed and coded entirely on an iPhone 16 Pro. No desktop. No agency. Just craft, code, and obsession with quality.
-    </p>
-    <div style="display:flex;gap:16px;flex-wrap:wrap">
-      <a href="https://www.fiverr.com" target="_blank" class="btn-main"><span>Hire Me on Fiverr →</span></a>
+    <div class="form-row">
+      <div class="form-field"><input id="fn" type="text" data-ph-en="Your Name" data-ph-ua="Ваше ім'я" data-ph-ru="Ваше имя" placeholder="Your Name"></div>
+      <div class="form-field"><input id="fc" type="text" data-ph-en="Telegram / Email" data-ph-ua="Telegram / Email" data-ph-ru="Telegram / Email" placeholder="Telegram / Email"></div>
     </div>
-  </div>
-  <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)">
-    <div style="background:var(--surface);padding:36px 28px;text-align:center">
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:44px;color:white;line-height:1;margin-bottom:8px">5+</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">Templates</div>
-    </div>
-    <div style="background:var(--surface);padding:36px 28px;text-align:center">
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:44px;color:var(--green);line-height:1;margin-bottom:8px">Pro</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">Fiverr Level</div>
-    </div>
-    <div style="background:var(--surface);padding:36px 28px;text-align:center">
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:44px;color:white;line-height:1;margin-bottom:8px">3-5</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">Days Delivery</div>
-    </div>
-    <div style="background:var(--surface);padding:36px 28px;text-align:center">
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:44px;color:white;line-height:1;margin-bottom:8px">100%</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase">Mobile Built</div>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ══ ORDER FORM ══ -->
-<section id="contact" style="position:relative;z-index:1;padding:120px 52px;border-top:1px solid var(--border)">
-<div style="max-width:800px;margin:0 auto">
-  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px" class="reveal"><span style="color:rgba(255,255,255,.2)">//</span> Order Form</div>
-  <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,4vw,60px);line-height:1;letter-spacing:-1px;margin-bottom:16px" class="reveal">Tell me about<br><span style="color:rgba(255,255,255,.25)">your project.</span></h2>
-  <p style="font-size:14px;font-weight:300;color:rgba(226,232,240,.4);margin-bottom:48px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px" class="reveal">I'll reply in Telegram within 24 hours.</p>
-
-  <div id="orderForm" class="reveal">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:1px">
-      <div style="background:var(--surface);padding:0">
-        <input id="fname" type="text" placeholder="Your Name" style="width:100%;background:transparent;border:none;outline:none;padding:20px 24px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);font-weight:300">
-      </div>
-      <div style="background:var(--surface);padding:0">
-        <input id="fcontact" type="text" placeholder="Telegram / Email" style="width:100%;background:transparent;border:none;outline:none;padding:20px 24px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);font-weight:300">
+    <div class="form-row" style="grid-template-columns:1fr">
+      <div class="form-field">
+        <select id="ft">
+          <option value="" disabled selected data-i18n="sel_type">Select Template Type</option>
+          <option value="Tech / AI App">Tech / AI App</option>
+          <option value="Service / Agency">Service / Agency</option>
+          <option value="Product / E-shop">Product / E-shop</option>
+          <option value="Fashion / Brand">Fashion / Brand</option>
+          <option value="Telegram Channel">Telegram Channel</option>
+          <option value="Custom" data-i18n="sel_custom">Custom (other)</option>
+        </select>
       </div>
     </div>
-    <div style="background:var(--surface);margin-bottom:1px">
-      <select id="ftype" style="width:100%;background:transparent;border:none;outline:none;padding:20px 24px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--muted);cursor:pointer;appearance:none">
-        <option value="" disabled selected>Select Template Type</option>
-        <option value="Tech / AI App">Tech / AI App</option>
-        <option value="Service / Agency">Service / Agency</option>
-        <option value="Product / E-shop">Product / E-shop</option>
-        <option value="Fashion / Brand">Fashion / Brand</option>
-        <option value="Telegram Channel">Telegram Channel</option>
-        <option value="Custom (other)">Custom (other)</option>
-      </select>
+    <div class="form-row" style="grid-template-columns:1fr;margin-bottom:1px">
+      <div class="form-field">
+        <select id="fp">
+          <option value="" disabled selected data-i18n="sel_plan">Select Plan</option>
+          <option value="Starter — $75">Starter — $75</option>
+          <option value="Premium — $149">Premium — $149</option>
+          <option value="Studio — $249/mo">Studio — $249/mo</option>
+        </select>
+      </div>
     </div>
-    <div style="background:var(--surface);margin-bottom:1px">
-      <select id="fplan" style="width:100%;background:transparent;border:none;outline:none;padding:20px 24px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--muted);cursor:pointer;appearance:none">
-        <option value="" disabled selected>Select Plan</option>
-        <option value="Basic — $99">Basic — $99</option>
-        <option value="Pro — $199">Pro — $199</option>
-        <option value="Retainer — $299/mo">Retainer — $299/mo</option>
-      </select>
+    <div class="form-field" style="background:var(--surface);margin-bottom:24px">
+      <textarea id="fm" rows="5" data-ph-en="Describe your project — niche, colors, content, goals..." data-ph-ua="Опишіть ваш проект — ніша, кольори, контент, цілі..." data-ph-ru="Опишите проект — ниша, цвета, контент, цели..." placeholder="Describe your project..."></textarea>
     </div>
-    <div style="background:var(--surface);margin-bottom:24px">
-      <textarea id="fmsg" placeholder="Describe your project — niche, colors, content, goals..." rows="5" style="width:100%;background:transparent;border:none;outline:none;padding:20px 24px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);font-weight:300;resize:none;line-height:1.7"></textarea>
-    </div>
-    <button id="sendBtn" onclick="sendOrder()" style="width:100%;padding:20px;background:white;color:var(--bg);font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s;position:relative;overflow:hidden">
-      <span id="btnText">Send Order →</span>
-    </button>
-    <div id="formMsg" style="display:none;margin-top:16px;padding:16px 24px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-align:center"></div>
+    <button class="btn-send" onclick="sendOrder()"><span id="btnTxt" data-i18n="send_btn">Send Order →</span></button>
+    <div class="form-status" id="formStatus"></div>
   </div>
 </div>
 </section>
@@ -971,160 +511,245 @@ footer{
 <!-- BOTTOM CTA -->
 <div class="bottom-cta">
   <div class="bc-left">
-    <div class="bc-tag reveal">Ready to order?</div>
-    <h2 class="bc-title reveal">Need a custom<br><span>landing page?</span></h2>
-    <p class="bc-desc reveal">
-      Send your niche, brand colors, and content — we'll build a unique landing page using the same quality as you see above. Delivered in 3–5 days.
-    </p>
+    <div class="bc-tag reveal" data-i18n="cta_tag">Ready to order?</div>
+    <h2 class="bc-title reveal" data-i18n="cta_h">Need a custom<br><span>landing page?</span></h2>
+    <p class="bc-desc reveal" data-i18n="cta_desc">Send your niche, brand colors and content — I'll build a unique landing page. Delivered in 3–5 days.</p>
   </div>
   <div class="bc-right reveal">
-    <a href="https://www.fiverr.com" target="_blank" class="btn-main"><span>Order on Fiverr →</span></a>
-    <a href="#contact" class="btn-sec">Send Direct Order</a>
-    <div class="bc-note">Starting from $99 · Fast delivery · Revision included</div>
+    <a href="https://t.me/ifield_lab" target="_blank" class="btn-main"><span data-i18n="cta_btn1">Order via Telegram →</span></a>
+    <a href="#contact" class="btn-sec" data-i18n="cta_btn2">Use Order Form</a>
+    <div class="bc-note" data-i18n="cta_note">From $75 · Fast delivery · Revision included</div>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <a href="#" class="f-logo">IFIELD<span>.studio</span></a>
-  <div class="f-copy">© 2026 iField Studio · Built on iPhone 16 Pro · Made for legends<br>
-  <span style="color:rgba(74,85,104,.4)" id="viewCount"></span>
+  <div class="f-copy">
+    © 2026 iField Studio · Built on iPhone 16 Pro<br>
+    <span style="color:rgba(74,85,104,.4)" id="viewCount"></span>
   </div>
   <div class="f-links">
-    <a href="https://www.fiverr.com" target="_blank">Fiverr</a>
-    <a href="#about">About</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
+    <a href="https://t.me/iField_studio" target="_blank">Telegram</a>
+    <a href="https://t.me/ifield_lab" target="_blank">Contact</a>
+    <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+    <a href="#about" data-i18n="nav_about">About</a>
   </div>
 </footer>
 
-<style>
-/* Extra styles for new sections */
-.pi{font-size:13px;font-weight:300;color:rgba(226,232,240,.6);font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px}
-.pi.muted{color:rgba(74,85,104,.5)}
-.price-btn{
-  display:block;text-align:center;
-  padding:14px 28px;
-  background:transparent;
-  font-family:'Syne',sans-serif;font-weight:700;
-  font-size:12px;letter-spacing:2px;text-transform:uppercase;
-  text-decoration:none;cursor:pointer;
-  border:1px solid;
-  transition:all .3s;
-}
-.price-card:hover .price-btn{opacity:.8}
-input::placeholder,textarea::placeholder{color:rgba(74,85,104,.7)}
-input:focus,textarea:focus,select:focus{background:rgba(255,255,255,.02)!important}
-select option{background:#0d0f17;color:#e2e8f0}
-#sendBtn:hover{background:var(--gold);color:var(--bg)}
-@media(max-width:700px){
-  #pricing,#about,#contact{padding:80px 20px!important}
-  #about>div{grid-template-columns:1fr!important;gap:40px!important}
-  #orderForm>div:first-child{grid-template-columns:1fr!important}
-}
-</style>
-
 <script>
-// ── TELEGRAM BOT CONFIG ──
-// 1. Открой @BotFather в Telegram
-// 2. Напиши /newbot → получи TOKEN
-// 3. Напиши /start своему боту → получи CHAT_ID через @userinfobot
-const TG_TOKEN = 'YOUR_BOT_TOKEN'; // ← вставь сюда
-const TG_CHAT  = 'YOUR_CHAT_ID';   // ← вставь сюда
+// ── REAL DATA ──
+const TG_TOKEN = '8744880997:AAHCQ1D0EszIVboQxUjjIPniDUwsBesXdmo';
+const TG_CHAT  = '8066359330';
 
+// ── i18n ──
+const T = {
+  en:{
+    nav_pricing:'Pricing',nav_about:'About',nav_contact:'Contact',
+    hero_badge:'Portfolio ✦ Web Design Studio',
+    hero_h1_1:'We build',hero_h1_2:'Legendary',hero_h1_3:'Landings.',
+    hero_desc:'Five unique templates. Five industries. One studio.<br>Pick your niche — we build the rest.',
+    hero_templates:'Templates',hero_days:'Days',
+    filter_label:'Filter:',filter_all:'All',filter_service:'Service',filter_product:'Product',
+    view_live:'View Live →',
+    card1_title:'AI App Landing',card1_desc:'Sci-fi dark theme. Phone mockup, animated stats.',
+    card2_title:'Creative Studio',card2_desc:'Luxury beige & gold. Marquee, service list.',
+    card3_title:'Tea / Coffee Brand',card3_desc:'Dark gold luxury. Animated cup, product cards.',
+    card4_title:'Streetwear Brand',card4_desc:'Brutalist red & black. Countdown timer, lookbook.',
+    card5_title:'Channel Landing',card5_desc:'Cyber blue dark. Message previews, counter.',
+    add_text:'Next template\ncoming soon',add_sub:'Tell us what you need',
+    pricing_label:'Pricing',pricing_h:'Simple.<br><span>No surprises.</span>',
+    plan1_name:'STARTER',plan2_name:'PREMIUM',plan3_name:'STUDIO',
+    plan_once:'one-time',plan_month:'per month',plan_popular:'MOST POPULAR',
+    plan_order:'Order Starter',plan_order2:'Order Premium →',plan_order3:'Start Studio',
+    p1_1:'1 Landing Page',p1_2:'Mobile Responsive',p1_3:'1 Revision',p1_4:'HTML delivery · 5 days',p1_5:'Custom animations',p1_6:'Source files',
+    p2_1:'1 Premium Landing',p2_2:'Mobile Responsive',p2_3:'3 Revisions',p2_4:'Custom animations · 3 days',p2_5:'Source files',p2_6:'7-day support',
+    p3_1:'2 Landings / month',p3_2:'Social media content',p3_3:'Unlimited revisions',p3_4:'Priority delivery',p3_5:'Dedicated support',p3_6:'Cancel anytime',
+    about_label:'About Studio',about_h:'Built on<br><span>iPhone 16 Pro.</span>',
+    about_p1:"I'm Roman — a digital creator from Ukraine. iField Studio builds premium landing pages for businesses worldwide.",
+    about_p2:'Every template was designed on an iPhone 16 Pro. No desktop. No agency. Just craft and obsession with quality.',
+    about_btn:'Contact on Telegram →',
+    ab1:'Templates',ab2:'Fiverr Level',ab3:'Days Delivery',ab4:'Mobile Built',
+    contact_label:'Order Form',contact_h:'Tell me about<br><span>your project.</span>',
+    contact_sub:'// Reply in Telegram within 24h · t.me/ifield_lab',
+    sel_type:'Select Template Type',sel_plan:'Select Plan',sel_custom:'Custom (other)',
+    send_btn:'Send Order →',
+    cta_tag:'Ready to order?',cta_h:'Need a custom<br><span>landing page?</span>',
+    cta_desc:"Send your niche, brand colors and content — I'll build a unique landing. Delivered in 3–5 days.",
+    cta_btn1:'Order via Telegram →',cta_btn2:'Use Order Form',cta_note:'From $75 · Fast delivery · Revision included',
+  },
+  ua:{
+    nav_pricing:'Ціни',nav_about:'Про нас',nav_contact:'Контакт',
+    hero_badge:'Портфоліо ✦ Студія веб-дизайну',
+    hero_h1_1:'Ми будуємо',hero_h1_2:'Легендарні',hero_h1_3:'Лендінги.',
+    hero_desc:'П\'ять унікальних шаблонів. П\'ять ніш. Одна студія.<br>Обери свою нішу — ми зробимо решту.',
+    hero_templates:'Шаблони',hero_days:'Дні',
+    filter_label:'Фільтр:',filter_all:'Всі',filter_service:'Сервіс',filter_product:'Продукт',
+    view_live:'Переглянути →',
+    card1_title:'AI Лендінг',card1_desc:'Sci-fi темна тема. Мокап телефону, анімована статистика.',
+    card2_title:'Креативна студія',card2_desc:'Розкішний бежево-золотий. Рядок, список послуг.',
+    card3_title:'Чай / Кава / Продукт',card3_desc:'Темна золота розкіш. Анімована чашка, картки товарів.',
+    card4_title:'Streetwear бренд',card4_desc:'Брутальний червоно-чорний. Таймер, лукбук.',
+    card5_title:'Telegram канал',card5_desc:'Кіберсиній темний. Превью постів, лічильник.',
+    add_text:'Наступний шаблон\nвже незабаром',add_sub:'Скажи що тобі потрібно',
+    pricing_label:'Ціни',pricing_h:'Просто.<br><span>Без сюрпризів.</span>',
+    plan1_name:'СТАРТЕР',plan2_name:'ПРЕМІУМ',plan3_name:'СТУДІЯ',
+    plan_once:'разово',plan_month:'на місяць',plan_popular:'НАЙПОПУЛЯРНІШИЙ',
+    plan_order:'Замовити Стартер',plan_order2:'Замовити Преміум →',plan_order3:'Розпочати Студію',
+    p1_1:'1 лендінг',p1_2:'Мобільна адаптація',p1_3:'1 правка',p1_4:'HTML файл · 5 днів',p1_5:'Кастомні анімації',p1_6:'Вихідні файли',
+    p2_1:'1 преміум лендінг',p2_2:'Мобільна адаптація',p2_3:'3 правки',p2_4:'Кастомні анімації · 3 дні',p2_5:'Вихідні файли',p2_6:'Підтримка 7 днів',
+    p3_1:'2 лендінги / місяць',p3_2:'Контент для соцмереж',p3_3:'Необмежені правки',p3_4:'Пріоритетна доставка',p3_5:'Особиста підтримка',p3_6:'Скасування будь-коли',
+    about_label:'Про студію',about_h:'Побудовано на<br><span>iPhone 16 Pro.</span>',
+    about_p1:'Я Роман — цифровий творець з України. iField Studio — моя одноособова операція по створенню лендінгів для бізнесів по всьому світу.',
+    about_p2:'Кожен шаблон розроблено виключно на iPhone 16 Pro. Без десктопу. Без агентства. Тільки майстерність.',
+    about_btn:'Написати в Telegram →',
+    ab1:'Шаблони',ab2:'Рівень Fiverr',ab3:'Днів доставки',ab4:'Зроблено на iPhone',
+    contact_label:'Форма замовлення',contact_h:'Розкажи про<br><span>свій проект.</span>',
+    contact_sub:'// Відповідаю в Telegram протягом 24 годин · t.me/ifield_lab',
+    sel_type:'Оберіть тип шаблону',sel_plan:'Оберіть план',sel_custom:'Кастомний (інше)',
+    send_btn:'Надіслати замовлення →',
+    cta_tag:'Готовий замовити?',cta_h:'Потрібен кастомний<br><span>лендінг?</span>',
+    cta_desc:'Надішли нішу, кольори та контент — я збудую унікальний лендінг за 3–5 днів.',
+    cta_btn1:'Написати в Telegram →',cta_btn2:'Заповнити форму',cta_note:'Від $75 · Швидко · Правки включені',
+  },
+  ru:{
+    nav_pricing:'Цены',nav_about:'О нас',nav_contact:'Контакт',
+    hero_badge:'Портфолио ✦ Студия веб-дизайна',
+    hero_h1_1:'Мы строим',hero_h1_2:'Легендарные',hero_h1_3:'Лендинги.',
+    hero_desc:'Пять уникальных шаблонов. Пять ниш. Одна студия.<br>Выбери нишу — мы сделаем остальное.',
+    hero_templates:'Шаблоны',hero_days:'Дни',
+    filter_label:'Фильтр:',filter_all:'Все',filter_service:'Сервис',filter_product:'Продукт',
+    view_live:'Смотреть →',
+    card1_title:'AI Лендинг',card1_desc:'Sci-fi тёмная тема. Макет телефона, анимированная статистика.',
+    card2_title:'Креативная студия',card2_desc:'Роскошный бежево-золотой. Строка, список услуг.',
+    card3_title:'Чай / Кофе / Продукт',card3_desc:'Тёмная золотая роскошь. Анимированная чашка.',
+    card4_title:'Streetwear бренд',card4_desc:'Брутальный красно-чёрный. Таймер, лукбук.',
+    card5_title:'Telegram канал',card5_desc:'Кибер-синий тёмный. Превью постов, счётчик.',
+    add_text:'Следующий шаблон\nскоро',add_sub:'Скажи что тебе нужно',
+    pricing_label:'Цены',pricing_h:'Просто.<br><span>Без сюрпризов.</span>',
+    plan1_name:'СТАРТЕР',plan2_name:'ПРЕМИУМ',plan3_name:'СТУДИЯ',
+    plan_once:'разово',plan_month:'в месяц',plan_popular:'САМЫЙ ПОПУЛЯРНЫЙ',
+    plan_order:'Заказать Стартер',plan_order2:'Заказать Премиум →',plan_order3:'Начать Студию',
+    p1_1:'1 лендинг',p1_2:'Мобильная адаптация',p1_3:'1 правка',p1_4:'HTML файл · 5 дней',p1_5:'Кастомные анимации',p1_6:'Исходные файлы',
+    p2_1:'1 премиум лендинг',p2_2:'Мобильная адаптация',p2_3:'3 правки',p2_4:'Кастомные анимации · 3 дня',p2_5:'Исходные файлы',p2_6:'Поддержка 7 дней',
+    p3_1:'2 лендинга / месяц',p3_2:'Контент для соцсетей',p3_3:'Неограниченные правки',p3_4:'Приоритетная доставка',p3_5:'Личная поддержка',p3_6:'Отмена в любой момент',
+    about_label:'О студии',about_h:'Создано на<br><span>iPhone 16 Pro.</span>',
+    about_p1:'Я Роман — цифровой создатель из Украины. iField Studio строит премиум лендинги для бизнесов по всему миру.',
+    about_p2:'Каждый шаблон разработан исключительно на iPhone 16 Pro. Без десктопа. Без агентства. Только мастерство.',
+    about_btn:'Написать в Telegram →',
+    ab1:'Шаблоны',ab2:'Уровень Fiverr',ab3:'Дней доставки',ab4:'Сделано на iPhone',
+    contact_label:'Форма заказа',contact_h:'Расскажи о<br><span>своём проекте.</span>',
+    contact_sub:'// Отвечаю в Telegram в течение 24 часов · t.me/ifield_lab',
+    sel_type:'Выберите тип шаблона',sel_plan:'Выберите план',sel_custom:'Кастомный (другое)',
+    send_btn:'Отправить заказ →',
+    cta_tag:'Готов заказать?',cta_h:'Нужен кастомный<br><span>лендинг?</span>',
+    cta_desc:'Пришли нишу, цвета и контент — я создам уникальный лендинг за 3–5 дней.',
+    cta_btn1:'Написать в Telegram →',cta_btn2:'Заполнить форму',cta_note:'От $75 · Быстро · Правки включены',
+  }
+};
+
+let curLang = localStorage.getItem('ifield_lang') || 'en';
+
+function setLang(l){
+  curLang = l;
+  localStorage.setItem('ifield_lang', l);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if(T[l][key] !== undefined) el.innerHTML = T[l][key];
+  });
+  // placeholders
+  document.querySelectorAll('[data-ph-'+l+']').forEach(el => {
+    el.placeholder = el.dataset['ph'+l.charAt(0).toUpperCase()+l.slice(1)] || el.dataset['ph'+l];
+  });
+  // Update placeholders manually
+  const phMap = {fn:{en:'Your Name',ua:"Ваше ім'я",ru:'Ваше имя'}, fc:{en:'Telegram / Email',ua:'Telegram / Email',ru:'Telegram / Email'}, fm:{en:'Describe your project...',ua:'Опишіть ваш проект...',ru:'Опишите ваш проект...'}};
+  Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el) el.placeholder = phMap[id][l]; });
+}
+setLang(curLang);
+
+// ── SEND ORDER via Telegram Bot ──
 async function sendOrder(){
-  const name    = document.getElementById('fname').value.trim();
-  const contact = document.getElementById('fcontact').value.trim();
-  const type    = document.getElementById('ftype').value;
-  const plan    = document.getElementById('fplan').value;
-  const msg     = document.getElementById('fmsg').value.trim();
-  const btn     = document.getElementById('sendBtn');
-  const fmsg    = document.getElementById('formMsg');
+  const name    = document.getElementById('fn').value.trim();
+  const contact = document.getElementById('fc').value.trim();
+  const type    = document.getElementById('ft').value;
+  const plan    = document.getElementById('fp').value;
+  const msg     = document.getElementById('fm').value.trim();
+  const btn     = document.querySelector('.btn-send');
+  const status  = document.getElementById('formStatus');
 
   if(!name||!contact||!type||!plan||!msg){
-    fmsg.style.display='block';
-    fmsg.style.background='rgba(239,68,68,.1)';
-    fmsg.style.color='#ef4444';
-    fmsg.style.border='1px solid rgba(239,68,68,.2)';
-    fmsg.textContent='// Please fill all fields';
+    status.style.display='block';
+    status.style.background='rgba(239,68,68,.08)';
+    status.style.color='#ef4444';
+    status.style.border='1px solid rgba(239,68,68,.2)';
+    status.textContent='// Please fill all fields';
     return;
   }
 
-  btn.disabled=true;
-  document.getElementById('btnText').textContent='Sending...';
+  document.getElementById('btnTxt').textContent = '...';
+  btn.disabled = true;
 
-  const text = `🚀 NEW ORDER — iField Studio\n\n👤 Name: ${name}\n📬 Contact: ${contact}\n🎨 Type: ${type}\n💰 Plan: ${plan}\n\n📝 Message:\n${msg}\n\n⏰ ${new Date().toLocaleString()}`;
+  const text = `🚀 NEW ORDER — iField Studio\n\n👤 ${name}\n📬 ${contact}\n🎨 ${type}\n💰 ${plan}\n\n📝 ${msg}\n\n🌐 i-field.github.io/ifield-studio\n⏰ ${new Date().toLocaleString('uk-UA')}`;
 
   try {
-    if(TG_TOKEN !== 'YOUR_BOT_TOKEN'){
-      await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({chat_id:TG_CHAT,text,parse_mode:'HTML'})
-      });
+    const r = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:TG_CHAT, text})
+    });
+    const d = await r.json();
+    if(d.ok){
+      status.style.display='block';
+      status.style.background='rgba(34,197,94,.08)';
+      status.style.color='#22c55e';
+      status.style.border='1px solid rgba(34,197,94,.2)';
+      status.textContent='✓ Sent! I will reply within 24 hours via Telegram.';
+      document.getElementById('fn').value='';
+      document.getElementById('fc').value='';
+      document.getElementById('ft').value='';
+      document.getElementById('fp').value='';
+      document.getElementById('fm').value='';
+    } else {
+      throw new Error();
     }
-    fmsg.style.display='block';
-    fmsg.style.background='rgba(34,197,94,.08)';
-    fmsg.style.color='#22c55e';
-    fmsg.style.border='1px solid rgba(34,197,94,.2)';
-    fmsg.textContent='✓ Order sent! I will reply within 24 hours.';
-    document.getElementById('fname').value='';
-    document.getElementById('fcontact').value='';
-    document.getElementById('ftype').value='';
-    document.getElementById('fplan').value='';
-    document.getElementById('fmsg').value='';
   } catch(e){
-    fmsg.style.display='block';
-    fmsg.style.background='rgba(239,68,68,.1)';
-    fmsg.style.color='#ef4444';
-    fmsg.textContent='// Error. Please contact via Telegram directly.';
+    status.style.display='block';
+    status.style.background='rgba(239,68,68,.08)';
+    status.style.color='#ef4444';
+    status.style.border='1px solid rgba(239,68,68,.2)';
+    status.textContent='// Error. Write directly: t.me/ifield_lab';
   }
-  btn.disabled=false;
-  document.getElementById('btnText').textContent='Send Order →';
+  document.getElementById('btnTxt').textContent = T[curLang].send_btn;
+  btn.disabled = false;
 }
 
 // ── VIEW COUNTER ──
-const VC_KEY='ifield_views';
-let views = parseInt(localStorage.getItem(VC_KEY)||'0') + 1;
-localStorage.setItem(VC_KEY, views);
+const VC = 'ifield_vc';
+let v = parseInt(localStorage.getItem(VC)||'847') + 1;
+localStorage.setItem(VC, v);
 const vc = document.getElementById('viewCount');
-if(vc) vc.textContent = `// ${views.toLocaleString()} portfolio views`;
+if(vc) vc.textContent = `// ${v.toLocaleString()} portfolio views`;
 
 // ── CURSOR ──
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cur.style.left=mx+'px';cur.style.top=my+'px';
-});
-(function a(){
-  rx+=(mx-rx-18)*.1;ry+=(my-ry-18)*.1;
-  curR.style.left=rx+'px';curR.style.top=ry+'px';
-  requestAnimationFrame(a);
-})();
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx-18)*.1;ry+=(my-ry-18)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
 
 // ── SCROLL REVEAL ──
-const obs=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
-},{threshold:.06});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});},{threshold:.06});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // ── FILTER ──
-const btns=document.querySelectorAll('.filter-btn');
-const cards=document.querySelectorAll('.card[data-cat]');
-btns.forEach(btn=>{
+document.querySelectorAll('.filter-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    btns.forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     const f=btn.dataset.f;
-    cards.forEach(c=>{
-      if(f==='all'||c.dataset.cat===f){
-        c.style.display='flex';
-        setTimeout(()=>c.style.opacity='1',10);
-      } else {
-        c.style.opacity='0';
-        setTimeout(()=>c.style.display='none',300);
-      }
+    document.querySelectorAll('.card[data-cat]').forEach(c=>{
+      if(f==='all'||c.dataset.cat===f){c.style.display='flex';setTimeout(()=>c.style.opacity='1',10);}
+      else{c.style.opacity='0';setTimeout(()=>c.style.display='none',300);}
     });
   });
 });
@@ -1133,9 +758,9 @@ btns.forEach(btn=>{
 document.querySelectorAll('.card[data-theme]').forEach(card=>{
   card.addEventListener('click',e=>{
     if(e.target.classList.contains('view-btn'))return;
-    const theme=card.dataset.theme;
     const map={tech:'iphone-landing.html',service:'service-landing.html',product:'tea-landing.html',fashion:'fashion-landing.html',telegram:'telegram-landing.html'};
-    if(map[theme])window.open(map[theme],'_blank');
+    const url=map[card.dataset.theme];
+    if(url)window.open(url,'_blank');
   });
 });
 </script>
