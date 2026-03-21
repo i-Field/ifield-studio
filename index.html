@@ -539,9 +539,8 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
 </footer>
 
 <script>
-// ── REAL DATA ──
-const TG_TOKEN = '8744880997:AAHCQ1D0EszIVboQxUjjIPniDUwsBesXdmo';
-const TG_CHAT  = '8066359330';
+// ── CONTACT ──
+const TG_USER = 'ifield_lab';
 
 // ── i18n ──
 const T = {
@@ -691,36 +690,22 @@ async function sendOrder(){
   document.getElementById('btnTxt').textContent = '...';
   btn.disabled = true;
 
-  const text = `🚀 NEW ORDER — iField Studio\n\n👤 ${name}\n📬 ${contact}\n🎨 ${type}\n💰 ${plan}\n\n📝 ${msg}\n\n🌐 i-field.github.io/ifield-studio\n⏰ ${new Date().toLocaleString('uk-UA')}`;
-
-  try {
-    const r = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({chat_id:TG_CHAT, text})
-    });
-    const d = await r.json();
-    if(d.ok){
-      status.style.display='block';
-      status.style.background='rgba(34,197,94,.08)';
-      status.style.color='#22c55e';
-      status.style.border='1px solid rgba(34,197,94,.2)';
-      status.textContent='✓ Sent! I will reply within 24 hours via Telegram.';
-      document.getElementById('fn').value='';
-      document.getElementById('fc').value='';
-      document.getElementById('ft').value='';
-      document.getElementById('fp').value='';
-      document.getElementById('fm').value='';
-    } else {
-      throw new Error();
-    }
-  } catch(e){
-    status.style.display='block';
-    status.style.background='rgba(239,68,68,.08)';
-    status.style.color='#ef4444';
-    status.style.border='1px solid rgba(239,68,68,.2)';
-    status.textContent='// Error. Write directly: t.me/ifield_lab';
-  }
+  const text = encodeURIComponent(`🚀 NEW ORDER — iField Studio\n\n👤 ${name}\n📬 ${contact}\n🎨 ${type}\n💰 ${plan}\n\n📝 ${msg}`);
+  
+  window.open(`https://t.me/${TG_USER}?text=${text}`, '_blank');
+  
+  status.style.display='block';
+  status.style.background='rgba(34,197,94,.08)';
+  status.style.color='#22c55e';
+  status.style.border='1px solid rgba(34,197,94,.2)';
+  status.textContent='✓ Opening Telegram... Complete your order there.';
+  
+  document.getElementById('fn').value='';
+  document.getElementById('fc').value='';
+  document.getElementById('ft').value='';
+  document.getElementById('fp').value='';
+  document.getElementById('fm').value='';
+  
   document.getElementById('btnTxt').textContent = T[curLang].send_btn;
   btn.disabled = false;
 }
