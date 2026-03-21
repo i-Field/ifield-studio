@@ -36,7 +36,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 52px;display:fl
 .nav-links{display:flex;gap:24px;list-style:none}
 .nav-links a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;cursor:none}
 .nav-links a:hover{color:white}
-.lang-sw{display:flex;gap:4px}
+.lang-sw{display:flex;gap:4px;flex-shrink:0}
 .lang-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:5px 10px;background:transparent;border:1px solid var(--border);color:var(--muted);cursor:none;transition:all .2s}
 .lang-btn.active{background:rgba(255,255,255,.08);color:white;border-color:rgba(255,255,255,.2)}
 .nav-count{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--green);display:flex;align-items:center;gap:6px}
@@ -207,7 +207,7 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
 /* RESPONSIVE */
 @media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}.price-grid{grid-template-columns:1fr}}
 @media(max-width:700px){
-  nav{padding:14px 20px}.nav-links{display:none}
+  nav{padding:14px 20px}.nav-links{display:none}.lang-sw{display:flex!important}
   .hero{padding:110px 20px 60px}.filter-bar{padding:0 20px 40px}
   .grid-wrap{padding:0 20px 60px}.grid{grid-template-columns:1fr}
   .section{padding:80px 20px}
@@ -389,7 +389,7 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
 
     <div class="price-card">
       <div class="pc-tier" style="color:var(--muted)" data-i18n="plan1_name">STARTER</div>
-      <div class="pc-price">$75</div>
+      <div class="pc-price">$100</div>
       <div class="pc-per" data-i18n="plan_once">one-time</div>
       <div class="pc-items">
         <div class="pc-item">✓ <span data-i18n="p1_1">1 Landing Page</span></div>
@@ -405,7 +405,7 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
     <div class="price-card featured">
       <div class="pc-badge" data-i18n="plan_popular">MOST POPULAR</div>
       <div class="pc-tier" style="color:white" data-i18n="plan2_name">PREMIUM</div>
-      <div class="pc-price" style="color:white">$149</div>
+      <div class="pc-price" style="color:white">$200</div>
       <div class="pc-per" data-i18n="plan_once">one-time</div>
       <div class="pc-items">
         <div class="pc-item">✓ <span data-i18n="p2_1">1 Premium Landing</span></div>
@@ -420,7 +420,7 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
 
     <div class="price-card">
       <div class="pc-tier" style="color:var(--green)" data-i18n="plan3_name">STUDIO</div>
-      <div class="pc-price" style="color:var(--green)">$249</div>
+      <div class="pc-price" style="color:var(--green)">$300</div>
       <div class="pc-per" data-i18n="plan_month">per month</div>
       <div class="pc-items">
         <div class="pc-item">✓ <span data-i18n="p3_1">2 Landings / month</span></div>
@@ -493,9 +493,9 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
       <div class="form-field">
         <select id="fp">
           <option value="" disabled selected data-i18n="sel_plan">Select Plan</option>
-          <option value="Starter — $75">Starter — $75</option>
-          <option value="Premium — $149">Premium — $149</option>
-          <option value="Studio — $249/mo">Studio — $249/mo</option>
+          <option value="Starter — $100">Starter — $100</option>
+          <option value="Premium — $200">Premium — $200</option>
+          <option value="Studio — $300/mo">Studio — $300/mo</option>
         </select>
       </div>
     </div>
@@ -518,7 +518,7 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
   <div class="bc-right reveal">
     <a href="http://www.fiverr.com/s/2KRdzKN" target="_blank" class="btn-main"><span>Order on Fiverr →</span></a>
     <a href="https://t.me/ifield_lab" target="_blank" class="btn-sec" data-i18n="cta_btn1">Order via Telegram →</a>
-    <div class="bc-note" data-i18n="cta_note">From $75 · Fast delivery · Revision included</div>
+    <div class="bc-note" data-i18n="cta_note">From $100 · Fast delivery · Revision included</div>
   </div>
 </div>
 
@@ -577,7 +577,7 @@ const T = {
     send_btn:'Send Order →',
     cta_tag:'Ready to order?',cta_h:'Need a custom<br><span>landing page?</span>',
     cta_desc:"Send your niche, brand colors and content — I'll build a unique landing. Delivered in 3–5 days.",
-    cta_btn1:'Order via Telegram →',cta_btn2:'Use Order Form',cta_note:'From $75 · Fast delivery · Revision included',
+    cta_btn1:'Order via Telegram →',cta_btn2:'Use Order Form',cta_note:'From $100 · Fast delivery · Revision included',
   },
   ua:{
     nav_pricing:'Ціни',nav_about:'Про нас',nav_contact:'Контакт',
@@ -611,7 +611,7 @@ const T = {
     send_btn:'Надіслати замовлення →',
     cta_tag:'Готовий замовити?',cta_h:'Потрібен кастомний<br><span>лендінг?</span>',
     cta_desc:'Надішли нішу, кольори та контент — я збудую унікальний лендінг за 3–5 днів.',
-    cta_btn1:'Написати в Telegram →',cta_btn2:'Заповнити форму',cta_note:'Від $75 · Швидко · Правки включені',
+    cta_btn1:'Написати в Telegram →',cta_btn2:'Заповнити форму',cta_note:'Від $100 · Швидко · Правки включені',
   },
   ru:{
     nav_pricing:'Цены',nav_about:'О нас',nav_contact:'Контакт',
@@ -645,7 +645,7 @@ const T = {
     send_btn:'Отправить заказ →',
     cta_tag:'Готов заказать?',cta_h:'Нужен кастомный<br><span>лендинг?</span>',
     cta_desc:'Пришли нишу, цвета и контент — я создам уникальный лендинг за 3–5 дней.',
-    cta_btn1:'Написать в Telegram →',cta_btn2:'Заполнить форму',cta_note:'От $75 · Быстро · Правки включены',
+    cta_btn1:'Написать в Telegram →',cta_btn2:'Заполнить форму',cta_note:'От $100 · Быстро · Правки включены',
   }
 };
 
