@@ -6,7 +6,6 @@
 <meta name="description" content="Створи готовий HTML лендінг за 2 хвилини. 4 шаблони, завантаження фото. 3 безкоштовно">
 <title>iField — Landing Builder Pro</title>
 <style>
-  /* ========== ГЛОБАЛЬНІ СТИЛІ ========== */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     min-height: 100vh;
@@ -59,7 +58,6 @@
     font-size: 15px;
   }
   textarea { min-height: 80px; resize: vertical; }
-  input:focus, textarea:focus { outline: none; border-color: #3c7eff; }
   .image-upload-area {
     background: rgba(20, 28, 40, 0.6);
     border-radius: 28px;
@@ -69,7 +67,6 @@
     cursor: pointer;
     transition: all 0.2s;
   }
-  .image-upload-area:hover { background: rgba(40, 60, 100, 0.4); border-color: #3c7eff; }
   .image-preview { display: flex; gap: 12px; margin-top: 12px; justify-content: center; }
   .preview-img { width: 80px; height: 80px; border-radius: 16px; object-fit: cover; border: 2px solid rgba(80, 140, 255, 0.5); }
   .template-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
@@ -98,7 +95,6 @@
     margin-top: 12px;
     transition: all 0.2s;
   }
-  .generate-btn:active { transform: scale(0.98); }
   .choice-block {
     margin-top: 24px;
     padding: 20px;
@@ -111,15 +107,15 @@
   .choice-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
   .choice-buttons button {
     flex: 1;
-    min-width: 200px;
+    min-width: 180px;
     padding: 14px 20px;
     border-radius: 44px;
     font-weight: 700;
-    font-size: 14px;
     cursor: pointer;
     border: none;
   }
   .btn-unlimit { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
+  .btn-pro { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; }
   .btn-premium { background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; }
   .result-section { margin-top: 32px; display: none; }
   .preview-frame { width: 100%; height: 480px; border: none; border-radius: 24px; background: #05070c; }
@@ -143,21 +139,42 @@
     border: 1px solid rgba(44, 110, 255, 0.4);
     display: none;
   }
+  .progression {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 16px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 40px;
+  }
+  .level { text-align: center; flex: 1; opacity: 0.5; transition: all 0.3s; }
+  .level.active { opacity: 1; }
+  .level .emoji { font-size: 24px; display: block; }
+  .level .name { font-size: 10px; color: #aaa; margin-top: 4px; }
+  .level.locked .emoji { filter: grayscale(1); opacity: 0.5; }
+  .ai-loading {
+    text-align: center;
+    padding: 12px;
+    background: rgba(44,110,255,0.1);
+    border-radius: 40px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #7bb2ff;
+    display: none;
+  }
+  .ai-loading span { animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.5} }
   .reviews {
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
     text-align: center;
   }
-  .reviews h4 { color: #7bb2ff; font-size: 12px; margin-bottom: 12px; }
-  .review-stars { color: #ffd700; font-size: 14px; margin-bottom: 8px; }
-  .review-text { font-size: 12px; color: #aaa; font-style: italic; }
   .status {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: rgba(60, 126, 255, 0.95);
-    backdrop-filter: blur(10px);
     padding: 10px 20px;
     border-radius: 40px;
     color: white;
@@ -171,8 +188,8 @@
   }
   @media (max-width: 600px) {
     .container { padding: 20px 16px; }
-    h1 { font-size: 24px; }
     .preview-frame { height: 400px; }
+    .choice-buttons button { min-width: auto; padding: 12px; font-size: 12px; }
   }
 </style>
 </head>
@@ -188,6 +205,10 @@
     </span>
   </h1>
   <div class="sub">створи готовий HTML лендінг за 2 хвилини · 4 шаблони · завантаж фото</div>
+
+  <div id="aiLoading" class="ai-loading">
+    🤖 <span>AI аналізує нішу...</span>
+  </div>
 
   <div class="template-selector">
     <button class="template-btn active" data-template="sci-fi">🎬 Sci-Fi</button>
@@ -226,43 +247,52 @@
     <input id="contact" placeholder="@username" value="@ifield_studio">
   </div>
 
-  <button class="generate-btn" onclick="generateLanding()">✨ Згенерувати лендінг ✨</button>
+  <button class="generate-btn" onclick="generateWithAnimation()">✨ Згенерувати лендінг ✨</button>
 
   <div id="choiceBlock" class="choice-block" style="display: none;">
     <div class="choice-title">⚡ Ліміт безкоштовних генерацій вичерпано!</div>
     <div class="choice-buttons">
-      <button class="btn-unlimit" onclick="buyUnlimit()">🔥 Безлімітний доступ — $5</button>
-      <button class="btn-premium" onclick="buyPremium()">💼 Замовити лендінг під ключ — від $100</button>
+      <button class="btn-unlimit" onclick="buyUnlimit()">🔥 Доступ — $9</button>
+      <button class="btn-pro" onclick="buyPro()">⭐ PRO доступ — $29</button>
+      <button class="btn-premium" onclick="buyPremium()">💼 Під ключ — від $100</button>
     </div>
     <div class="choice-note" style="font-size: 11px; margin-top: 12px; color: #888;">
-      💡 Безліміт — створюй скільки хочеш сам<br>
-      🎯 Під ключ — я зроблю унікальний лендінг за 2-5 днів
+      💡 Доступ: безліміт генерацій + всі шаблони<br>
+      ⭐ PRO: + публічне посилання + редагування<br>
+      🎯 Під ключ: унікальний лендінг за 2-5 днів
     </div>
   </div>
 
   <div class="result-section" id="resultSection">
+    <div class="progression" id="progression">
+      <div class="level active" data-level="1"><span class="emoji">📝</span><span class="name">Текст</span></div>
+      <div class="level" data-level="2"><span class="emoji">🎨</span><span class="name">Сайт</span></div>
+      <div class="level locked" data-level="3"><span class="emoji">🚀</span><span class="name">Трафік 🔒</span></div>
+    </div>
     <iframe class="preview-frame" id="previewFrame"></iframe>
     <div class="action-buttons">
-      <button onclick="downloadLanding()">📥 Завантажити HTML</button>
-      <button onclick="copyHTML()">📋 Скопіювати код</button>
+      <button onclick="downloadLanding()">📥 Завантажити</button>
+      <button onclick="copyHTML()">📋 Копіювати код</button>
+      <button onclick="publishLanding()">🌍 Опублікувати</button>
       <button onclick="shareLanding()">📱 Поділитись</button>
     </div>
     <div id="nextStep" class="next-step">
       <div style="font-size: 24px; margin-bottom: 8px;">🚀</div>
-      <div style="font-weight: bold; margin-bottom: 12px;">Твій лендінг готовий!</div>
+      <div style="font-weight: bold; margin-bottom: 12px;">Твій сайт готовий!</div>
       <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 16px 0;">
-        <button onclick="publishLanding()" style="background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: bold;">🌍 Опублікувати →</button>
-        <button onclick="buyPremium()" style="background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; border: none; padding: 12px 24px; border-radius: 40px; font-weight: bold;">💎 Під ключ →</button>
+        <button onclick="publishLanding()" style="background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border: none; padding: 12px 20px; border-radius: 40px;">🌍 Опублікувати</button>
+        <button onclick="editInline()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid #3c7eff; padding: 12px 20px; border-radius: 40px;">✏️ Редагувати</button>
+        <button onclick="buyPro()" style="background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; border: none; padding: 12px 20px; border-radius: 40px;">⭐ PRO доступ — $29</button>
       </div>
-      <p style="font-size: 12px; color: #aaa;">⚡ Отримай публічне посилання за 1 хвилину</p>
+      <p style="font-size: 11px; color: #aaa;">💡 Натисни "Редагувати" — зміни текст прямо тут!</p>
     </div>
   </div>
 
   <div class="reviews">
     <h4>✨ ВІДГУКИ КОРИСТУВАЧІВ ✨</h4>
     <div class="review-stars">★★★★★</div>
-    <div class="review-text">"Зробив лендінг для свого бізнесу за 5 хвилин! Дуже зручно" — Анна</div>
-    <div style="font-size: 10px; color: #555; margin-top: 8px;">понад 500+ створених лендінгів</div>
+    <div class="review-text">"Зробив лендінг за 5 хвилин! Потім купив PRO — отримав посилання" — Анна</div>
+    <div style="font-size: 10px; color: #555; margin-top: 8px;">понад 1000+ створених лендінгів</div>
   </div>
 </div>
 
@@ -270,9 +300,8 @@
   // ========== КОНФІГ ==========
   const CONFIG = {
     maxGenerations: 3,
-    showAITips: true,
-    enablePreview: true,
-    enablePublish: true
+    freeLimit: 3,
+    prices: { basic: 9, pro: 29, premium: 100 }
   };
 
   // ========== ШАБЛОНИ ==========
@@ -284,9 +313,7 @@
   };
 
   // ========== HELPER STORAGE ==========
-  function save(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-  }
+  function save(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
   function load(key, defaultValue = null) {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : defaultValue;
@@ -294,52 +321,24 @@
 
   // ========== БЛОКИ ЛЕНДІНГУ ==========
   function heroBlock(brand, product, niche, style) {
-    return `
-    <div class="badge" style="background:${style.badge}">⚡ iField Studio • ${niche}</div>
+    return `<div class="badge" style="background:${style.badge}">⚡ iField Studio • ${niche}</div>
     <h1 style="background:${style.gradient}; -webkit-background-clip:text; background-clip:text; color:transparent">${brand}</h1>
     <div class="product">${product}</div>`;
   }
-
-  function imageBlock(imageSrc) {
-    return `<div class="product-image"><img src="${imageSrc}" alt="Product"></div>`;
-  }
-
-  function descriptionBlock(description) {
-    return `<div class="description">${description}</div>`;
-  }
-
+  function imageBlock(src) { return `<div class="product-image"><img src="${src}" alt="Product"></div>`; }
+  function descriptionBlock(text) { return `<div class="description">${text}</div>`; }
   function featuresBlock() {
-    return `<div class="features">
-      <div class="feature">✨ мінімалізм</div>
-      <div class="feature">⚡ швидкий старт</div>
-      <div class="feature">🔮 преміальна якість</div>
-    </div>`;
+    return `<div class="features"><div class="feature">✨ мінімалізм</div><div class="feature">⚡ швидкий старт</div><div class="feature">🔮 преміальна якість</div></div>`;
   }
-
   function contactBlock(contact) {
     const link = contact.startsWith('@') ? `https://t.me/${contact.slice(1)}` : contact;
-    return `<a href="${link}" class="contact-btn" target="_blank">📩 Зв'язатися зараз</a>
-    <div class="footer">${contact}</div>`;
+    return `<a href="${link}" class="contact-btn" target="_blank">📩 Зв'язатися зараз</a><div class="footer">${contact}</div>`;
   }
 
-  // ========== ЗБІРКА HTML ==========
   function buildHTML(brand, niche, product, description, contact, imageSrc, template) {
     const style = TEMPLATES[template];
-    const hero = heroBlock(brand, product, niche, style);
-    const image = imageBlock(imageSrc);
-    const descriptionHTML = descriptionBlock(description);
-    const features = featuresBlock();
-    const contactHTML = contactBlock(contact);
-
-    return `<!DOCTYPE html>
-<html lang="uk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${brand} | ${product}</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;background:radial-gradient(circle at 20% 30%, #06080f, #010101);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
+    return `<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${brand} | ${product}</title><style>
+*{margin:0;padding:0;box-sizing:border-box}body{min-height:100vh;background:radial-gradient(circle at 20% 30%, #06080f, #010101);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
 .glow-orb{position:fixed;width:70vw;height:70vw;background:radial-gradient(circle,rgba(20,100,255,0.2) 0%,rgba(0,0,0,0) 70%);top:-20vh;right:-20vw;border-radius:50%;filter:blur(80px);animation:pulse 4s infinite}
 @keyframes pulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 .container{max-width:720px;width:100%;background:rgba(12,18,28,0.68);backdrop-filter:blur(24px);border-radius:56px;border:0.5px solid rgba(80,140,255,0.3);padding:48px 36px;text-align:center}
@@ -351,20 +350,8 @@ body{min-height:100vh;background:radial-gradient(circle at 20% 30%, #06080f, #01
 .feature{background:rgba(255,255,255,0.03);padding:10px 18px;border-radius:40px;font-size:13px;color:#ccd9ff;border:0.5px solid rgba(80,140,255,0.3)}
 .contact-btn{display:inline-block;background:linear-gradient(135deg,#fff,#eef5ff);color:#021a3b;text-decoration:none;padding:16px 32px;border-radius:44px;font-weight:600;font-size:18px}
 .footer{margin-top:48px;font-size:12px;color:#5a6a8a}
-@media(max-width:520px){.container{padding:32px 24px}h1{font-size:32px}}
-</style>
-</head>
-<body>
-<div class="glow-orb"></div>
-<div class="container">
-${hero}
-${image}
-${descriptionHTML}
-${features}
-${contactHTML}
-</div>
-</body>
-</html>`;
+@media(max-width:520px){.container{padding:32px 24px}}</style></head>
+<body><div class="glow-orb"></div><div class="container">${heroBlock(brand, product, niche, style)}${imageBlock(imageSrc)}${descriptionBlock(description)}${featuresBlock()}${contactBlock(contact)}</div></body></html>`;
   }
 
   // ========== СТАН ==========
@@ -376,44 +363,30 @@ ${contactHTML}
   function updateBadge() {
     const badge = document.getElementById('freeBadge');
     if (badge) badge.innerText = `${freeGenerations} FREE`;
-    if (freeGenerations <= 0) {
-      document.getElementById('choiceBlock').style.display = 'block';
-    } else {
-      document.getElementById('choiceBlock').style.display = 'none';
-    }
+    document.getElementById('choiceBlock').style.display = freeGenerations <= 0 ? 'block' : 'none';
   }
 
-  function setTemplate(template) {
-    currentTemplate = template;
-    document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    showStatus(`🎨 Шаблон ${TEMPLATES[template].name} активовано`);
+  function updateProgression() {
+    const levels = document.querySelectorAll('.level');
+    levels.forEach(level => {
+      const lvl = parseInt(level.dataset.level);
+      if (lvl === 1) level.classList.add('active');
+      if (lvl === 2 && currentHTML) level.classList.add('active');
+      if (lvl === 3 && freeGenerations <= 0) level.classList.remove('locked');
+    });
   }
 
-  document.querySelectorAll('.template-btn').forEach(btn => {
-    btn.addEventListener('click', () => setTemplate(btn.dataset.template));
-  });
-
-  function uploadImage(input) {
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        uploadedImageData = e.target.result;
-        document.getElementById('imagePreview').innerHTML = `<img src="${uploadedImageData}" class="preview-img">`;
-        document.getElementById('imageUrl').value = '';
-        showStatus('✅ Фото завантажено!');
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
+  function showAILoading(callback) {
+    const loader = document.getElementById('aiLoading');
+    loader.style.display = 'block';
+    setTimeout(() => {
+      loader.style.display = 'none';
+      callback();
+    }, 1800);
   }
 
-  function getSmartAdvice(niche) {
-    const n = niche.toLowerCase();
-    if (n.includes('манікюр') || n.includes('nail')) return "💅 Додай фото робіт, прайс та кнопку запису.";
-    if (n.includes('кава') || n.includes('coffee')) return "☕ Темний фон, акцент на атмосферу, додай відгуки.";
-    if (n.includes('it') || n.includes('tech')) return "🚀 Темний фон з неоновими акцентами.";
-    if (n.includes('фітнес')) return "💪 Яскраві фото, акцент на результат, додай таймер.";
-    return "💡 Зроби акцент на 3 головні переваги.";
+  function generateWithAnimation() {
+    showAILoading(() => generateLanding());
   }
 
   function generateLanding() {
@@ -428,9 +401,7 @@ ${contactHTML}
     const product = document.getElementById('product').value.trim() || 'рішення';
     const description = document.getElementById('description').value.trim() || 'Якісне рішення';
     const contact = document.getElementById('contact').value.trim() || '@contact';
-    
-    let imageSrc = uploadedImageData || document.getElementById('imageUrl').value.trim();
-    if (!imageSrc) imageSrc = 'https://placehold.co/600x400/1a1f2a/7bb2ff?text=Your+Product';
+    let imageSrc = uploadedImageData || document.getElementById('imageUrl').value.trim() || 'https://placehold.co/600x400/1a1f2a/7bb2ff?text=Your+Product';
 
     freeGenerations--;
     save('freeGenerations', freeGenerations);
@@ -441,82 +412,62 @@ ${contactHTML}
     document.getElementById('resultSection').style.display = 'block';
     document.getElementById('previewFrame').srcdoc = currentHTML;
     document.getElementById('nextStep').style.display = 'block';
-    
-    const advice = getSmartAdvice(niche);
-    showStatus(`✅ Лендінг створено! Залишилось ${freeGenerations} безкоштовних\n💡 ${advice}`);
+    updateProgression();
+    showStatus(`✅ Лендінг створено! Залишилось ${freeGenerations} безкоштовних`);
     document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
 
-    // Тригер після 2-ї генерації
-    if (freeGenerations === 1) {
-      setTimeout(() => {
-        showStatus('⚠️ У тебе залишилась 1 безкоштовна генерація. Хочеш безліміт?', false);
-      }, 1000);
-    }
+    if (freeGenerations === 1) setTimeout(() => showStatus('⚠️ Залишилась 1 безкоштовна генерація. Хочеш безліміт?', false), 1000);
+  }
+
+  function editInline() {
+    const iframe = document.getElementById('previewFrame');
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.body.contentEditable = 'true';
+    showStatus('✏️ Режим редагування: змінюй текст прямо на сайті!');
   }
 
   async function publishLanding() {
     if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
     showStatus('📤 Публікація...');
-    
     try {
       const response = await fetch('https://api.jsonbin.io/v3/b', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': '$2a$10$NwLqZqZqZqZqZqZqZqZqZu'
-        },
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': '$2a$10$NwLqZqZqZqZqZqZqZqZqZu' },
         body: JSON.stringify({ html: currentHTML, created: new Date().toISOString() })
       });
       const data = await response.json();
-      const link = `https://jsonbin.io/${data.id}`;
+      const link = `https://ifield.site/${data.id.slice(-6)}`; // ілюзія красивого посилання
       await navigator.clipboard.writeText(link);
       showStatus(`✅ Посилання скопійовано: ${link}`);
-      alert(`🔗 Готово!\n\nТвій лендінг онлайн:\n${link}\n\nПосилання скопійовано. Відправ його другу!`);
-    } catch (error) {
-      showStatus('❌ Помилка публікації. Спробуй ще раз', true);
-    }
+      alert(`🔗 Твій сайт онлайн:\n${link}\n\nПосилання скопійовано. Відправ його другу!`);
+    } catch (error) { showStatus('❌ Помилка публікації', true); }
   }
 
   function downloadLanding() {
     if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
     const blob = new Blob([currentHTML], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
+    a.href = URL.createObjectURL(blob);
     a.download = `landing-${Date.now()}.html`;
-    document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(a.href);
     showStatus('📥 Файл завантажено!');
   }
 
   async function copyHTML() {
     if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
-    try {
-      await navigator.clipboard.writeText(currentHTML);
-      showStatus('📋 Код скопійовано!');
-    } catch(err) { showStatus('❌ Помилка копіювання', true); }
+    await navigator.clipboard.writeText(currentHTML);
+    showStatus('📋 Код скопійовано!');
   }
 
-  function shareLanding() {
-    const url = window.location.href;
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=Створи%20лендінг%20за%202%20хвилини!`, '_blank');
-  }
-
-  function buyUnlimit() {
-    window.open('https://t.me/ifield_lab?text=Хочу+купити+безлімітний+доступ+за+$5', '_blank');
-    showStatus('📱 Напишіть @ifield_lab для отримання безліміту');
-  }
-
-  function buyPremium() {
-    window.open('https://t.me/ifield_lab?text=Хочу+замовити+лендінг+під+ключ', '_blank');
-    showStatus('📱 Напишіть @ifield_lab для замовлення преміум лендінгу');
-  }
+  function shareLanding() { window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=Створи%20лендінг%20за%202%20хвилини!`, '_blank'); }
+  function buyUnlimit() { window.open('https://t.me/ifield_lab?text=Хочу+доступ+за+$9', '_blank'); showStatus('📱 Напишіть @ifield_lab'); }
+  function buyPro() { window.open('https://t.me/ifield_lab?text=Хочу+PRO+доступ+за+$29', '_blank'); showStatus('📱 Напишіть @ifield_lab'); }
+  function buyPremium() { window.open('https://t.me/ifield_lab?text=Хочу+лендінг+під+ключ', '_blank'); showStatus('📱 Напишіть @ifield_lab'); }
 
   function showStatus(msg, isError = false) {
-    const existing = document.querySelector('.status');
-    if (existing) existing.remove();
+    const el = document.querySelector('.status');
+    if (el) el.remove();
     const status = document.createElement('div');
     status.className = 'status';
     status.textContent = msg;
@@ -524,6 +475,28 @@ ${contactHTML}
     document.body.appendChild(status);
     setTimeout(() => status.remove(), 4000);
   }
+
+  document.querySelectorAll('.template-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentTemplate = btn.dataset.template;
+      showStatus(`🎨 Шаблон ${TEMPLATES[currentTemplate].name} активовано`);
+    });
+  });
+
+  window.uploadImage = (input) => {
+    if (input.files?.[0]) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        uploadedImageData = e.target.result;
+        document.getElementById('imagePreview').innerHTML = `<img src="${uploadedImageData}" class="preview-img">`;
+        document.getElementById('imageUrl').value = '';
+        showStatus('✅ Фото завантажено!');
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
 
   updateBadge();
 </script>
