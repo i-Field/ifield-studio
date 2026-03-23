@@ -14,6 +14,32 @@
     padding: 20px;
     position: relative;
   }
+  
+  /* ========== ДЖЕКУЛ АНІМАЦІЇ ========== */
+  @keyframes glitch {
+    0%, 100% { transform: skew(0deg, 0deg); opacity: 1; text-shadow: 0 0 0px #00ffff; }
+    95% { transform: skew(0deg, 0deg); opacity: 1; }
+    96% { transform: skew(2deg, 1deg); opacity: 0.9; text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+    97% { transform: skew(-1deg, -0.5deg); opacity: 0.95; text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
+    98% { transform: skew(0deg, 0deg); opacity: 1; }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(44,110,255,0.3), 0 0 10px rgba(44,110,255,0.2); }
+    50% { box-shadow: 0 0 20px rgba(44,110,255,0.6), 0 0 30px rgba(44,110,255,0.4); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  @keyframes hologram {
+    0% { background-position: 0% 50%; opacity: 0.3; }
+    50% { background-position: 100% 50%; opacity: 0.6; }
+    100% { background-position: 0% 50%; opacity: 0.3; }
+  }
+  
   .glow-orb {
     position: fixed;
     width: 70vw;
@@ -23,13 +49,10 @@
     right: -20vw;
     border-radius: 50%;
     filter: blur(80px);
-    animation: pulse 4s ease-in-out infinite;
+    animation: pulse-glow 4s ease-in-out infinite;
     pointer-events: none;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.05); }
-  }
+  
   .container {
     max-width: 900px;
     margin: 0 auto;
@@ -40,11 +63,229 @@
     padding: 28px 24px;
     position: relative;
     z-index: 2;
+    animation: float 6s ease-in-out infinite;
   }
-  h1 { font-size: 28px; background: linear-gradient(135deg, #fff, #7bb2ff); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; }
-  .badge { font-size: 12px; background: rgba(60, 130, 255, 0.2); padding: 4px 12px; border-radius: 40px; color: #7bb2ff; }
-  .free-badge { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; font-weight: bold; }
-  .sub { color: #8e9ab0; margin-bottom: 28px; border-left: 2px solid #2c6eff; padding-left: 14px; font-size: 13px; }
+  
+  h1 {
+    font-size: 28px;
+    background: linear-gradient(135deg, #fff, #7bb2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 8px;
+    animation: glitch 8s infinite;
+  }
+  
+  .badge { 
+    font-size: 12px; 
+    background: rgba(60, 130, 255, 0.2); 
+    padding: 4px 12px; 
+    border-radius: 40px; 
+    color: #7bb2ff;
+    transition: all 0.3s;
+  }
+  .badge:hover { animation: glitch 0.5s infinite; }
+  
+  .free-badge { 
+    background: linear-gradient(135deg, #22c55e, #16a34a); 
+    color: white; 
+    font-weight: bold;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .sub { 
+    color: #8e9ab0; 
+    margin-bottom: 28px; 
+    border-left: 2px solid #2c6eff; 
+    padding-left: 14px; 
+    font-size: 13px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sub::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(44,110,255,0.2), transparent);
+    transform: translateX(-100%);
+    animation: hologram 3s infinite;
+  }
+  
+  .generate-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #fff, #eef5ff);
+    border: none;
+    border-radius: 44px;
+    padding: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .generate-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+  }
+  .generate-btn:hover::before { left: 100%; }
+  .generate-btn:active { transform: scale(0.98); }
+  
+  .template-btn {
+    flex: 1;
+    background: rgba(30, 40, 58, 0.6);
+    border: 1px solid rgba(70, 130, 255, 0.4);
+    color: #b0c4ff;
+    padding: 10px;
+    border-radius: 40px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .template-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(44,110,255,0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+  .template-btn:active::after {
+    width: 200%;
+    height: 200%;
+  }
+  .template-btn.active { 
+    background: linear-gradient(135deg, #2c6eff, #1a4fcc); 
+    color: white; 
+    border-color: transparent;
+    animation: pulse-glow 2s infinite;
+  }
+  
+  .preview-frame {
+    width: 100%;
+    height: 480px;
+    border: none;
+    border-radius: 24px;
+    background: #05070c;
+    transition: all 0.3s;
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .action-buttons button, .choice-buttons button {
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .action-buttons button::before, .choice-buttons button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.4s;
+  }
+  .action-buttons button:hover::before, .choice-buttons button:hover::before { left: 100%; }
+  
+  .reviews {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    position: relative;
+  }
+  .reviews h4 { 
+    color: #7bb2ff; 
+    font-size: 12px; 
+    margin-bottom: 16px; 
+    letter-spacing: 2px;
+    animation: glitch 6s infinite;
+  }
+  .review-stars { 
+    color: #ffd700; 
+    font-size: 18px; 
+    margin-bottom: 12px;
+    animation: pulse-glow 2s infinite;
+  }
+  .review-text { 
+    font-size: 13px; 
+    color: #aaa; 
+    font-style: italic; 
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .review-author {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #7bb2ff;
+  }
+  .stats {
+    margin-top: 16px;
+    font-size: 11px;
+    color: #4a5568;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+  }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .stat-number {
+    color: #22c55e;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  footer {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    font-size: 10px;
+    color: #4a5568;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer a {
+    color: #7bb2ff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  footer a:hover {
+    color: #fff;
+    animation: glitch 0.3s infinite;
+  }
+  
+  /* решта стилів без змін */
   .input-group { margin-bottom: 20px; }
   label { display: block; font-size: 11px; text-transform: uppercase; color: #8aa0cf; margin-bottom: 6px; letter-spacing: 0.5px; }
   input, textarea {
@@ -56,8 +297,9 @@
     color: white;
     font-family: inherit;
     font-size: 15px;
+    transition: all 0.3s;
   }
-  textarea { min-height: 80px; resize: vertical; }
+  input:focus, textarea:focus { outline: none; border-color: #3c7eff; box-shadow: 0 0 10px rgba(60,126,255,0.3); }
   .image-upload-area {
     background: rgba(20, 28, 40, 0.6);
     border-radius: 28px;
@@ -65,36 +307,12 @@
     border: 1px dashed rgba(80, 140, 255, 0.5);
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s;
   }
+  .image-upload-area:hover { background: rgba(40, 60, 100, 0.4); border-color: #3c7eff; transform: scale(1.01); }
   .image-preview { display: flex; gap: 12px; margin-top: 12px; justify-content: center; }
   .preview-img { width: 80px; height: 80px; border-radius: 16px; object-fit: cover; border: 2px solid rgba(80, 140, 255, 0.5); }
   .template-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .template-btn {
-    flex: 1;
-    background: rgba(30, 40, 58, 0.6);
-    border: 1px solid rgba(70, 130, 255, 0.4);
-    color: #b0c4ff;
-    padding: 10px;
-    border-radius: 40px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 13px;
-    transition: all 0.2s;
-  }
-  .template-btn.active { background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border-color: transparent; }
-  .generate-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #fff, #eef5ff);
-    border: none;
-    border-radius: 44px;
-    padding: 16px;
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 12px;
-    transition: all 0.2s;
-  }
   .choice-block {
     margin-top: 24px;
     padding: 20px;
@@ -103,42 +321,8 @@
     border: 1px solid rgba(255, 215, 0, 0.4);
     text-align: center;
   }
-  .choice-title { font-size: 18px; font-weight: bold; margin-bottom: 16px; color: #ffd700; }
-  .choice-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-  .choice-buttons button {
-    flex: 1;
-    min-width: 150px;
-    padding: 14px 20px;
-    border-radius: 44px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-unlimit { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; }
-  .btn-pro { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; }
-  .btn-premium { background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; }
   .result-section { margin-top: 32px; display: none; }
-  .preview-frame { width: 100%; height: 480px; border: none; border-radius: 24px; background: #05070c; }
-  .action-buttons { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
-  .action-buttons button {
-    flex: 1;
-    background: rgba(30, 40, 58, 0.9);
-    color: white;
-    border: 1px solid rgba(70, 130, 255, 0.5);
-    padding: 12px;
-    border-radius: 40px;
-    cursor: pointer;
-  }
-  .action-buttons button:first-child { background: linear-gradient(135deg, #2c6eff, #1a4fcc); border: none; }
-  .next-step {
-    margin-top: 20px;
-    padding: 20px;
-    background: rgba(44, 110, 255, 0.15);
-    border-radius: 24px;
-    text-align: center;
-    border: 1px solid rgba(44, 110, 255, 0.4);
-    display: none;
-  }
+  .next-step { margin-top: 20px; padding: 20px; background: rgba(44, 110, 255, 0.15); border-radius: 24px; text-align: center; border: 1px solid rgba(44, 110, 255, 0.4); display: none; }
   .victory-message {
     background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05));
     border: 1px solid #22c55e;
@@ -147,23 +331,10 @@
     text-align: center;
     margin-bottom: 20px;
     display: none;
+    animation: pulse-glow 2s infinite;
   }
-  .pro-features {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 16px 0;
-  }
-  .pro-feature {
-    background: rgba(0,0,0,0.3);
-    padding: 8px 12px;
-    border-radius: 40px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .pro-features { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 16px 0; }
+  .pro-feature { background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 40px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
   .pro-feature.locked { opacity: 0.5; filter: grayscale(0.5); }
   .progression {
     display: flex;
@@ -174,7 +345,7 @@
     border-radius: 40px;
   }
   .level { text-align: center; flex: 1; opacity: 0.5; transition: all 0.3s; cursor: pointer; }
-  .level.active { opacity: 1; }
+  .level.active { opacity: 1; transform: scale(1.05); }
   .level .emoji { font-size: 24px; display: block; }
   .level .name { font-size: 10px; color: #aaa; margin-top: 4px; }
   .level.locked .emoji { filter: grayscale(1); opacity: 0.5; }
@@ -188,18 +359,7 @@
     color: #7bb2ff;
     display: none;
   }
-  .reviews {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    text-align: center;
-  }
-  .share-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin: 16px 0;
-  }
+  .share-buttons { display: flex; gap: 12px; justify-content: center; margin: 16px 0; }
   .status {
     position: fixed;
     bottom: 20px;
@@ -219,7 +379,6 @@
   @media (max-width: 600px) {
     .container { padding: 20px 16px; }
     .preview-frame { height: 400px; }
-    .choice-buttons button { min-width: auto; padding: 12px; font-size: 12px; }
   }
 </style>
 </head>
@@ -248,23 +407,23 @@
   </div>
 
   <div class="input-group">
-    <label>🏷️ Назва бренду</label>
+    <label>🏷️ НАЗВА БРЕНДУ</label>
     <input id="brand" placeholder="iField Studio" value="iField Studio">
   </div>
   <div class="input-group">
-    <label>🎯 Ніша / сфера</label>
+    <label>🎯 НІША / СФЕРА</label>
     <input id="niche" placeholder="манікюр, кав'ярня, IT" value="premium manicure">
   </div>
   <div class="input-group">
-    <label>✨ Головний оффер</label>
+    <label>✨ ГОЛОВНИЙ ОФФЕР</label>
     <input id="product" placeholder="Crystal Shell покриття" value="Crystal Shell">
   </div>
   <div class="input-group">
-    <label>📝 Опис переваг</label>
+    <label>📝 ОПИС ПЕРЕВАГ</label>
     <textarea id="description">Довговічне покриття до 4 тижнів. Безпечний склад, європейська якість.</textarea>
   </div>
   <div class="input-group">
-    <label>🖼️ Фото продукту</label>
+    <label>🖼️ ФОТО ПРОДУКТУ</label>
     <div class="image-upload-area" onclick="document.getElementById('imageFile').click()">
       📸 Натисни, щоб завантажити фото
       <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="uploadImage(this)">
@@ -273,7 +432,7 @@
     <input id="imageUrl" placeholder="Або встав URL фото" style="margin-top: 10px;">
   </div>
   <div class="input-group">
-    <label>📡 Контакти</label>
+    <label>📡 КОНТАКТИ</label>
     <input id="contact" placeholder="@username" value="@ifield_studio">
   </div>
 
@@ -341,12 +500,27 @@
     </div>
   </div>
 
+  <!-- ========== ВІДГУКИ ТА ФУТЕР ========== -->
   <div class="reviews">
     <h4>✨ ВІДГУКИ КОРИСТУВАЧІВ ✨</h4>
     <div class="review-stars">★★★★★</div>
-    <div class="review-text">"Зробив лендінг за 5 хвилин! Поділився з друзями — вже є перший клієнт" — Анна</div>
-    <div style="font-size: 10px; color: #555; margin-top: 8px;">понад 1500+ створених лендінгів</div>
+    <div class="review-text">"Зробив лендінг для свого бізнесу за 5 хвилин! Поділився з друзями — вже є перший клієнт"</div>
+    <div class="review-author">— Анна, власниця студії манікюру</div>
+    <div class="stats">
+      <div class="stat-item"><span class="stat-number">1500+</span> <span>лендінгів створено</span></div>
+      <div class="stat-item"><span class="stat-number">98%</span> <span>користувачів рекомендують</span></div>
+    </div>
   </div>
+
+  <footer>
+    <div>© 2025 iField Studio</div>
+    <div>⚡ Built on iPhone 16 Pro</div>
+    <div>
+      <a href="https://t.me/ifield_lab" target="_blank">Telegram</a> • 
+      <a href="http://fiverr.com/s/2KRdzKN" target="_blank">Fiverr</a> • 
+      <a href="https://i-field.github.io/ifield-studio" target="_blank">Portfolio</a>
+    </div>
+  </footer>
 </div>
 
 <script>
