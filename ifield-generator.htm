@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>iField — Landing Builder</title>
+<title>iField — Visual Landing Builder</title>
 <style>
   * {
     margin: 0;
@@ -18,9 +18,8 @@
     padding: 24px;
   }
 
-  /* Контейнер для генератора */
   .builder-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto 40px;
     background: rgba(12, 18, 28, 0.68);
     backdrop-filter: blur(24px);
@@ -72,9 +71,35 @@
     resize: vertical;
   }
 
-  input:focus, textarea:focus {
-    outline: none;
+  .image-upload {
+    background: rgba(20, 28, 40, 0.6);
+    border-radius: 24px;
+    padding: 16px;
+    border: 1px dashed rgba(80, 140, 255, 0.5);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .image-upload:hover {
+    background: rgba(40, 60, 100, 0.4);
     border-color: #3c7eff;
+  }
+
+  .image-preview {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .preview-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 2px solid rgba(80, 140, 255, 0.5);
+    background: #1a1f2a;
   }
 
   button {
@@ -90,7 +115,7 @@
   }
 
   .preview-area {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
@@ -117,7 +142,7 @@
 
   .preview-frame {
     width: 100%;
-    height: 500px;
+    height: 650px;
     border: none;
     background: #05070c;
   }
@@ -157,62 +182,91 @@
 <body>
 
 <div class="builder-container">
-  <h1>⚡ iField Landing Builder</h1>
-  <div class="sub">створи готовий HTML-лендінг за 1 хвилину</div>
+  <h1>⚡ iField Visual Landing Builder</h1>
+  <div class="sub">створи готовий HTML-лендінг з фото + Sci-Fi дизайн</div>
 
   <div class="input-group">
-    <label>🏷️ Назва бренду / компанії</label>
-    <input id="brand" placeholder="Наприклад: iField Studio" value="iField Studio">
+    <label>🏷️ Назва бренду</label>
+    <input id="brand" placeholder="iField Studio" value="iField Studio">
   </div>
 
   <div class="input-group">
     <label>🎯 Ніша / сфера</label>
-    <input id="niche" placeholder="Наприклад: преміальний манікюр" value="premium manicure">
+    <input id="niche" placeholder="преміальний манікюр" value="premium manicure">
   </div>
 
   <div class="input-group">
-    <label>✨ Головний оффер (що продаєш)</label>
-    <input id="product" placeholder="Наприклад: Crystal Shell покриття" value="Crystal Shell Coating">
+    <label>✨ Головний оффер</label>
+    <input id="product" placeholder="Crystal Shell покриття" value="Crystal Shell Coating">
   </div>
 
   <div class="input-group">
-    <label>📝 Опис (коротко про переваги)</label>
-    <textarea id="description" placeholder="Напиши 2-3 речення про переваги...">Довговічне покриття, яке тримається до 4 тижнів. Безпечний склад, європейська якість.</textarea>
+    <label>📝 Опис</label>
+    <textarea id="description">Довговічне покриття, яке тримається до 4 тижнів. Безпечний склад, європейська якість. Блиск і захист у кожному русі.</textarea>
   </div>
 
   <div class="input-group">
-    <label>📡 Контакти (Telegram, Instagram, телефон)</label>
+    <label>🖼️ Фото продукту (URL або завантаж)</label>
+    <div class="image-upload" onclick="document.getElementById('imageFile').click()">
+      📸 Натисни, щоб завантажити фото
+      <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="uploadImage(this)">
+    </div>
+    <div class="image-preview" id="imagePreview"></div>
+    <input id="imageUrl" placeholder="Або встав URL фото" style="margin-top: 10px;">
+  </div>
+
+  <div class="input-group">
+    <label>📡 Контакти</label>
     <input id="contact" placeholder="@username або посилання" value="@ifield_studio">
   </div>
 
-  <button onclick="generateLanding()">✨ Згенерувати готовий лендінг ✨</button>
+  <button onclick="generateLanding()">✨ Згенерувати лендінг з фото ✨</button>
 </div>
 
 <div class="preview-area" id="previewArea" style="display: none;">
   <div class="preview-header">
-    <span>◈ ПРЕВ'Ю ЗГЕНЕРОВАНОГО ЛЕНДІНГУ ◈</span>
-    <span>↓ скроль ↓</span>
+    <span>◈ ПРЕВ'Ю ГОТОВОГО ЛЕНДІНГУ ◈</span>
+    <span>✨ з візуалом ✨</span>
   </div>
   <div class="landing-preview">
     <iframe class="preview-frame" id="previewFrame"></iframe>
   </div>
   <div class="action-buttons">
-    <button onclick="downloadLanding()">📥 Завантажити HTML файл</button>
+    <button onclick="downloadLanding()">📥 Завантажити HTML</button>
     <button onclick="copyHTML()">📋 Скопіювати код</button>
   </div>
 </div>
 
 <script>
   let currentHTML = '';
+  let uploadedImageData = '';
+
+  function uploadImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedImageData = e.target.result;
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = `<img src="${uploadedImageData}" class="preview-img">`;
+        document.getElementById('imageUrl').value = '';
+        showStatus('✅ Фото завантажено!');
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 
   function generateLanding() {
     const brand = document.getElementById('brand').value.trim() || 'iField Studio';
     const niche = document.getElementById('niche').value.trim() || 'вашій ніші';
     const product = document.getElementById('product').value.trim() || 'рішення';
-    const description = document.getElementById('description').value.trim() || 'Якісне рішення для вашого бізнесу';
+    const description = document.getElementById('description').value.trim() || 'Якісне рішення';
     const contact = document.getElementById('contact').value.trim() || '@contact';
+    
+    let imageSrc = uploadedImageData || document.getElementById('imageUrl').value.trim();
+    if (!imageSrc) {
+      imageSrc = 'https://placehold.co/600x400/1a1f2a/7bb2ff?text=Your+Product';
+    }
 
-    // Генеруємо повноцінний HTML лендінг
     currentHTML = `<!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -254,25 +308,43 @@
       position: fixed;
       width: 70vw;
       height: 70vw;
-      background: radial-gradient(circle, rgba(20, 100, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      background: radial-gradient(circle, rgba(20, 100, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
       top: -20vh;
       right: -20vw;
       border-radius: 50%;
-      filter: blur(70px);
+      filter: blur(80px);
       pointer-events: none;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
     }
 
     .container {
-      max-width: 680px;
+      max-width: 720px;
       width: 100%;
       background: rgba(12, 18, 28, 0.68);
       backdrop-filter: blur(24px);
       border-radius: 56px;
-      border: 0.5px solid rgba(80, 140, 255, 0.25);
+      border: 0.5px solid rgba(80, 140, 255, 0.3);
       padding: 48px 36px;
       position: relative;
       z-index: 2;
       text-align: center;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .badge {
@@ -283,6 +355,7 @@
       border-radius: 40px;
       color: #7bb2ff;
       margin-bottom: 24px;
+      backdrop-filter: blur(4px);
     }
 
     h1 {
@@ -292,7 +365,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       letter-spacing: -1px;
     }
 
@@ -301,6 +374,26 @@
       color: #b0c4ff;
       margin-bottom: 24px;
       font-weight: 500;
+    }
+
+    .product-image {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 32px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(80, 140, 255, 0.2);
+      transition: transform 0.3s;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .product-image:hover {
+      transform: scale(1.02);
     }
 
     .description {
@@ -313,18 +406,19 @@
     .features {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
       justify-content: center;
       margin-bottom: 40px;
     }
 
     .feature {
       background: rgba(255, 255, 255, 0.03);
-      padding: 12px 20px;
+      padding: 10px 18px;
       border-radius: 40px;
-      font-size: 14px;
+      font-size: 13px;
       color: #ccd9ff;
       border: 0.5px solid rgba(80, 140, 255, 0.3);
+      backdrop-filter: blur(4px);
     }
 
     .contact-btn {
@@ -336,12 +430,13 @@
       border-radius: 44px;
       font-weight: 600;
       font-size: 18px;
-      margin-top: 16px;
-      transition: transform 0.2s;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(60, 126, 255, 0.3);
     }
 
     .contact-btn:active {
       transform: scale(0.97);
+      box-shadow: 0 2px 8px rgba(60, 126, 255, 0.4);
     }
 
     .footer {
@@ -357,20 +452,27 @@
       h1 {
         font-size: 32px;
       }
+      .product {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
 <div class="glow-orb"></div>
 <div class="container">
-  <div class="badge">⚡ signature edition</div>
+  <div class="badge">⚡ signature edition • ${niche}</div>
   <h1>${brand}</h1>
   <div class="product">${product}</div>
+  <div class="product-image">
+    <img src="${imageSrc}" alt="${product}">
+  </div>
   <div class="description">${description}</div>
   <div class="features">
     <div class="feature">✨ мінімалізм</div>
     <div class="feature">⚡ фокус на результат</div>
     <div class="feature">🔮 преміальна якість</div>
+    <div class="feature">📸 стильний візуал</div>
   </div>
   <a href="${contact.startsWith('@') ? 'https://t.me/' + contact.slice(1) : contact.startsWith('http') ? contact : 'https://t.me/' + contact}" class="contact-btn" target="_blank">
     📩 Зв'язатися зараз
@@ -380,25 +482,16 @@
 </body>
 </html>`;
 
-    // Показуємо прев'ю
     const previewArea = document.getElementById('previewArea');
     previewArea.style.display = 'block';
-    
     const iframe = document.getElementById('previewFrame');
     iframe.srcdoc = currentHTML;
-    
-    showStatus('✅ Лендінг згенеровано!');
-    
-    // Скролимо до прев'ю
+    showStatus('✅ Лендінг з фото згенеровано!');
     previewArea.scrollIntoView({ behavior: 'smooth' });
   }
 
   function downloadLanding() {
-    if (!currentHTML) {
-      showStatus('⚠️ Спочатку згенеруй лендінг', true);
-      return;
-    }
-    
+    if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
     const blob = new Blob([currentHTML], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -408,16 +501,11 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    
     showStatus('📥 Файл завантажено!');
   }
 
   async function copyHTML() {
-    if (!currentHTML) {
-      showStatus('⚠️ Спочатку згенеруй лендінг', true);
-      return;
-    }
-    
+    if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
     try {
       await navigator.clipboard.writeText(currentHTML);
       showStatus('📋 HTML код скопійовано!');
@@ -429,13 +517,11 @@
   function showStatus(msg, isError = false) {
     const existing = document.querySelector('.status');
     if (existing) existing.remove();
-    
     const status = document.createElement('div');
     status.className = 'status';
     status.textContent = msg;
     status.style.background = isError ? 'rgba(255, 70, 70, 0.9)' : 'rgba(60, 126, 255, 0.9)';
     document.body.appendChild(status);
-    
     setTimeout(() => {
       status.style.opacity = '0';
       setTimeout(() => status.remove(), 300);
