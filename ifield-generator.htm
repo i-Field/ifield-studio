@@ -1,270 +1,735 @@
-import TelegramBot from 'node-telegram-bot-api';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const token = process.env.TELEGRAM_BOT_TOKEN;
-const bot = new TelegramBot(token, { polling: true });
-
-// ========== ПОСИЛАННЯ ==========
-const GENERATOR_URL = "https://i-field.github.io/ifield-studio/ifield-generator.htm";
-const GAME_URL = "https://clicker-empire--qx420.replit.app/";
-const FIVERR_URL = "http://fiverr.com/s/2KRdzKN";
-const PROJECT_URL = "https://i-field.github.io/ifield-studio";
-const CONTACT_URL = "https://t.me/ifield_lab";
-
-// ========== ШАБЛОНИ ЛЕНДІНГІВ ==========
-const templates = {
-  scifi: {
-    name: "🎬 Sci-Fi Style",
-    url: "https://i-field.github.io/ifield-studio/ifield-generator.htm?template=sci-fi",
-    preview: "Футуристичний стиль з неоновими ефектами"
-  },
-  luxury: {
-    name: "💎 Minimal Luxury",
-    url: "https://i-field.github.io/ifield-studio/ifield-generator.htm?template=luxury",
-    preview: "Преміальний мінімалізм для бізнесу"
-  },
-  nature: {
-    name: "🌿 Eco Nature",
-    url: "https://i-field.github.io/ifield-studio/ifield-generator.htm?template=nature",
-    preview: "Натуральні тони, еко-стиль"
-  },
-  neon: {
-    name: "🚀 Cyber Neon",
-    url: "https://i-field.github.io/ifield-studio/ifield-generator.htm?template=neon",
-    preview: "Яскравий кіберпанк для молоді"
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>iField — Neural Landing Studio</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-};
 
-// ========== КНОПКИ МЕНЮ ==========
+  body {
+    min-height: 100vh;
+    background: radial-gradient(circle at 20% 30%, #06080f, #010101);
+    font-family: -apple-system, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
+    padding: 24px;
+    position: relative;
+  }
 
-// Головне меню
-const mainMenu = [
-  [{ text: "🎨 Створити лендінг", web_app: { url: GENERATOR_URL } }],
-  [{ text: "📚 Готові шаблони", callback_data: "templates" }],
-  [{ text: "🎮 Ігри та розваги", callback_data: "games" }],
-  [{ text: "💼 Послуги", callback_data: "services" }],
-  [{ text: "📞 Зв'язок", callback_data: "contacts" }],
-  [{ text: "⬅ Назад", callback_data: "start" }]
-];
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(30, 140, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 140, 255, 0.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-// Меню шаблонів
-const templatesMenu = [
-  [
-    { text: "🎬 Sci-Fi Style", callback_data: "template_scifi" },
-    { text: "💎 Minimal Luxury", callback_data: "template_luxury" }
-  ],
-  [
-    { text: "🌿 Eco Nature", callback_data: "template_nature" },
-    { text: "🚀 Cyber Neon", callback_data: "template_neon" }
-  ],
-  [{ text: "⬅ Назад до меню", callback_data: "menu" }]
-];
+  .glow-orb {
+    position: fixed;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(20, 100, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    top: -20vh;
+    right: -20vw;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+  }
 
-// Меню ігор
-const gamesMenu = [
-  [{ text: "👾 Clicker Empire", url: GAME_URL }],
-  [{ text: "🎲 Більше ігор (скоро)", callback_data: "coming_soon" }],
-  [{ text: "⬅ Назад до меню", callback_data: "menu" }]
-];
+  .glow-orb-bottom {
+    position: fixed;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(80, 70, 255, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+    bottom: -30vh;
+    left: -20vw;
+    filter: blur(90px);
+    pointer-events: none;
+    animation: pulse 5s ease-in-out infinite reverse;
+  }
 
-// Меню послуг
-const servicesMenu = [
-  [{ text: "🚀 Замовити лендінг", url: FIVERR_URL }],
-  [{ text: "⚡ Розробка ботів", callback_data: "bot_dev" }],
-  [{ text: "🎨 Дизайн під ключ", callback_data: "design" }],
-  [{ text: "⬅ Назад до меню", callback_data: "menu" }]
-];
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
 
-// Меню контактів
-const contactsMenu = [
-  [{ text: "💬 Telegram", url: CONTACT_URL }],
-  [{ text: "📧 Email", callback_data: "email" }],
-  [{ text: "📸 Instagram", callback_data: "instagram" }],
-  [{ text: "⬅ Назад до меню", callback_data: "menu" }]
-];
+  .container {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    background: rgba(12, 18, 28, 0.68);
+    backdrop-filter: blur(24px);
+    border-radius: 56px;
+    border: 0.5px solid rgba(80, 140, 255, 0.25);
+    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(100, 160, 255, 0.1) inset;
+    padding: 32px 28px 40px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
 
-// Стартове меню
-const startMenu = [
-  [{ text: "📋 Відкрити меню", callback_data: "menu" }]
-];
+  h1 {
+    font-size: 32px;
+    font-weight: 590;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff, #b0cbff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
 
-// ========== КОМАНДИ ==========
+  .badge {
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(60, 130, 255, 0.2);
+    backdrop-filter: blur(4px);
+    padding: 4px 12px;
+    border-radius: 40px;
+    color: #7bb2ff;
+    letter-spacing: 0.3px;
+    border: 0.3px solid rgba(100, 160, 255, 0.5);
+  }
 
-bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, 
-    "✨ Вітаю в iField Studio Bot! ✨\n\n" +
-    "Я допоможу тобі створити стильний Sci-Fi лендінг за 2 хвилини.\n\n" +
-    "🎯 Що я вмію:\n" +
-    "• 🎨 Створювати лендінги з фото\n" +
-    "• 📚 Показувати готові шаблони\n" +
-    "• 🎮 Давати доступ до ігор\n" +
-    "• 💼 Допомагати з послугами\n\n" +
-    "Натисни кнопку нижче, щоб почати!",
-    { reply_markup: { inline_keyboard: startMenu } }
-  );
-});
+  .sub {
+    color: #8e9ab0;
+    font-size: 15px;
+    font-weight: 440;
+    margin-bottom: 32px;
+    border-left: 2px solid #2c6eff;
+    padding-left: 14px;
+  }
 
-bot.onText(/\/menu/, (msg) => {
-  bot.sendMessage(msg.chat.id, "🔮 Головне меню iField Bot:", {
-    reply_markup: { inline_keyboard: mainMenu }
+  .input-group {
+    margin-bottom: 24px;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #8aa0cf;
+    margin-bottom: 8px;
+    margin-left: 4px;
+  }
+
+  input, textarea {
+    width: 100%;
+    background: rgba(20, 28, 40, 0.8);
+    border: 1px solid rgba(70, 120, 220, 0.4);
+    border-radius: 28px;
+    padding: 16px 20px;
+    font-size: 17px;
+    font-weight: 460;
+    color: #ffffff;
+    font-family: inherit;
+    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #3c7eff;
+    box-shadow: 0 0 0 3px rgba(60, 126, 255, 0.3);
+    background: rgba(16, 24, 38, 0.95);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #4f5a78;
+    font-weight: 400;
+    font-size: 15px;
+  }
+
+  .image-upload-area {
+    background: rgba(20, 28, 40, 0.6);
+    border-radius: 28px;
+    padding: 20px;
+    border: 1px dashed rgba(80, 140, 255, 0.5);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .image-upload-area:hover {
+    background: rgba(40, 60, 100, 0.4);
+    border-color: #3c7eff;
+  }
+
+  .image-preview {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    justify-content: center;
+  }
+
+  .preview-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 2px solid rgba(80, 140, 255, 0.5);
+    background: #1a1f2a;
+  }
+
+  button {
+    width: 100%;
+    background: linear-gradient(105deg, #ffffff 0%, #eef5ff 100%);
+    border: none;
+    border-radius: 44px;
+    padding: 16px 20px;
+    font-size: 17px;
+    font-weight: 590;
+    font-family: inherit;
+    color: #021a3b;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(60, 126, 255, 0.2);
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .result-section {
+    margin-top: 40px;
+    position: relative;
+  }
+
+  .result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .result-header span {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(70, 130, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 40px;
+    color: #98bbff;
+  }
+
+  .preview-frame-container {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(16px);
+    border-radius: 36px;
+    padding: 20px;
+    border: 0.5px solid rgba(80, 150, 255, 0.3);
+    margin-bottom: 20px;
+  }
+
+  .preview-frame {
+    width: 100%;
+    height: 550px;
+    border: none;
+    border-radius: 24px;
+    background: #05070c;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .action-buttons button {
+    flex: 1;
+    background: rgba(30, 40, 58, 0.9);
+    backdrop-filter: blur(8px);
+    color: #cddcff;
+    border: 0.5px solid rgba(70, 130, 255, 0.6);
+    box-shadow: none;
+    font-weight: 500;
+    margin-top: 0;
+  }
+
+  .action-buttons button:first-child {
+    background: linear-gradient(135deg, #2c6eff, #1a4fcc);
+    color: white;
+    border: none;
+  }
+
+  .action-buttons button:hover {
+    background: rgba(50, 80, 130, 0.8);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  @keyframes fadeSlide {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .preview-frame-container {
+    animation: fadeSlide 0.35s ease-out;
+  }
+
+  .status-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(60, 126, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 40px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    animation: fadeSlide 0.3s ease;
+    pointer-events: none;
+  }
+
+  .template-selector {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .template-btn {
+    flex: 1;
+    background: rgba(30, 40, 58, 0.6);
+    border: 1px solid rgba(70, 130, 255, 0.4);
+    color: #b0c4ff;
+    font-size: 13px;
+    padding: 10px;
+    margin-top: 0;
+  }
+
+  .template-btn.active {
+    background: linear-gradient(135deg, #2c6eff, #1a4fcc);
+    color: white;
+    border-color: transparent;
+  }
+
+  @media (max-width: 520px) {
+    .container {
+      padding: 24px 20px;
+    }
+    h1 {
+      font-size: 26px;
+    }
+    .preview-frame {
+      height: 450px;
+    }
+  }
+
+  @supports (padding: max(0px)) {
+    .container {
+      padding-left: max(28px, env(safe-area-inset-left));
+      padding-right: max(28px, env(safe-area-inset-right));
+      padding-top: max(24px, env(safe-area-inset-top));
+      padding-bottom: max(32px, env(safe-area-inset-bottom));
+    }
+  }
+</style>
+</head>
+<body>
+<div class="glow-orb"></div>
+<div class="glow-orb-bottom"></div>
+
+<div class="container">
+  <h1>
+    ⚡ iField 
+    <span class="badge">neural forge</span>
+  </h1>
+  <div class="sub">одним імпульсом — готовий HTML лендінг з візуалом</div>
+
+  <div class="template-selector">
+    <button class="template-btn active" onclick="setTemplate('sci-fi')">🎬 Sci-Fi</button>
+    <button class="template-btn" onclick="setTemplate('luxury')">💎 Luxury</button>
+    <button class="template-btn" onclick="setTemplate('nature')">🌿 Nature</button>
+    <button class="template-btn" onclick="setTemplate('neon')">🚀 Neon</button>
+  </div>
+
+  <div class="input-group">
+    <label>🏷️ Назва бренду / компанії</label>
+    <input id="brand" placeholder="Наприклад: iField Studio" value="iField Studio">
+  </div>
+
+  <div class="input-group">
+    <label>🎯 Ніша / сфера</label>
+    <input id="niche" placeholder="Наприклад: преміальний манікюр" value="premium manicure">
+  </div>
+
+  <div class="input-group">
+    <label>✨ Головний оффер (що продаєш)</label>
+    <input id="product" placeholder="Наприклад: Crystal Shell покриття" value="Crystal Shell Coating">
+  </div>
+
+  <div class="input-group">
+    <label>📝 Опис (коротко про переваги)</label>
+    <textarea id="description">Довговічне покриття, яке тримається до 4 тижнів. Безпечний склад, європейська якість. Блиск і захист у кожному русі.</textarea>
+  </div>
+
+  <div class="input-group">
+    <label>🖼️ Фото продукту</label>
+    <div class="image-upload-area" onclick="document.getElementById('imageFile').click()">
+      📸 Натисни, щоб завантажити фото з iPhone
+      <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="uploadImage(this)">
+    </div>
+    <div class="image-preview" id="imagePreview"></div>
+    <input id="imageUrl" placeholder="Або встав URL фото (опціонально)" style="margin-top: 10px;">
+  </div>
+
+  <div class="input-group">
+    <label>📡 Контакти (Telegram, Instagram, телефон)</label>
+    <input id="contact" placeholder="@username або посилання" value="@ifield_studio">
+  </div>
+
+  <button onclick="generateLanding()">
+    <span>✨</span> Згенерувати готовий лендінг <span>⚡</span>
+  </button>
+
+  <div class="result-section" id="resultSection" style="display: none;">
+    <div class="result-header">
+      <span>◈ ПРЕВ'Ю ЗГЕНЕРОВАНОГО ЛЕНДІНГУ ◈</span>
+      <span style="font-size: 10px; opacity:0.7;">з візуалом та анімацією</span>
+    </div>
+    <div class="preview-frame-container">
+      <iframe class="preview-frame" id="previewFrame"></iframe>
+    </div>
+    <div class="action-buttons">
+      <button onclick="downloadLanding()">📥 Завантажити HTML файл</button>
+      <button onclick="copyHTML()">📋 Скопіювати код</button>
+      <button onclick="shareToTelegram()">📱 Поділитись в Telegram</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentHTML = '';
+  let uploadedImageData = '';
+  let currentTemplate = 'sci-fi';
+
+  const templateStyles = {
+    'sci-fi': {
+      gradient: 'linear-gradient(135deg, #ffffff, #7bb2ff)',
+      badge: 'rgba(60, 130, 255, 0.2)',
+      accent: '#2c6eff'
+    },
+    'luxury': {
+      gradient: 'linear-gradient(135deg, #FFD700, #FFA500)',
+      badge: 'rgba(255, 215, 0, 0.2)',
+      accent: '#FFD700'
+    },
+    'nature': {
+      gradient: 'linear-gradient(135deg, #90EE90, #228B22)',
+      badge: 'rgba(144, 238, 144, 0.2)',
+      accent: '#6B8E23'
+    },
+    'neon': {
+      gradient: 'linear-gradient(135deg, #FF00FF, #00FFFF)',
+      badge: 'rgba(255, 0, 255, 0.2)',
+      accent: '#FF00FF'
+    }
+  };
+
+  function setTemplate(template) {
+    currentTemplate = template;
+    document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    showStatus(`🎨 Шаблон ${template} активовано`);
+    if (document.getElementById('resultSection').style.display === 'block') {
+      generateLanding();
+    }
+  }
+
+  function uploadImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedImageData = e.target.result;
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = `<img src="${uploadedImageData}" class="preview-img">`;
+        document.getElementById('imageUrl').value = '';
+        showStatus('✅ Фото завантажено!');
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function generateLanding() {
+    const brand = document.getElementById('brand').value.trim() || 'iField Studio';
+    const niche = document.getElementById('niche').value.trim() || 'вашій ніші';
+    const product = document.getElementById('product').value.trim() || 'рішення';
+    const description = document.getElementById('description').value.trim() || 'Якісне рішення для вашого бізнесу';
+    const contact = document.getElementById('contact').value.trim() || '@contact';
+    
+    let imageSrc = uploadedImageData || document.getElementById('imageUrl').value.trim();
+    if (!imageSrc) {
+      imageSrc = 'https://placehold.co/600x400/1a1f2a/7bb2ff?text=Your+Product';
+    }
+
+    const style = templateStyles[currentTemplate];
+
+    currentHTML = `<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>${brand} | ${product}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #06080f, #010101);
+      font-family: -apple-system, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(30, 140, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(30, 140, 255, 0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+    .glow-orb {
+      position: fixed;
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, rgba(20, 100, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+      top: -20vh;
+      right: -20vw;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .container {
+      max-width: 720px;
+      width: 100%;
+      background: rgba(12, 18, 28, 0.68);
+      backdrop-filter: blur(24px);
+      border-radius: 56px;
+      border: 0.5px solid rgba(80, 140, 255, 0.3);
+      padding: 48px 36px;
+      text-align: center;
+      animation: fadeInUp 0.6s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      background: ${style.badge};
+      padding: 6px 14px;
+      border-radius: 40px;
+      color: #7bb2ff;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      background: ${style.gradient};
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+    .product {
+      font-size: 20px;
+      color: #b0c4ff;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+    .product-image {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 32px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(80, 140, 255, 0.2);
+      transition: transform 0.3s;
+    }
+    .product-image:hover { transform: scale(1.02); }
+    .product-image img { width: 100%; height: auto; display: block; }
+    .description {
+      color: #9aa8c5;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      font-size: 17px;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 18px;
+      border-radius: 40px;
+      font-size: 13px;
+      color: #ccd9ff;
+      border: 0.5px solid rgba(80, 140, 255, 0.3);
+      backdrop-filter: blur(4px);
+    }
+    .contact-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #ffffff, #eef5ff);
+      color: #021a3b;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 44px;
+      font-weight: 600;
+      font-size: 18px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(60, 126, 255, 0.3);
+    }
+    .contact-btn:active { transform: scale(0.97); }
+    .footer { margin-top: 48px; font-size: 12px; color: #5a6a8a; }
+    @media (max-width: 520px) {
+      .container { padding: 32px 24px; }
+      h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+<div class="glow-orb"></div>
+<div class="container">
+  <div class="badge">⚡ signature edition • ${niche}</div>
+  <h1>${brand}</h1>
+  <div class="product">${product}</div>
+  <div class="product-image"><img src="${imageSrc}" alt="${product}"></div>
+  <div class="description">${description}</div>
+  <div class="features">
+    <div class="feature">✨ мінімалізм</div>
+    <div class="feature">⚡ фокус на результат</div>
+    <div class="feature">🔮 преміальна якість</div>
+    <div class="feature">📸 стильний візуал</div>
+  </div>
+  <a href="${contact.startsWith('@') ? 'https://t.me/' + contact.slice(1) : contact.startsWith('http') ? contact : 'https://t.me/' + contact}" class="contact-btn" target="_blank">
+    📩 Зв'язатися зараз
+  </a>
+  <div class="footer">${contact}</div>
+</div>
+</body>
+</html>`;
+
+    const resultSection = document.getElementById('resultSection');
+    resultSection.style.display = 'block';
+    const iframe = document.getElementById('previewFrame');
+    iframe.srcdoc = currentHTML;
+    showStatus('✅ Лендінг згенеровано!');
+    resultSection.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function downloadLanding() {
+    if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
+    const blob = new Blob([currentHTML], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `landing-${Date.now()}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showStatus('📥 Файл завантажено!');
+  }
+
+  async function copyHTML() {
+    if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
+    try {
+      await navigator.clipboard.writeText(currentHTML);
+      showStatus('📋 HTML код скопійовано!');
+    } catch (err) {
+      showStatus('❌ Не вдалося скопіювати', true);
+    }
+  }
+
+  function shareToTelegram() {
+    const brand = document.getElementById('brand').value.trim() || 'iField Studio';
+    const product = document.getElementById('product').value.trim() || 'лендінг';
+    const url = window.location.href;
+    const text = `🔥 ${brand} — ${product}\n✨ Створи власний Sci-Fi лендінг за хвилину!\n\n${url}`;
+    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+    window.open(tgUrl, '_blank');
+    showStatus('📱 Відкрито Telegram для поширення');
+  }
+
+  function showStatus(msg, isError = false) {
+    const existing = document.querySelector('.status-message');
+    if (existing) existing.remove();
+    const status = document.createElement('div');
+    status.className = 'status-message';
+    status.textContent = msg;
+    status.style.background = isError ? 'rgba(255, 70, 70, 0.9)' : 'rgba(60, 126, 255, 0.9)';
+    document.body.appendChild(status);
+    setTimeout(() => {
+      status.style.opacity = '0';
+      setTimeout(() => status.remove(), 300);
+    }, 2500);
+  }
+
+  // Enter key support
+  document.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && el.tagName !== 'TEXTAREA') generateLanding();
+    });
   });
-});
-
-// ========== ОБРОБКА КНОПОК ==========
-
-bot.on("callback_query", async (query) => {
-  const chatId = query.message.chat.id;
-  const messageId = query.message.message_id;
-  
-  await bot.answerCallbackQuery(query.id);
-  
-  switch(query.data) {
-    case "menu":
-      await bot.editMessageText("🔮 Головне меню iField Bot:", {
-        chat_id: chatId,
-        message_id: messageId,
-        reply_markup: { inline_keyboard: mainMenu }
-      });
-      break;
-      
-    case "start":
-      await bot.editMessageText("✨ Вітаю в iField Studio Bot! ✨\n\n" +
-        "Я допоможу тобі створити стильний Sci-Fi лендінг за 2 хвилини.\n\n" +
-        "Натисни кнопку нижче, щоб відкрити меню.", {
-        chat_id: chatId,
-        message_id: messageId,
-        reply_markup: { inline_keyboard: startMenu }
-      });
-      break;
-      
-    case "templates":
-      await bot.editMessageText("📚 Оберіть стиль лендінгу:\n\n" +
-        "Кожен шаблон має унікальний дизайн та ефекти.", {
-        chat_id: chatId,
-        message_id: messageId,
-        reply_markup: { inline_keyboard: templatesMenu }
-      });
-      break;
-      
-    case "games":
-      await bot.editMessageText("🎮 Ігри та розваги:\n\n" +
-        "Обери гру та отримай задоволення! 🚀", {
-        chat_id: chatId,
-        message_id: messageId,
-        reply_markup: { inline_keyboard: gamesMenu }
-      });
-      break;
-      
-    case "services":
-      await bot.editMessageText("💼 Наші послуги:\n\n" +
-        "Оберіть те, що вас цікавить:", {
-        chat_id: chatId,
-        message_id: messageId,
-        reply_markup: { inline_keyboard: servicesMenu }
-      });
-      break;
-      
-    case "contacts":
-      await bot.editMessageText("📞 Зв'язатися з нами:\n\n" +
-        "Оберіть зручний спосіб зв'язку:", {
-        chat_id: chatId,
-        message_id: messageId,
-        reply_markup: { inline_keyboard: contactsMenu }
-      });
-      break;
-      
-    // Шаблони
-    case "template_scifi":
-      await bot.sendMessage(chatId, 
-        "🎬 *Sci-Fi Style*\n\n" +
-        "Футуристичний дизайн з неоновими ефектами та голографічними елементами.\n\n" +
-        "🚀 [Відкрити шаблон](" + GENERATOR_URL + "?template=sci-fi)\n\n" +
-        "_Ідеально для: технології, стартапи, кіберспорт_",
-        { parse_mode: "Markdown" });
-      break;
-      
-    case "template_luxury":
-      await bot.sendMessage(chatId,
-        "💎 *Minimal Luxury*\n\n" +
-        "Преміальний мінімалізм з золотими акцентами та елегантними шрифтами.\n\n" +
-        "✨ [Відкрити шаблон](" + GENERATOR_URL + "?template=luxury)\n\n" +
-        "_Ідеально для: бізнес, преміум послуги, нерухомість_",
-        { parse_mode: "Markdown" });
-      break;
-      
-    case "template_nature":
-      await bot.sendMessage(chatId,
-        "🌿 *Eco Nature*\n\n" +
-        "Натуральні тони, природні текстури, затишний мінімалізм.\n\n" +
-        "🍃 [Відкрити шаблон](" + GENERATOR_URL + "?template=nature)\n\n" +
-        "_Ідеально для: еко-бізнес, здоров'я, органіка_",
-        { parse_mode: "Markdown" });
-      break;
-      
-    case "template_neon":
-      await bot.sendMessage(chatId,
-        "🚀 *Cyber Neon*\n\n" +
-        "Яскравий кіберпанк, неонові кольори, динамічні ефекти.\n\n" +
-        "⚡ [Відкрити шаблон](" + GENERATOR_URL + "?template=neon)\n\n" +
-        "_Ідеально для: молодь, ігри, музика, вечірки_",
-        { parse_mode: "Markdown" });
-      break;
-      
-    // Інші послуги
-    case "bot_dev":
-      await bot.sendMessage(chatId,
-        "⚡ *Розробка Telegram ботів*\n\n" +
-        "Створюю ботів будь-якої складності:\n" +
-        "• 🤖 Чат-боти для бізнесу\n" +
-        "• 🎮 Ігрові боти\n" +
-        "• 📱 Mini Apps (Web Apps)\n" +
-        "• 💰 Боти з оплатою\n\n" +
-        "💬 Напиши мені: " + CONTACT_URL,
-        { parse_mode: "Markdown" });
-      break;
-      
-    case "design":
-      await bot.sendMessage(chatId,
-        "🎨 *Дизайн під ключ*\n\n" +
-        "Професійний дизайн для:\n" +
-        "• 🌐 Landing pages\n" +
-        "• 📱 Мобільних додатків\n" +
-        "• 🎨 Брендинг та логотипи\n" +
-        "• 📊 Презентації\n\n" +
-        "💬 Замовляй: " + CONTACT_URL,
-        { parse_mode: "Markdown" });
-      break;
-      
-    case "email":
-      await bot.sendMessage(chatId,
-        "📧 *Email для зв'язку*\n\n" +
-        "ifield.studio@gmail.com\n\n" +
-        "Відповідаємо протягом 24 годин.",
-        { parse_mode: "Markdown" });
-      break;
-      
-    case "instagram":
-      await bot.sendMessage(chatId,
-        "📸 *Instagram*\n\n" +
-        "https://instagram.com/ifield_studio\n\n" +
-        "Підписуйся, щоб бачити нові проєкти та шаблони!",
-        { parse_mode: "Markdown" });
-      break;
-      
-    case "coming_soon":
-      await bot.sendMessage(chatId,
-        "🎮 *Скоро буде!*\n\n" +
-        "Ми працюємо над новими іграми та розвагами.\n" +
-        "Слідкуй за оновленнями! 🚀");
-      break;
-      
-    default:
-      await bot.sendMessage(chatId, "❌ Неизвестная команда.");
-  }
-});
-
-console.log("🤖 iField Studio Bot запущено!");
-console.log("📱 Знайди бота: https://t.me/ifield_studio_bot");
-console.log("🎨 Генератор: " + GENERATOR_URL);
+</script>
+</body>
+</html>
