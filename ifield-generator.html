@@ -107,7 +107,7 @@
   .choice-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
   .choice-buttons button {
     flex: 1;
-    min-width: 180px;
+    min-width: 150px;
     padding: 14px 20px;
     border-radius: 44px;
     font-weight: 700;
@@ -139,6 +139,32 @@
     border: 1px solid rgba(44, 110, 255, 0.4);
     display: none;
   }
+  .victory-message {
+    background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05));
+    border: 1px solid #22c55e;
+    border-radius: 24px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .pro-features {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 16px 0;
+  }
+  .pro-feature {
+    background: rgba(0,0,0,0.3);
+    padding: 8px 12px;
+    border-radius: 40px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pro-feature.locked { opacity: 0.5; filter: grayscale(0.5); }
   .progression {
     display: flex;
     justify-content: space-between;
@@ -147,7 +173,7 @@
     background: rgba(0,0,0,0.3);
     border-radius: 40px;
   }
-  .level { text-align: center; flex: 1; opacity: 0.5; transition: all 0.3s; }
+  .level { text-align: center; flex: 1; opacity: 0.5; transition: all 0.3s; cursor: pointer; }
   .level.active { opacity: 1; }
   .level .emoji { font-size: 24px; display: block; }
   .level .name { font-size: 10px; color: #aaa; margin-top: 4px; }
@@ -162,13 +188,17 @@
     color: #7bb2ff;
     display: none;
   }
-  .ai-loading span { animation: blink 1s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.5} }
   .reviews {
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
     text-align: center;
+  }
+  .share-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 16px 0;
   }
   .status {
     position: fixed;
@@ -258,51 +288,70 @@
     </div>
     <div class="choice-note" style="font-size: 11px; margin-top: 12px; color: #888;">
       💡 Доступ: безліміт генерацій + всі шаблони<br>
-      ⭐ PRO: + публічне посилання + редагування<br>
+      ⭐ PRO: + публічне посилання + SEO + аналітика<br>
       🎯 Під ключ: унікальний лендінг за 2-5 днів
     </div>
   </div>
 
   <div class="result-section" id="resultSection">
+    <div id="victoryMessage" class="victory-message">
+      <div style="font-size: 32px; margin-bottom: 8px;">🎉</div>
+      <div style="font-weight: bold; font-size: 18px;">Сайт створено!</div>
+      <div style="font-size: 13px; margin-top: 8px;">Ти вже на 1 крок ближче до клієнтів</div>
+    </div>
+
     <div class="progression" id="progression">
-      <div class="level active" data-level="1"><span class="emoji">📝</span><span class="name">Текст</span></div>
+      <div class="level active" data-level="1" onclick="scrollToGenerator()"><span class="emoji">📝</span><span class="name">Текст</span></div>
       <div class="level" data-level="2"><span class="emoji">🎨</span><span class="name">Сайт</span></div>
       <div class="level locked" data-level="3"><span class="emoji">🚀</span><span class="name">Трафік 🔒</span></div>
     </div>
+
     <iframe class="preview-frame" id="previewFrame"></iframe>
+
     <div class="action-buttons">
       <button onclick="downloadLanding()">📥 Завантажити</button>
       <button onclick="copyHTML()">📋 Копіювати код</button>
       <button onclick="publishLanding()">🌍 Опублікувати</button>
-      <button onclick="shareLanding()">📱 Поділитись</button>
+      <button onclick="shareToFriends()">📱 Поділитись</button>
     </div>
+
     <div id="nextStep" class="next-step">
       <div style="font-size: 24px; margin-bottom: 8px;">🚀</div>
       <div style="font-weight: bold; margin-bottom: 12px;">Твій сайт готовий!</div>
+      
+      <div class="pro-features">
+        <div class="pro-feature locked">🔒 Власний домен</div>
+        <div class="pro-feature locked">📊 Аналітика</div>
+        <div class="pro-feature locked">🔍 SEO оптимізація</div>
+        <div class="pro-feature locked">🎨 +4 дизайни</div>
+      </div>
+      
       <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 16px 0;">
         <button onclick="publishLanding()" style="background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border: none; padding: 12px 20px; border-radius: 40px;">🌍 Опублікувати</button>
         <button onclick="editInline()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid #3c7eff; padding: 12px 20px; border-radius: 40px;">✏️ Редагувати</button>
         <button onclick="buyPro()" style="background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; border: none; padding: 12px 20px; border-radius: 40px;">⭐ PRO доступ — $29</button>
       </div>
-      <p style="font-size: 11px; color: #aaa;">💡 Натисни "Редагувати" — зміни текст прямо тут!</p>
+      
+      <div class="share-buttons">
+        <button onclick="shareToTelegram()" style="background: #2AABEE; color: white; border: none; padding: 10px 20px; border-radius: 40px;">📲 Telegram</button>
+        <button onclick="copyLink()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid #aaa; padding: 10px 20px; border-radius: 40px;">🔗 Копіювати посилання</button>
+      </div>
+      
+      <p style="font-size: 11px; color: #aaa; margin-top: 12px;">💡 Покажи свій сайт друзям — отримай перших клієнтів!</p>
     </div>
   </div>
 
   <div class="reviews">
     <h4>✨ ВІДГУКИ КОРИСТУВАЧІВ ✨</h4>
     <div class="review-stars">★★★★★</div>
-    <div class="review-text">"Зробив лендінг за 5 хвилин! Потім купив PRO — отримав посилання" — Анна</div>
-    <div style="font-size: 10px; color: #555; margin-top: 8px;">понад 1000+ створених лендінгів</div>
+    <div class="review-text">"Зробив лендінг за 5 хвилин! Поділився з друзями — вже є перший клієнт" — Анна</div>
+    <div style="font-size: 10px; color: #555; margin-top: 8px;">понад 1500+ створених лендінгів</div>
   </div>
 </div>
 
 <script>
   // ========== КОНФІГ ==========
-  const CONFIG = {
-    maxGenerations: 3,
-    freeLimit: 3,
-    prices: { basic: 9, pro: 29, premium: 100 }
-  };
+  const CONFIG = { maxGenerations: 3, prices: { basic: 9, pro: 29, premium: 100 } };
 
   // ========== ШАБЛОНИ ==========
   const TEMPLATES = {
@@ -312,12 +361,8 @@
     'neon': { gradient: 'linear-gradient(135deg, #FF00FF, #00FFFF)', badge: 'rgba(255,0,255,0.2)', name: 'Neon' }
   };
 
-  // ========== HELPER STORAGE ==========
   function save(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
-  function load(key, defaultValue = null) {
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : defaultValue;
-  }
+  function load(key, def = null) { const d = localStorage.getItem(key); return d ? JSON.parse(d) : def; }
 
   // ========== БЛОКИ ЛЕНДІНГУ ==========
   function heroBlock(brand, product, niche, style) {
@@ -359,6 +404,7 @@
   let currentHTML = '';
   let uploadedImageData = '';
   let currentTemplate = 'sci-fi';
+  let currentPublishLink = '';
 
   function updateBadge() {
     const badge = document.getElementById('freeBadge');
@@ -376,18 +422,17 @@
     });
   }
 
+  function scrollToGenerator() {
+    document.querySelector('.template-selector').scrollIntoView({ behavior: 'smooth' });
+  }
+
   function showAILoading(callback) {
     const loader = document.getElementById('aiLoading');
     loader.style.display = 'block';
-    setTimeout(() => {
-      loader.style.display = 'none';
-      callback();
-    }, 1800);
+    setTimeout(() => { loader.style.display = 'none'; callback(); }, 1500);
   }
 
-  function generateWithAnimation() {
-    showAILoading(() => generateLanding());
-  }
+  function generateWithAnimation() { showAILoading(() => generateLanding()); }
 
   function generateLanding() {
     if (freeGenerations <= 0) {
@@ -412,11 +457,15 @@
     document.getElementById('resultSection').style.display = 'block';
     document.getElementById('previewFrame').srcdoc = currentHTML;
     document.getElementById('nextStep').style.display = 'block';
+    document.getElementById('victoryMessage').style.display = 'block';
     updateProgression();
+    
     showStatus(`✅ Лендінг створено! Залишилось ${freeGenerations} безкоштовних`);
     document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
 
-    if (freeGenerations === 1) setTimeout(() => showStatus('⚠️ Залишилась 1 безкоштовна генерація. Хочеш безліміт?', false), 1000);
+    if (freeGenerations === 1) {
+      setTimeout(() => showStatus('⚠️ Залишилась 1 безкоштовна генерація. Відкрий PRO можливості!', false), 1500);
+    }
   }
 
   function editInline() {
@@ -436,11 +485,35 @@
         body: JSON.stringify({ html: currentHTML, created: new Date().toISOString() })
       });
       const data = await response.json();
-      const link = `https://ifield.site/${data.id.slice(-6)}`; // ілюзія красивого посилання
-      await navigator.clipboard.writeText(link);
-      showStatus(`✅ Посилання скопійовано: ${link}`);
-      alert(`🔗 Твій сайт онлайн:\n${link}\n\nПосилання скопійовано. Відправ його другу!`);
+      currentPublishLink = `https://ifield.site/${data.id.slice(-6)}`;
+      await navigator.clipboard.writeText(currentPublishLink);
+      showStatus(`✅ Посилання скопійовано: ${currentPublishLink}`);
+      alert(`🔗 Твій сайт онлайн!\n${currentPublishLink}\n\nПосилання скопійовано. Відправ його друзям!`);
     } catch (error) { showStatus('❌ Помилка публікації', true); }
+  }
+
+  function copyLink() {
+    if (currentPublishLink) {
+      navigator.clipboard.writeText(currentPublishLink);
+      showStatus('🔗 Посилання скопійовано! Поділись з друзями');
+    } else {
+      showStatus('⚠️ Спочатку опублікуй лендінг', true);
+    }
+  }
+
+  function shareToTelegram() {
+    const text = currentPublishLink ? `Мій новий сайт: ${currentPublishLink}` : `Створи лендінг за 2 хвилини: ${window.location.href}`;
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  function shareToFriends() {
+    const text = currentPublishLink ? `🚀 Подивись, який сайт я створив! ${currentPublishLink}` : `🚀 Створи свій лендінг за 2 хвилини: ${window.location.href}`;
+    if (navigator.share) {
+      navigator.share({ title: 'iField Landing', text: text });
+    } else {
+      navigator.clipboard.writeText(text);
+      showStatus('📋 Текст скопійовано! Відправ другу');
+    }
   }
 
   function downloadLanding() {
@@ -460,7 +533,6 @@
     showStatus('📋 Код скопійовано!');
   }
 
-  function shareLanding() { window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=Створи%20лендінг%20за%202%20хвилини!`, '_blank'); }
   function buyUnlimit() { window.open('https://t.me/ifield_lab?text=Хочу+доступ+за+$9', '_blank'); showStatus('📱 Напишіть @ifield_lab'); }
   function buyPro() { window.open('https://t.me/ifield_lab?text=Хочу+PRO+доступ+за+$29', '_blank'); showStatus('📱 Напишіть @ifield_lab'); }
   function buyPremium() { window.open('https://t.me/ifield_lab?text=Хочу+лендінг+під+ключ', '_blank'); showStatus('📱 Напишіть @ifield_lab'); }
