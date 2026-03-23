@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>iField Studio — Premium Landing Pages</title>
-<meta name="description" content="Premium landing pages built on iPhone 16 Pro. Fast delivery, unique design, 3 languages.">
+<title>iField Studio — Premium Landing Pages + Sci-Fi Generator</title>
+<meta name="description" content="Premium landing pages built on iPhone 16 Pro. Sci-Fi Generator — create your own landing in 2 minutes.">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -75,6 +75,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 52px;display:fl
 .card[data-theme="product"]::before{background:linear-gradient(90deg,#c9a84c,#e8c77a)}
 .card[data-theme="fashion"]::before{background:linear-gradient(90deg,#e63224,#ff6b5b)}
 .card[data-theme="telegram"]::before{background:linear-gradient(90deg,#2AABEE,#8b5cf6)}
+.card[data-theme="generator"]::before{background:linear-gradient(90deg,#2c6eff,#7bb2ff)}
 .card-preview{position:relative;height:220px;overflow:hidden;flex-shrink:0}
 .preview-screen{position:absolute;inset:0;transform:scale(1.02);transition:transform .6s cubic-bezier(.76,0,.24,1);display:flex;align-items:center;justify-content:center}
 .card:hover .preview-screen{transform:scale(1.06)}
@@ -83,6 +84,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 52px;display:fl
 .prev-product{background:linear-gradient(160deg,#0c0a07,#1a160f)}
 .prev-fashion{background:linear-gradient(160deg,#0a0a0a,#1a0a0a)}
 .prev-telegram{background:linear-gradient(160deg,#04060d,#070b18)}
+.prev-generator{background:linear-gradient(160deg,#0a0c1a,#020408);border-bottom:1px solid rgba(44,110,255,.2)}
 .pui{width:80%;position:relative;padding:16px}
 .pui-tech .pui-title{font-family:'monospace';font-size:18px;font-weight:900;background:linear-gradient(90deg,#00d4ff,#7b61ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:2px;margin-bottom:8px}
 .pui-tech .pui-line{height:2px;border-radius:2px;margin-bottom:5px;background:rgba(0,212,255,.15)}
@@ -104,6 +106,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 52px;display:fl
 .pui-telegram .pui-icon{width:40px;height:40px;background:linear-gradient(135deg,#2AABEE,#229ED9);border-radius:10px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 20px rgba(42,171,238,.3)}
 .pui-telegram .pui-h{font-size:18px;font-weight:900;text-align:center;color:#c8d8f0;margin-bottom:6px}
 .pui-telegram .pui-sub{font-family:monospace;font-size:8px;letter-spacing:2px;color:rgba(42,171,238,.6);text-align:center}
+.pui-generator .pui-gen-badge{font-size:7px;letter-spacing:2px;color:#7bb2ff;margin-bottom:8px}
+.pui-generator .pui-title{font-size:20px;font-weight:900;background:linear-gradient(90deg,#fff,#7bb2ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.pui-generator .pui-line{height:2px;border-radius:2px;margin-bottom:5px;background:rgba(44,110,255,.2)}
+.pui-generator .pui-line.acc{background:#2c6eff;width:70%}
+.pui-generator .pui-icons{display:flex;gap:8px;margin-top:12px}
+.pui-generator .pui-icon-box{width:30px;height:30px;background:rgba(44,110,255,.2);border-radius:8px}
 .card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(8,9,13,.9) 100%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px}
 .card:hover .card-overlay{opacity:1}
 .view-btn{padding:10px 24px;background:white;color:var(--bg);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;cursor:none;transform:translateY(10px);transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
@@ -120,12 +128,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 52px;display:fl
 .style-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .card-arrow{width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);transition:all .3s}
 .card:hover .card-arrow{background:white;color:var(--bg);border-color:white;transform:rotate(45deg)}
-.card-add{background:var(--surface);min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:none;transition:background .3s;border:1px dashed rgba(255,255,255,.06)}
-.card-add:hover{background:rgba(255,255,255,.02)}
-.add-icon{width:56px;height:56px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--muted);transition:all .3s}
-.card-add:hover .add-icon{border-color:rgba(255,255,255,.3);color:white;transform:rotate(90deg)}
-.add-text{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);transition:color .3s;text-align:center}
-.card-add:hover .add-text{color:rgba(255,255,255,.5)}
 
 /* PRICING */
 .section{position:relative;z-index:1;padding:120px 52px;border-top:1px solid var(--border)}
@@ -255,10 +257,10 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
     <span class="dim" data-i18n="hero_h1_3">Landings.</span>
   </h1>
   <div class="hero-row">
-    <p class="hero-desc" data-i18n="hero_desc">Five unique templates. Five industries. One studio.<br>Pick your niche — we build the rest.</p>
+    <p class="hero-desc" data-i18n="hero_desc">Five unique templates + Sci-Fi Generator. One studio.<br>Pick your niche or create your own landing in 2 minutes.</p>
     <div class="hero-meta">
-      <div><div class="hm-num">5</div><div class="hm-label" data-i18n="hero_templates">Templates</div></div>
-      <div><div class="hm-num">3-5</div><div class="hm-label" data-i18n="hero_days">Days</div></div>
+      <div><div class="hm-num">6</div><div class="hm-label" data-i18n="hero_templates">Templates</div></div>
+      <div><div class="hm-num">2-5</div><div class="hm-label" data-i18n="hero_days">Days</div></div>
     </div>
   </div>
 </div>
@@ -267,6 +269,7 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
 <div class="filter-bar">
   <span class="fb-label" data-i18n="filter_label">Filter:</span>
   <button class="filter-btn active" data-f="all" data-i18n="filter_all">All</button>
+  <button class="filter-btn" data-f="generator">⚡ Generator</button>
   <button class="filter-btn" data-f="tech">Tech</button>
   <button class="filter-btn" data-f="service" data-i18n="filter_service">Service</button>
   <button class="filter-btn" data-f="product" data-i18n="filter_product">Product</button>
@@ -277,6 +280,45 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
 <!-- CARDS -->
 <div class="grid-wrap">
 <div class="grid" id="grid">
+
+  <!-- ⚡ NEW: Sci-Fi GENERATOR CARD ⚡ -->
+  <div class="card reveal" data-theme="generator" data-cat="generator">
+    <div class="card-preview">
+      <div class="preview-screen prev-generator">
+        <div class="pui pui-generator">
+          <div class="pui-gen-badge">⚡ iField GENERATOR</div>
+          <div class="pui-title">SCI-FI<br>LANDING BUILDER</div>
+          <div class="pui-line acc"></div>
+          <div class="pui-line" style="width:50%"></div>
+          <div class="pui-icons">
+            <div class="pui-icon-box"></div>
+            <div class="pui-icon-box"></div>
+            <div class="pui-icon-box"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-overlay"><a href="ifield-generator.html" class="view-btn" target="_blank">✨ Try Generator →</a></div>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="card-num">✨ NEW · AI Generator</div>
+        <div class="card-title">Sci-Fi Landing Builder</div>
+        <p class="card-desc">Створи готовий HTML лендінг за 2 хвилини. Завантаж фото, обери шаблон, отримай код.</p>
+        <div class="card-tags">
+          <span class="tag acc">⚡ AI-Powered</span>
+          <span class="tag">Sci-Fi</span>
+          <span class="tag">Generator</span>
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-style">
+          <div class="style-dot" style="background:linear-gradient(135deg,#2c6eff,#7bb2ff)"></div>
+          Neural · Instant
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </div>
 
   <div class="card reveal" data-theme="tech" data-cat="tech">
     <div class="card-preview">
@@ -371,12 +413,6 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
     </div>
   </div>
 
-  <div class="card-add reveal" style="transition-delay:.25s">
-    <div class="add-icon">+</div>
-    <div class="add-text" data-i18n="add_text">Next template<br>coming soon</div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:rgba(74,85,104,.4);margin-top:4px" data-i18n="add_sub">Tell us what you need</div>
-  </div>
-
 </div>
 </div>
 
@@ -455,9 +491,9 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
       </div>
     </div>
     <div class="about-stats reveal">
-      <div class="as-box"><div class="as-num">5+</div><div class="as-label" data-i18n="ab1">Templates</div></div>
+      <div class="as-box"><div class="as-num">6+</div><div class="as-label" data-i18n="ab1">Templates</div></div>
       <div class="as-box"><div class="as-num" style="color:var(--green)">Pro</div><div class="as-label" data-i18n="ab2">Fiverr Level</div></div>
-      <div class="as-box"><div class="as-num">3-5</div><div class="as-label" data-i18n="ab3">Days Delivery</div></div>
+      <div class="as-box"><div class="as-num">2-5</div><div class="as-label" data-i18n="ab3">Days Delivery</div></div>
       <div class="as-box"><div class="as-num">100%</div><div class="as-label" data-i18n="ab4">Mobile Built</div></div>
     </div>
   </div>
@@ -485,6 +521,7 @@ footer{position:relative;z-index:1;padding:40px 52px;border-top:1px solid var(--
           <option value="Product / E-shop">Product / E-shop</option>
           <option value="Fashion / Brand">Fashion / Brand</option>
           <option value="Telegram Channel">Telegram Channel</option>
+          <option value="Sci-Fi Generator">⚡ Sci-Fi Generator</option>
           <option value="Custom" data-i18n="sel_custom">Custom (other)</option>
         </select>
       </div>
@@ -548,7 +585,7 @@ const T = {
     nav_pricing:'Pricing',nav_about:'About',nav_contact:'Contact',
     hero_badge:'Portfolio ✦ Web Design Studio',
     hero_h1_1:'We build',hero_h1_2:'Legendary',hero_h1_3:'Landings.',
-    hero_desc:'Five unique templates. Five industries. One studio.<br>Pick your niche — we build the rest.',
+    hero_desc:'Six unique templates + Sci-Fi Generator. One studio.<br>Pick your niche or create your own landing in 2 minutes.',
     hero_templates:'Templates',hero_days:'Days',
     filter_label:'Filter:',filter_all:'All',filter_service:'Service',filter_product:'Product',
     view_live:'View Live →',
@@ -557,7 +594,6 @@ const T = {
     card3_title:'Tea / Coffee Brand',card3_desc:'Dark gold luxury. Animated cup, product cards.',
     card4_title:'Streetwear Brand',card4_desc:'Brutalist red & black. Countdown timer, lookbook.',
     card5_title:'Channel Landing',card5_desc:'Cyber blue dark. Message previews, counter.',
-    add_text:'Next template\ncoming soon',add_sub:'Tell us what you need',
     pricing_label:'Pricing',pricing_h:'Simple.<br><span>No surprises.</span>',
     plan1_name:'STARTER',plan2_name:'PREMIUM',plan3_name:'STUDIO',
     plan_once:'one-time',plan_month:'per month',plan_popular:'MOST POPULAR',
@@ -582,7 +618,7 @@ const T = {
     nav_pricing:'Ціни',nav_about:'Про нас',nav_contact:'Контакт',
     hero_badge:'Портфоліо ✦ Студія веб-дизайну',
     hero_h1_1:'Ми будуємо',hero_h1_2:'Легендарні',hero_h1_3:'Лендінги.',
-    hero_desc:'П\'ять унікальних шаблонів. П\'ять ніш. Одна студія.<br>Обери свою нішу — ми зробимо решту.',
+    hero_desc:'Шість шаблонів + Sci-Fi генератор. Одна студія.<br>Обери нішу або створи свій лендінг за 2 хвилини.',
     hero_templates:'Шаблони',hero_days:'Дні',
     filter_label:'Фільтр:',filter_all:'Всі',filter_service:'Сервіс',filter_product:'Продукт',
     view_live:'Переглянути →',
@@ -591,7 +627,6 @@ const T = {
     card3_title:'Чай / Кава / Продукт',card3_desc:'Темна золота розкіш. Анімована чашка, картки товарів.',
     card4_title:'Streetwear бренд',card4_desc:'Брутальний червоно-чорний. Таймер, лукбук.',
     card5_title:'Telegram канал',card5_desc:'Кіберсиній темний. Превью постів, лічильник.',
-    add_text:'Наступний шаблон\nвже незабаром',add_sub:'Скажи що тобі потрібно',
     pricing_label:'Ціни',pricing_h:'Просто.<br><span>Без сюрпризів.</span>',
     plan1_name:'СТАРТЕР',plan2_name:'ПРЕМІУМ',plan3_name:'СТУДІЯ',
     plan_once:'разово',plan_month:'на місяць',plan_popular:'НАЙПОПУЛЯРНІШИЙ',
@@ -616,7 +651,7 @@ const T = {
     nav_pricing:'Цены',nav_about:'О нас',nav_contact:'Контакт',
     hero_badge:'Портфолио ✦ Студия веб-дизайна',
     hero_h1_1:'Мы строим',hero_h1_2:'Легендарные',hero_h1_3:'Лендинги.',
-    hero_desc:'Пять уникальных шаблонов. Пять ниш. Одна студия.<br>Выбери нишу — мы сделаем остальное.',
+    hero_desc:'Шесть шаблонов + Sci-Fi генератор. Одна студия.<br>Выбери нишу или создай свой лендинг за 2 минуты.',
     hero_templates:'Шаблоны',hero_days:'Дни',
     filter_label:'Фильтр:',filter_all:'Все',filter_service:'Сервис',filter_product:'Продукт',
     view_live:'Смотреть →',
@@ -625,7 +660,6 @@ const T = {
     card3_title:'Чай / Кофе / Продукт',card3_desc:'Тёмная золотая роскошь. Анимированная чашка.',
     card4_title:'Streetwear бренд',card4_desc:'Брутальный красно-чёрный. Таймер, лукбук.',
     card5_title:'Telegram канал',card5_desc:'Кибер-синий тёмный. Превью постов, счётчик.',
-    add_text:'Следующий шаблон\nскоро',add_sub:'Скажи что тебе нужно',
     pricing_label:'Цены',pricing_h:'Просто.<br><span>Без сюрпризов.</span>',
     plan1_name:'СТАРТЕР',plan2_name:'ПРЕМИУМ',plan3_name:'СТУДИЯ',
     plan_once:'разово',plan_month:'в месяц',plan_popular:'САМЫЙ ПОПУЛЯРНЫЙ',
@@ -662,7 +696,6 @@ function setLang(l){
   document.querySelectorAll('[data-ph-'+l+']').forEach(el => {
     el.placeholder = el.dataset['ph'+l.charAt(0).toUpperCase()+l.slice(1)] || el.dataset['ph'+l];
   });
-  // Update placeholders manually
   const phMap = {fn:{en:'Your Name',ua:"Ваше ім'я",ru:'Ваше имя'}, fc:{en:'Telegram / Email',ua:'Telegram / Email',ru:'Telegram / Email'}, fm:{en:'Describe your project...',ua:'Опишіть ваш проект...',ru:'Опишите ваш проект...'}};
   Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el) el.placeholder = phMap[id][l]; });
 }
@@ -744,7 +777,7 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
 document.querySelectorAll('.card[data-theme]').forEach(card=>{
   card.addEventListener('click',e=>{
     if(e.target.classList.contains('view-btn'))return;
-    const map={tech:'iphone-landing.html',service:'service-landing.html',product:'tea-landing.html',fashion:'fashion-landing.html',telegram:'telegram-landing.html'};
+    const map={tech:'iphone-landing.html',service:'service-landing.html',product:'tea-landing.html',fashion:'fashion-landing.html',telegram:'telegram-landing.html',generator:'ifield-generator.html'};
     const url=map[card.dataset.theme];
     if(url)window.open(url,'_blank');
   });
