@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Створи готовий HTML лендінг за 2 хвилини. 4 шаблони, завантаження фото. 3 безкоштовно">
+<meta name="description" content="Створи готовий HTML лендінг за 2 хвилини. 8 шаблонів Apple-рівня, завантаження фото. 3 безкоштовно">
 <title>iField — Landing Builder Pro</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,17 +15,17 @@
     position: relative;
   }
   
-  /* ========== АНІМАЦІЇ ========== */
+  /* Анімації */
   @keyframes glitch {
-    0%, 100% { transform: skew(0deg, 0deg); opacity: 1; text-shadow: 0 0 0px #00ffff; }
-    95% { transform: skew(0deg, 0deg); opacity: 1; }
-    96% { transform: skew(2deg, 1deg); opacity: 0.9; text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
-    97% { transform: skew(-1deg, -0.5deg); opacity: 0.95; text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
-    98% { transform: skew(0deg, 0deg); opacity: 1; }
+    0%, 100% { transform: skew(0deg, 0deg); text-shadow: 0 0 0px #00ffff; }
+    95% { transform: skew(0deg, 0deg); }
+    96% { transform: skew(2deg, 1deg); text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+    97% { transform: skew(-1deg, -0.5deg); text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
+    98% { transform: skew(0deg, 0deg); }
   }
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 5px rgba(44,110,255,0.3), 0 0 10px rgba(44,110,255,0.2); }
-    50% { box-shadow: 0 0 20px rgba(44,110,255,0.6), 0 0 30px rgba(44,110,255,0.4); }
+    0%, 100% { box-shadow: 0 0 5px rgba(44,110,255,0.3); }
+    50% { box-shadow: 0 0 20px rgba(44,110,255,0.6); }
   }
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
@@ -46,11 +46,11 @@
     right: -20vw;
     border-radius: 50%;
     filter: blur(80px);
-    animation: pulse-glow 4s ease-in-out infinite;
+    animation: pulse-glow 4s infinite;
     pointer-events: none;
   }
   .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     background: rgba(12, 18, 28, 0.75);
     backdrop-filter: blur(24px);
@@ -59,10 +59,10 @@
     padding: 28px 24px;
     position: relative;
     z-index: 2;
-    animation: float 6s ease-in-out infinite;
+    animation: float 6s infinite;
   }
   
-  /* ========== ПЕРЕМИКАЧ МОВ ========== */
+  /* Перемикач мов з прапорцями */
   .lang-switcher {
     display: flex;
     gap: 8px;
@@ -73,12 +73,15 @@
     background: rgba(30, 40, 58, 0.6);
     border: 1px solid rgba(70, 130, 255, 0.4);
     color: #b0c4ff;
-    padding: 6px 12px;
+    padding: 8px 14px;
     border-radius: 40px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   .lang-btn.active {
     background: linear-gradient(135deg, #2c6eff, #1a4fcc);
@@ -104,70 +107,258 @@
   }
   .badge { font-size: 12px; background: rgba(60, 130, 255, 0.2); padding: 4px 12px; border-radius: 40px; color: #7bb2ff; transition: all 0.3s; }
   .badge:hover { animation: glitch 0.5s infinite; }
-  .free-badge { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; font-weight: bold; animation: pulse-glow 2s ease-in-out infinite; }
+  .free-badge { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; font-weight: bold; animation: pulse-glow 2s infinite; }
   .sub { color: #8e9ab0; margin-bottom: 28px; border-left: 2px solid #2c6eff; padding-left: 14px; font-size: 13px; position: relative; overflow: hidden; }
   .sub::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(44,110,255,0.2), transparent); transform: translateX(-100%); animation: hologram 3s infinite; }
+  
   .input-group { margin-bottom: 20px; }
   label { display: block; font-size: 11px; text-transform: uppercase; color: #8aa0cf; margin-bottom: 6px; letter-spacing: 0.5px; }
-  input, textarea { width: 100%; background: rgba(20, 28, 40, 0.9); border: 1px solid rgba(70, 120, 220, 0.4); border-radius: 28px; padding: 14px 18px; color: white; font-family: inherit; font-size: 15px; transition: all 0.3s; }
+  input, textarea {
+    width: 100%;
+    background: rgba(20, 28, 40, 0.9);
+    border: 1px solid rgba(70, 120, 220, 0.4);
+    border-radius: 28px;
+    padding: 14px 18px;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.3s;
+  }
   input:focus, textarea:focus { outline: none; border-color: #3c7eff; box-shadow: 0 0 10px rgba(60,126,255,0.3); }
-  .image-upload-area { background: rgba(20, 28, 40, 0.6); border-radius: 28px; padding: 14px; border: 1px dashed rgba(80, 140, 255, 0.5); text-align: center; cursor: pointer; transition: all 0.3s; }
+  
+  .image-upload-area {
+    background: rgba(20, 28, 40, 0.6);
+    border-radius: 28px;
+    padding: 14px;
+    border: 1px dashed rgba(80, 140, 255, 0.5);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
   .image-upload-area:hover { background: rgba(40, 60, 100, 0.4); border-color: #3c7eff; transform: scale(1.01); }
   .image-preview { display: flex; gap: 12px; margin-top: 12px; justify-content: center; }
   .preview-img { width: 80px; height: 80px; border-radius: 16px; object-fit: cover; border: 2px solid rgba(80, 140, 255, 0.5); }
-  .template-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .template-btn { flex: 1; background: rgba(30, 40, 58, 0.6); border: 1px solid rgba(70, 130, 255, 0.4); color: #b0c4ff; padding: 10px; border-radius: 40px; cursor: pointer; text-align: center; font-size: 13px; transition: all 0.3s; position: relative; overflow: hidden; }
-  .template-btn::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(44,110,255,0.4); border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.5s, height 0.5s; }
+  
+  .template-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .template-btn {
+    background: rgba(30, 40, 58, 0.6);
+    border: 1px solid rgba(70, 130, 255, 0.4);
+    color: #b0c4ff;
+    padding: 10px 6px;
+    border-radius: 40px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 12px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .template-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(44,110,255,0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
   .template-btn:active::after { width: 200%; height: 200%; }
   .template-btn.active { background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border-color: transparent; animation: pulse-glow 2s infinite; }
-  .generate-btn { width: 100%; background: linear-gradient(135deg, #fff, #eef5ff); border: none; border-radius: 44px; padding: 16px; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 12px; transition: all 0.3s; position: relative; overflow: hidden; }
-  .generate-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.5s; }
+  
+  .generate-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #fff, #eef5ff);
+    border: none;
+    border-radius: 44px;
+    padding: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .generate-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+  }
   .generate-btn:hover::before { left: 100%; }
   .generate-btn:active { transform: scale(0.98); }
-  .choice-block { margin-top: 24px; padding: 20px; border-radius: 32px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 215, 0, 0.4); text-align: center; }
+  
+  .choice-block { margin-top: 24px; padding: 20px; border-radius: 32px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 215, 0, 0.4); text-align: center; display: none; }
+  .choice-title { font-size: 18px; font-weight: bold; margin-bottom: 16px; color: #ffd700; }
+  .choice-buttons { display: flex; flex-direction: column; gap: 12px; }
+  .choice-buttons button {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 28px;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .choice-buttons button:hover { transform: translateX(4px); }
+  .plan-name { font-weight: bold; font-size: 18px; margin-bottom: 4px; }
+  .plan-price { font-size: 13px; opacity: 0.9; margin-bottom: 8px; }
+  .plan-features { font-size: 12px; opacity: 0.8; margin-bottom: 6px; }
+  .btn-basic { background: linear-gradient(135deg, #3b82f6, #1e40af); color: white; }
+  .btn-pro { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+  .btn-studio { background: linear-gradient(135deg, #ec489a, #db2777); color: white; }
+  .btn-agency { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+  .bundle-offer {
+    margin-top: 20px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,180,70,0.1));
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .bundle-offer button {
+    margin: 0;
+    padding: 8px 20px;
+    width: auto;
+    background: linear-gradient(135deg, #ffd700, #ffb347);
+    color: #1a1a2e;
+    font-weight: bold;
+  }
+  .choice-note { margin-top: 20px; padding: 16px; background: rgba(44,110,255,0.1); border-radius: 24px; font-size: 12px; color: #b0c4ff; text-align: center; border-left: 3px solid #2c6eff; line-height: 1.5; }
+  
   .result-section { margin-top: 32px; display: none; }
-  .preview-frame { width: 100%; height: 480px; border: none; border-radius: 24px; background: #05070c; animation: float 4s ease-in-out infinite; }
+  .preview-frame { width: 100%; height: 500px; border: none; border-radius: 24px; background: #05070c; animation: float 4s infinite; }
   .action-buttons { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
-  .action-buttons button { flex: 1; background: rgba(30, 40, 58, 0.9); color: white; border: 1px solid rgba(70, 130, 255, 0.5); padding: 12px; border-radius: 40px; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
-  .action-buttons button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.4s; }
+  .action-buttons button {
+    flex: 1;
+    background: rgba(30, 40, 58, 0.9);
+    color: white;
+    border: 1px solid rgba(70, 130, 255, 0.5);
+    padding: 12px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .action-buttons button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.4s;
+  }
   .action-buttons button:hover::before { left: 100%; }
   .action-buttons button:first-child { background: linear-gradient(135deg, #2c6eff, #1a4fcc); border: none; }
+  
   .next-step { margin-top: 20px; padding: 20px; background: rgba(44, 110, 255, 0.15); border-radius: 24px; text-align: center; border: 1px solid rgba(44, 110, 255, 0.4); display: none; }
-  .victory-message { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05)); border: 1px solid #22c55e; border-radius: 24px; padding: 20px; text-align: center; margin-bottom: 20px; display: none; animation: pulse-glow 2s infinite; }
-  .pro-features { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 16px 0; }
-  .pro-feature { background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 40px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
-  .pro-feature.locked { opacity: 0.5; filter: grayscale(0.5); }
-  .progression { display: flex; justify-content: space-between; margin: 20px 0; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 40px; }
+  .victory-message {
+    background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05));
+    border: 1px solid #22c55e;
+    border-radius: 24px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    display: none;
+    animation: pulse-glow 2s infinite;
+  }
+  .progression {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    padding: 16px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 40px;
+  }
   .level { text-align: center; flex: 1; opacity: 0.5; transition: all 0.3s; cursor: pointer; }
   .level.active { opacity: 1; transform: scale(1.05); }
   .level .emoji { font-size: 24px; display: block; }
   .level .name { font-size: 10px; color: #aaa; margin-top: 4px; }
   .level.locked .emoji { filter: grayscale(1); opacity: 0.5; }
-  .ai-loading { text-align: center; padding: 12px; background: rgba(44,110,255,0.1); border-radius: 40px; margin-bottom: 16px; font-size: 13px; color: #7bb2ff; display: none; }
-  .share-buttons { display: flex; gap: 12px; justify-content: center; margin: 16px 0; }
-  .reviews { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+  .ai-loading {
+    text-align: center;
+    padding: 12px;
+    background: rgba(44,110,255,0.1);
+    border-radius: 40px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #7bb2ff;
+    display: none;
+  }
+  .reviews {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+  }
   .reviews h4 { color: #7bb2ff; font-size: 12px; margin-bottom: 16px; letter-spacing: 2px; animation: glitch 6s infinite; }
   .review-stars { color: #ffd700; font-size: 18px; margin-bottom: 12px; animation: pulse-glow 2s infinite; }
   .review-text { font-size: 13px; color: #aaa; font-style: italic; max-width: 400px; margin: 0 auto; line-height: 1.5; }
   .review-author { margin-top: 8px; font-size: 11px; color: #7bb2ff; }
-  .stats { margin-top: 16px; font-size: 11px; color: #4a5568; display: flex; justify-content: center; gap: 24px; }
-  .stat-item { display: flex; align-items: center; gap: 6px; }
-  .stat-number { color: #22c55e; font-weight: bold; font-size: 14px; }
-  footer { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-size: 10px; color: #4a5568; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .stats { margin-top: 16px; display: flex; justify-content: center; gap: 24px; font-size: 11px; color: #aaa; }
+  .stat-number { color: #22c55e; font-weight: bold; }
+  footer {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    font-size: 10px;
+    color: #4a5568;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
   footer a { color: #7bb2ff; text-decoration: none; transition: color 0.3s; }
   footer a:hover { color: #fff; animation: glitch 0.3s infinite; }
-  .status { position: fixed; bottom: 20px; right: 20px; background: rgba(60, 126, 255, 0.95); padding: 10px 20px; border-radius: 40px; color: white; font-size: 13px; z-index: 1000; animation: fadeSlide 0.3s ease; }
+  .status {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(60, 126, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 40px;
+    color: white;
+    font-size: 13px;
+    z-index: 1000;
+    animation: fadeSlide 0.3s ease;
+  }
   @keyframes fadeSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  @media (max-width: 600px) { .container { padding: 20px 16px; } .preview-frame { height: 400px; } }
+  
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .preview-frame { height: 400px; }
+    .template-selector { grid-template-columns: repeat(4, 1fr); }
+    .lang-btn { padding: 6px 10px; font-size: 11px; }
+  }
 </style>
 </head>
 <body>
 <div class="glow-orb"></div>
 
 <div class="container">
-  <!-- ПЕРЕМИКАЧ МОВ -->
+  <!-- ПЕРЕМИКАЧ МОВ З ПРАПОРЦЯМИ -->
   <div class="lang-switcher">
-    <button class="lang-btn" data-lang="ua">🇺🇀 UA</button>
+    <button class="lang-btn active" data-lang="ua">🇺🇀 UA</button>
     <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
     <button class="lang-btn" data-lang="ru">🇷🇺 RU</button>
   </div>
@@ -179,17 +370,21 @@
       <span class="badge free-badge" id="freeBadge">3 FREE</span>
     </span>
   </h1>
-  <div class="sub" id="subText">створи готовий HTML лендінг за 2 хвилини · 4 шаблони · завантаж фото</div>
+  <div class="sub" id="subText">створи готовий HTML лендінг за 2 хвилини · 8 шаблонів · завантаж фото</div>
 
   <div id="aiLoading" class="ai-loading">
     🤖 <span id="aiText">AI аналізує нішу...</span>
   </div>
 
-  <div class="template-selector">
-    <button class="template-btn active" data-template="sci-fi">🎬 Sci-Fi</button>
+  <div class="template-selector" id="templateSelector">
+    <button class="template-btn" data-template="sci-fi">🎬 Sci-Fi</button>
     <button class="template-btn" data-template="luxury">💎 Luxury</button>
     <button class="template-btn" data-template="nature">🌿 Nature</button>
     <button class="template-btn" data-template="neon">🚀 Neon</button>
+    <button class="template-btn" data-template="dark-glass">🔮 Dark Glass</button>
+    <button class="template-btn" data-template="holographic">✨ Holographic</button>
+    <button class="template-btn" data-template="cyberpunk">⚡ Cyberpunk</button>
+    <button class="template-btn" data-template="minimal-white">🤍 Minimal White</button>
   </div>
 
   <div class="input-group">
@@ -224,17 +419,36 @@
 
   <button class="generate-btn" id="generateBtn" onclick="generateWithAnimation()">✨ Згенерувати лендінг ✨</button>
 
-  <div id="choiceBlock" class="choice-block" style="display: none;">
+  <div id="choiceBlock" class="choice-block">
     <div class="choice-title" id="limitTitle">⚡ Ліміт безкоштовних генерацій вичерпано!</div>
     <div class="choice-buttons">
-      <button class="btn-unlimit" id="btnUnlimit" onclick="buyUnlimit()">🔥 Доступ — $9</button>
-      <button class="btn-pro" id="btnPro" onclick="buyPro()">⭐ PRO доступ — $29</button>
-      <button class="btn-premium" id="btnPremium" onclick="buyPremium()">💼 Під ключ — від $100</button>
+      <button class="btn-basic" onclick="payWithStars(50, 'basic')">
+        <div class="plan-name">💎 Basic — 50 Stars</div>
+        <div class="plan-price">~$5 разово</div>
+        <div class="plan-features">10 генерацій + всі шаблони + публікація</div>
+      </button>
+      <button class="btn-pro" onclick="payWithStars(200, 'pro')">
+        <div class="plan-name">⭐ Pro — 200 Stars</div>
+        <div class="plan-price">~$20 разово</div>
+        <div class="plan-features">Безліміт + публікація + SEO + аналітика</div>
+      </button>
+      <button class="btn-studio" onclick="contactForStudio()">
+        <div class="plan-name">💼 Studio — 1000 Stars</div>
+        <div class="plan-price">~$80 разово</div>
+        <div class="plan-features">Безліміт + домен + 10 правок + пріоритет</div>
+      </button>
+      <button class="btn-agency" onclick="contactForAgency()">
+        <div class="plan-name">🏢 Agency — 3000 Stars</div>
+        <div class="plan-price">~$250 разово</div>
+        <div class="plan-features">5 лендінгів + брендування + кастомний шаблон + 24/7</div>
+      </button>
     </div>
-    <div class="choice-note" id="choiceNote" style="font-size: 11px; margin-top: 12px; color: #888;">
-      💡 Доступ: безліміт генерацій + всі шаблони<br>
-      ⭐ PRO: + публічне посилання + SEO + аналітика<br>
-      🎯 Під ключ: унікальний лендінг за 2-5 днів
+    <div class="bundle-offer">
+      🔥 HOT: Pro + Studio — разом 1000 Stars (економія 200)
+      <button onclick="payWithStars(1000, 'bundle')">⭐ Обрати bundle →</button>
+    </div>
+    <div class="choice-note">
+      💡 <strong>Чому вигідно?</strong> SaaS беруть $9–199 щомісяця. Ти платиш <strong>один раз</strong> і отримуєш <strong>готовий HTML файл назавжди</strong>.
     </div>
   </div>
 
@@ -256,37 +470,23 @@
     <div class="action-buttons">
       <button id="btnDownload" onclick="downloadLanding()">📥 Завантажити</button>
       <button id="btnCopy" onclick="copyHTML()">📋 Копіювати код</button>
-      <button id="btnPublish" onclick="publishLanding()">🌍 Опублікувати</button>
+      <button id="btnPublish" onclick="publishToVercel()">🌍 Опублікувати</button>
       <button id="btnShare" onclick="shareToFriends()">📱 Поділитись</button>
     </div>
 
     <div id="nextStep" class="next-step">
       <div style="font-size: 24px; margin-bottom: 8px;">🚀</div>
       <div id="nextTitle" style="font-weight: bold; margin-bottom: 12px;">Твій сайт готовий!</div>
-      
-      <div class="pro-features">
-        <div class="pro-feature locked">🔒 <span id="featureDomain">Власний домен</span></div>
-        <div class="pro-feature locked">📊 <span id="featureAnalytics">Аналітика</span></div>
-        <div class="pro-feature locked">🔍 <span id="featureSEO">SEO оптимізація</span></div>
-        <div class="pro-feature locked">🎨 <span id="featureDesigns">+4 дизайни</span></div>
-      </div>
-      
       <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 16px 0;">
-        <button onclick="publishLanding()" id="nextPublishBtn" style="background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border: none; padding: 12px 20px; border-radius: 40px;">🌍 Опублікувати</button>
-        <button onclick="editInline()" id="nextEditBtn" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid #3c7eff; padding: 12px 20px; border-radius: 40px;">✏️ Редагувати</button>
-        <button onclick="buyPro()" id="nextProBtn" style="background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; border: none; padding: 12px 20px; border-radius: 40px;">⭐ PRO доступ — $29</button>
+        <button onclick="publishToVercel()" style="background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border: none; padding: 12px 20px; border-radius: 40px;">🌍 Опублікувати</button>
+        <button onclick="editInline()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid #3c7eff; padding: 12px 20px; border-radius: 40px;">✏️ Редагувати</button>
+        <button onclick="payWithStars(200, 'pro')" style="background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; border: none; padding: 12px 20px; border-radius: 40px;">⭐ PRO доступ — 200 Stars</button>
       </div>
-      
-      <div class="share-buttons">
-        <button onclick="shareToTelegram()" id="shareTelegramBtn" style="background: #2AABEE; color: white; border: none; padding: 10px 20px; border-radius: 40px;">📲 Telegram</button>
-        <button onclick="copyLink()" id="copyLinkBtn" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid #aaa; padding: 10px 20px; border-radius: 40px;">🔗 Копіювати посилання</button>
-      </div>
-      
       <p id="shareHint" style="font-size: 11px; color: #aaa; margin-top: 12px;">💡 Покажи свій сайт друзям — отримай перших клієнтів!</p>
     </div>
   </div>
 
-  <!-- ВІДГУКИ ТА ФУТЕР -->
+  <!-- ВІДГУКИ -->
   <div class="reviews">
     <h4 id="reviewsTitle">✨ ВІДГУКИ КОРИСТУВАЧІВ ✨</h4>
     <div class="review-stars">★★★★★</div>
@@ -310,211 +510,96 @@
 </div>
 
 <script>
-  // ========== ЛОКАЛІЗАЦІЯ ==========
+  // ========== ЛОКАЛІЗАЦІЯ (ПОВНА) ==========
   const LOCALES = {
     ua: {
-      builderBadge: 'landing builder',
-      sub: 'створи готовий HTML лендінг за 2 хвилини · 4 шаблони · завантаж фото',
-      aiText: 'AI аналізує нішу...',
-      labelBrand: '🏷️ НАЗВА БРЕНДУ',
-      labelNiche: '🎯 НІША / СФЕРА',
-      labelProduct: '✨ ГОЛОВНИЙ ОФФЕР',
-      labelDesc: '📝 ОПИС ПЕРЕВАГ',
-      labelPhoto: '🖼️ ФОТО ПРОДУКТУ',
-      uploadText: '📸 Натисни, щоб завантажити фото',
-      labelContact: '📡 КОНТАКТИ',
-      generateBtn: '✨ Згенерувати лендінг ✨',
-      limitTitle: '⚡ Ліміт безкоштовних генерацій вичерпано!',
-      btnUnlimit: '🔥 Доступ — $9',
-      btnPro: '⭐ PRO доступ — $29',
-      btnPremium: '💼 Під ключ — від $100',
-      choiceNote: '💡 Доступ: безліміт генерацій + всі шаблони\n⭐ PRO: + публічне посилання + SEO + аналітика\n🎯 Під ключ: унікальний лендінг за 2-5 днів',
-      victoryTitle: 'Сайт створено!',
-      victorySub: 'Ти вже на 1 крок ближче до клієнтів',
-      levelText: 'Текст',
-      levelSite: 'Сайт',
-      levelTraffic: 'Трафік 🔒',
-      btnDownload: '📥 Завантажити',
-      btnCopy: '📋 Копіювати код',
-      btnPublish: '🌍 Опублікувати',
-      btnShare: '📱 Поділитись',
-      nextTitle: 'Твій сайт готовий!',
-      featureDomain: 'Власний домен',
-      featureAnalytics: 'Аналітика',
-      featureSEO: 'SEO оптимізація',
-      featureDesigns: '+4 дизайни',
-      nextPublishBtn: '🌍 Опублікувати',
-      nextEditBtn: '✏️ Редагувати',
-      nextProBtn: '⭐ PRO доступ — $29',
-      shareTelegramBtn: '📲 Telegram',
-      copyLinkBtn: '🔗 Копіювати посилання',
-      shareHint: '💡 Покажи свій сайт друзям — отримай перших клієнтів!',
+      builderBadge: 'landing builder', sub: 'створи готовий HTML лендінг за 2 хвилини · 8 шаблонів · завантаж фото',
+      aiText: 'AI аналізує нішу...', labelBrand: '🏷️ НАЗВА БРЕНДУ', labelNiche: '🎯 НІША / СФЕРА',
+      labelProduct: '✨ ГОЛОВНИЙ ОФФЕР', labelDesc: '📝 ОПИС ПЕРЕВАГ', labelPhoto: '🖼️ ФОТО ПРОДУКТУ',
+      uploadText: '📸 Натисни, щоб завантажити фото', labelContact: '📡 КОНТАКТИ',
+      generateBtn: '✨ Згенерувати лендінг ✨', limitTitle: '⚡ Ліміт безкоштовних генерацій вичерпано!',
+      victoryTitle: 'Сайт створено!', victorySub: 'Ти вже на 1 крок ближче до клієнтів',
+      levelText: 'Текст', levelSite: 'Сайт', levelTraffic: 'Трафік 🔒',
+      btnDownload: '📥 Завантажити', btnCopy: '📋 Копіювати код', btnPublish: '🌍 Опублікувати', btnShare: '📱 Поділитись',
+      nextTitle: 'Твій сайт готовий!', shareHint: '💡 Покажи свій сайт друзям — отримай перших клієнтів!',
       reviewsTitle: '✨ ВІДГУКИ КОРИСТУВАЧІВ ✨',
       reviewText: '"Зробив лендінг для свого бізнесу за 5 хвилин! Поділився з друзями — вже є перший клієнт"',
       reviewAuthor: '— Анна, власниця студії манікюру',
-      statLandings: 'лендінгів створено',
-      statRecommend: 'користувачів рекомендують',
-      statusGenerated: '✅ Лендінг створено! Залишилось ',
-      statusFree: ' безкоштовних',
-      statusLimit: '⚠️ Залишилась 1 безкоштовна генерація. Відкрий PRO можливості!',
-      statusNoLimit: '⚠️ Ліміт вичерпано! Обери один з варіантів',
-      statusTemplate: '🎨 Шаблон ',
-      statusActivated: ' активовано',
-      statusPhoto: '✅ Фото завантажено!',
-      statusPublish: '📤 Публікація...',
-      statusPublishSuccess: '✅ Посилання скопійовано: ',
-      statusPublishError: '❌ Помилка публікації',
-      statusCopyLink: '🔗 Посилання скопійовано! Поділись з друзями',
-      statusNoLink: '⚠️ Спочатку опублікуй лендінг',
-      statusDownload: '📥 Файл завантажено!',
-      statusCopyCode: '📋 Код скопійовано!',
-      statusCopyText: '📋 Текст скопійовано! Відправ другу',
-      statusEdit: '✏️ Режим редагування: змінюй текст прямо на сайті!',
-      statusTelegram: '📱 Напишіть @ifield_lab'
+      statLandings: 'лендінгів створено', statRecommend: 'користувачів рекомендують',
+      statusGenerated: '✅ Лендінг створено! Залишилось ', statusFree: ' безкоштовних',
+      statusLimit: '⚠️ Залишилась 1 безкоштовна генерація!', statusNoLimit: '⚠️ Ліміт вичерпано!',
+      statusTemplate: '🎨 Шаблон ', statusActivated: ' активовано', statusPhoto: '✅ Фото завантажено!',
+      statusDownload: '📥 Файл завантажено!', statusCopyCode: '📋 Код скопійовано!',
+      statusEdit: '✏️ Редагування: змінюй текст прямо на сайті!', statusTelegram: '📱 Напишіть @ifield_lab'
     },
     en: {
-      builderBadge: 'landing builder',
-      sub: 'create ready HTML landing in 2 minutes · 4 templates · upload photo',
-      aiText: '🤖 AI analyzing niche...',
-      labelBrand: '🏷️ BRAND NAME',
-      labelNiche: '🎯 NICHE / SPHERE',
-      labelProduct: '✨ MAIN OFFER',
-      labelDesc: '📝 DESCRIPTION',
-      labelPhoto: '🖼️ PRODUCT PHOTO',
-      uploadText: '📸 Click to upload photo',
-      labelContact: '📡 CONTACTS',
-      generateBtn: '✨ Generate Landing ✨',
-      limitTitle: '⚡ Free generations limit reached!',
-      btnUnlimit: '🔥 Unlimited — $9',
-      btnPro: '⭐ PRO access — $29',
-      btnPremium: '💼 Done for you — from $100',
-      choiceNote: '💡 Unlimited: all templates + unlimited generations\n⭐ PRO: + public link + SEO + analytics\n🎯 Done for you: custom landing in 2-5 days',
-      victoryTitle: 'Site created!',
-      victorySub: 'You are one step closer to clients',
-      levelText: 'Text',
-      levelSite: 'Site',
-      levelTraffic: 'Traffic 🔒',
-      btnDownload: '📥 Download',
-      btnCopy: '📋 Copy code',
-      btnPublish: '🌍 Publish',
-      btnShare: '📱 Share',
-      nextTitle: 'Your site is ready!',
-      featureDomain: 'Custom domain',
-      featureAnalytics: 'Analytics',
-      featureSEO: 'SEO optimization',
-      featureDesigns: '+4 designs',
-      nextPublishBtn: '🌍 Publish',
-      nextEditBtn: '✏️ Edit',
-      nextProBtn: '⭐ PRO access — $29',
-      shareTelegramBtn: '📲 Telegram',
-      copyLinkBtn: '🔗 Copy link',
-      shareHint: '💡 Show your site to friends — get your first clients!',
+      builderBadge: 'landing builder', sub: 'create ready HTML landing in 2 minutes · 8 templates · upload photo',
+      aiText: '🤖 AI analyzing niche...', labelBrand: '🏷️ BRAND NAME', labelNiche: '🎯 NICHE / SPHERE',
+      labelProduct: '✨ MAIN OFFER', labelDesc: '📝 DESCRIPTION', labelPhoto: '🖼️ PRODUCT PHOTO',
+      uploadText: '📸 Click to upload photo', labelContact: '📡 CONTACTS',
+      generateBtn: '✨ Generate Landing ✨', limitTitle: '⚡ Free generations limit reached!',
+      victoryTitle: 'Site created!', victorySub: 'You are one step closer to clients',
+      levelText: 'Text', levelSite: 'Site', levelTraffic: 'Traffic 🔒',
+      btnDownload: '📥 Download', btnCopy: '📋 Copy code', btnPublish: '🌍 Publish', btnShare: '📱 Share',
+      nextTitle: 'Your site is ready!', shareHint: '💡 Show your site to friends — get your first clients!',
       reviewsTitle: '✨ USER REVIEWS ✨',
       reviewText: '"I made a landing for my business in 5 minutes! Shared with friends — already got my first client"',
       reviewAuthor: '— Anna, nail studio owner',
-      statLandings: 'landings created',
-      statRecommend: 'users recommend',
-      statusGenerated: '✅ Landing created! Remaining ',
-      statusFree: ' free',
-      statusLimit: '⚠️ 1 free generation left. Unlock PRO features!',
-      statusNoLimit: '⚠️ Limit reached! Choose an option below',
-      statusTemplate: '🎨 Template ',
-      statusActivated: ' activated',
-      statusPhoto: '✅ Photo uploaded!',
-      statusPublish: '📤 Publishing...',
-      statusPublishSuccess: '✅ Link copied: ',
-      statusPublishError: '❌ Publish error',
-      statusCopyLink: '🔗 Link copied! Share with friends',
-      statusNoLink: '⚠️ Publish the landing first',
-      statusDownload: '📥 File downloaded!',
-      statusCopyCode: '📋 Code copied!',
-      statusCopyText: '📋 Text copied! Send to friend',
-      statusEdit: '✏️ Edit mode: change text directly on site!',
-      statusTelegram: '📱 Write to @ifield_lab'
+      statLandings: 'landings created', statRecommend: 'users recommend',
+      statusGenerated: '✅ Landing created! Remaining ', statusFree: ' free',
+      statusLimit: '⚠️ 1 free generation left!', statusNoLimit: '⚠️ Limit reached!',
+      statusTemplate: '🎨 Template ', statusActivated: ' activated', statusPhoto: '✅ Photo uploaded!',
+      statusDownload: '📥 File downloaded!', statusCopyCode: '📋 Code copied!',
+      statusEdit: '✏️ Edit mode: change text directly on site!', statusTelegram: '📱 Write to @ifield_lab'
     },
     ru: {
-      builderBadge: 'landing builder',
-      sub: 'создай готовый HTML лендинг за 2 минуты · 4 шаблона · загрузи фото',
-      aiText: '🤖 AI анализирует нишу...',
-      labelBrand: '🏷️ НАЗВАНИЕ БРЕНДА',
-      labelNiche: '🎯 НИША / СФЕРА',
-      labelProduct: '✨ ГЛАВНОЕ ПРЕДЛОЖЕНИЕ',
-      labelDesc: '📝 ОПИСАНИЕ',
-      labelPhoto: '🖼️ ФОТО ПРОДУКТА',
-      uploadText: '📸 Нажми, чтобы загрузить фото',
-      labelContact: '📡 КОНТАКТЫ',
-      generateBtn: '✨ Сгенерировать лендинг ✨',
-      limitTitle: '⚡ Лимит бесплатных генераций исчерпан!',
-      btnUnlimit: '🔥 Доступ — $9',
-      btnPro: '⭐ PRO доступ — $29',
-      btnPremium: '💼 Под ключ — от $100',
-      choiceNote: '💡 Доступ: безлимит генераций + все шаблоны\n⭐ PRO: + публичная ссылка + SEO + аналитика\n🎯 Под ключ: уникальный лендинг за 2-5 дней',
-      victoryTitle: 'Сайт создан!',
-      victorySub: 'Ты на шаг ближе к клиентам',
-      levelText: 'Текст',
-      levelSite: 'Сайт',
-      levelTraffic: 'Трафик 🔒',
-      btnDownload: '📥 Скачать',
-      btnCopy: '📋 Копировать код',
-      btnPublish: '🌍 Опубликовать',
-      btnShare: '📱 Поделиться',
-      nextTitle: 'Твой сайт готов!',
-      featureDomain: 'Свой домен',
-      featureAnalytics: 'Аналитика',
-      featureSEO: 'SEO оптимизация',
-      featureDesigns: '+4 дизайна',
-      nextPublishBtn: '🌍 Опубликовать',
-      nextEditBtn: '✏️ Редактировать',
-      nextProBtn: '⭐ PRO доступ — $29',
-      shareTelegramBtn: '📲 Telegram',
-      copyLinkBtn: '🔗 Копировать ссылку',
-      shareHint: '💡 Покажи свой сайт друзьям — получи первых клиентов!',
+      builderBadge: 'landing builder', sub: 'создай готовый HTML лендинг за 2 минуты · 8 шаблонов · загрузи фото',
+      aiText: '🤖 AI анализирует нишу...', labelBrand: '🏷️ НАЗВАНИЕ БРЕНДА', labelNiche: '🎯 НИША / СФЕРА',
+      labelProduct: '✨ ГЛАВНОЕ ПРЕДЛОЖЕНИЕ', labelDesc: '📝 ОПИСАНИЕ', labelPhoto: '🖼️ ФОТО ПРОДУКТА',
+      uploadText: '📸 Нажми, чтобы загрузить фото', labelContact: '📡 КОНТАКТЫ',
+      generateBtn: '✨ Сгенерировать лендинг ✨', limitTitle: '⚡ Лимит бесплатных генераций исчерпан!',
+      victoryTitle: 'Сайт создан!', victorySub: 'Ты на шаг ближе к клиентам',
+      levelText: 'Текст', levelSite: 'Сайт', levelTraffic: 'Трафик 🔒',
+      btnDownload: '📥 Скачать', btnCopy: '📋 Копировать код', btnPublish: '🌍 Опубликовать', btnShare: '📱 Поделиться',
+      nextTitle: 'Твой сайт готов!', shareHint: '💡 Покажи свой сайт друзьям — получи первых клиентов!',
       reviewsTitle: '✨ ОТЗЫВЫ ПОЛЬЗОВАТЕЛЕЙ ✨',
       reviewText: '"Сделал лендинг для своего бизнеса за 5 минут! Поделился с друзьями — уже есть первый клиент"',
       reviewAuthor: '— Анна, владелица студии маникюра',
-      statLandings: 'лендингов создано',
-      statRecommend: 'пользователей рекомендуют',
-      statusGenerated: '✅ Лендинг создан! Осталось ',
-      statusFree: ' бесплатных',
-      statusLimit: '⚠️ Осталась 1 бесплатная генерация. Открой PRO возможности!',
-      statusNoLimit: '⚠️ Лимит исчерпан! Выбери один из вариантов',
-      statusTemplate: '🎨 Шаблон ',
-      statusActivated: ' активирован',
-      statusPhoto: '✅ Фото загружено!',
-      statusPublish: '📤 Публикация...',
-      statusPublishSuccess: '✅ Ссылка скопирована: ',
-      statusPublishError: '❌ Ошибка публикации',
-      statusCopyLink: '🔗 Ссылка скопирована! Поделись с друзьями',
-      statusNoLink: '⚠️ Сначала опубликуй лендинг',
-      statusDownload: '📥 Файл загружен!',
-      statusCopyCode: '📋 Код скопирован!',
-      statusCopyText: '📋 Текст скопирован! Отправь другу',
-      statusEdit: '✏️ Режим редактирования: меняй текст прямо на сайте!',
-      statusTelegram: '📱 Напишите @ifield_lab'
+      statLandings: 'лендингов создано', statRecommend: 'пользователей рекомендуют',
+      statusGenerated: '✅ Лендинг создан! Осталось ', statusFree: ' бесплатных',
+      statusLimit: '⚠️ Осталась 1 бесплатная генерация!', statusNoLimit: '⚠️ Лимит исчерпан!',
+      statusTemplate: '🎨 Шаблон ', statusActivated: ' активирован', statusPhoto: '✅ Фото загружено!',
+      statusDownload: '📥 Файл загружен!', statusCopyCode: '📋 Код скопирован!',
+      statusEdit: '✏️ Режим редактирования: меняй текст прямо на сайте!', statusTelegram: '📱 Напишите @ifield_lab'
     }
   };
 
   let currentLang = 'ua';
-  
-  // Визначення мови з URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const urlLang = urlParams.get('lang');
-  if (urlLang && ['ua', 'en', 'ru'].includes(urlLang)) {
-    currentLang = urlLang;
-  } else {
-    const savedLang = localStorage.getItem('ifield_lang');
-    if (savedLang && ['ua', 'en', 'ru'].includes(savedLang)) {
-      currentLang = savedLang;
-    }
-  }
-  
+  const urlLang = new URLSearchParams(window.location.search).get('lang');
+  if (urlLang && ['ua', 'en', 'ru'].includes(urlLang)) currentLang = urlLang;
+  else if (localStorage.getItem('ifield_lang')) currentLang = localStorage.getItem('ifield_lang');
+
+  // ========== ШАБЛОНИ ==========
+  const TEMPLATES = {
+    'sci-fi': { gradient: 'linear-gradient(135deg, #ffffff, #7bb2ff)', bg: '#0a0c1a', text: '#e2e8f0', accent: '#2c6eff', name: 'Sci-Fi' },
+    'luxury': { gradient: 'linear-gradient(135deg, #FFD700, #FFA500)', bg: '#1a1610', text: '#f5f2ed', accent: '#c8a96e', name: 'Luxury' },
+    'nature': { gradient: 'linear-gradient(135deg, #90EE90, #228B22)', bg: '#0a1a0a', text: '#e0f0e0', accent: '#6B8E23', name: 'Nature' },
+    'neon': { gradient: 'linear-gradient(135deg, #FF00FF, #00FFFF)', bg: '#0a0a1a', text: '#f0f0ff', accent: '#ff00ff', name: 'Neon' },
+    'dark-glass': { gradient: 'linear-gradient(135deg, #aaa, #333)', bg: '#080c14', text: '#ffffff', accent: '#6c5ce7', name: 'Dark Glass' },
+    'holographic': { gradient: 'linear-gradient(135deg, #ff77aa, #77aaff, #77ffaa)', bg: '#050a12', text: '#eef4ff', accent: '#c084fc', name: 'Holographic' },
+    'cyberpunk': { gradient: 'linear-gradient(135deg, #ff3366, #33ff66)', bg: '#0a0a0f', text: '#ffcc88', accent: '#ff3366', name: 'Cyberpunk' },
+    'minimal-white': { gradient: 'linear-gradient(135deg, #ffffff, #f5f5f5)', bg: '#ffffff', text: '#111111', accent: '#000000', name: 'Minimal White' }
+  };
+
+  let currentTemplate = 'sci-fi';
+  let currentHTML = '';
+  let uploadedImageData = '';
+  let freeGenerations = localStorage.getItem('freeGenerations') ? parseInt(localStorage.getItem('freeGenerations')) : 3;
+
   function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('ifield_lang', lang);
-    
     const t = LOCALES[lang];
-    
-    // Оновлення тексту
     document.getElementById('builderBadge').innerText = t.builderBadge;
     document.getElementById('subText').innerText = t.sub;
     document.getElementById('aiText').innerText = t.aiText;
@@ -527,10 +612,6 @@
     document.getElementById('labelContact').innerText = t.labelContact;
     document.getElementById('generateBtn').innerHTML = t.generateBtn;
     document.getElementById('limitTitle').innerText = t.limitTitle;
-    document.getElementById('btnUnlimit').innerHTML = t.btnUnlimit;
-    document.getElementById('btnPro').innerHTML = t.btnPro;
-    document.getElementById('btnPremium').innerHTML = t.btnPremium;
-    document.getElementById('choiceNote').innerHTML = t.choiceNote;
     document.getElementById('victoryTitle').innerText = t.victoryTitle;
     document.getElementById('victorySub').innerText = t.victorySub;
     document.getElementById('levelText').innerText = t.levelText;
@@ -541,223 +622,96 @@
     document.getElementById('btnPublish').innerHTML = t.btnPublish;
     document.getElementById('btnShare').innerHTML = t.btnShare;
     document.getElementById('nextTitle').innerText = t.nextTitle;
-    document.getElementById('featureDomain').innerText = t.featureDomain;
-    document.getElementById('featureAnalytics').innerText = t.featureAnalytics;
-    document.getElementById('featureSEO').innerText = t.featureSEO;
-    document.getElementById('featureDesigns').innerText = t.featureDesigns;
-    document.getElementById('nextPublishBtn').innerHTML = t.nextPublishBtn;
-    document.getElementById('nextEditBtn').innerHTML = t.nextEditBtn;
-    document.getElementById('nextProBtn').innerHTML = t.nextProBtn;
-    document.getElementById('shareTelegramBtn').innerHTML = t.shareTelegramBtn;
-    document.getElementById('copyLinkBtn').innerHTML = t.copyLinkBtn;
     document.getElementById('shareHint').innerText = t.shareHint;
     document.getElementById('reviewsTitle').innerHTML = t.reviewsTitle;
     document.getElementById('reviewText').innerText = t.reviewText;
     document.getElementById('reviewAuthor').innerText = t.reviewAuthor;
     document.getElementById('statLandings').innerText = t.statLandings;
     document.getElementById('statRecommend').innerText = t.statRecommend;
-    
-    // Оновлення активних кнопок
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      if (btn.dataset.lang === lang) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-  }
-  
-  // Додаємо обробники для кнопок мови
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setLanguage(btn.dataset.lang);
-    });
-  });
-  
-  // Ініціалізація мови
-  setLanguage(currentLang);
-  
-  // ========== КОНФІГ ==========
-  const CONFIG = { maxGenerations: 3, prices: { basic: 9, pro: 29, premium: 100 } };
-
-  // ========== ШАБЛОНИ ==========
-  const TEMPLATES = {
-    'sci-fi': { gradient: 'linear-gradient(135deg, #ffffff, #7bb2ff)', badge: 'rgba(60,130,255,0.2)', name: 'Sci-Fi' },
-    'luxury': { gradient: 'linear-gradient(135deg, #FFD700, #FFA500)', badge: 'rgba(255,215,0,0.2)', name: 'Luxury' },
-    'nature': { gradient: 'linear-gradient(135deg, #90EE90, #228B22)', badge: 'rgba(144,238,144,0.2)', name: 'Nature' },
-    'neon': { gradient: 'linear-gradient(135deg, #FF00FF, #00FFFF)', badge: 'rgba(255,0,255,0.2)', name: 'Neon' }
-  };
-
-  function save(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
-  function load(key, def = null) { const d = localStorage.getItem(key); return d ? JSON.parse(d) : def; }
-
-  // ========== БЛОКИ ЛЕНДІНГУ ==========
-  function heroBlock(brand, product, niche, style) {
-    const t = LOCALES[currentLang];
-    return `<div class="badge" style="background:${style.badge}">⚡ iField Studio • ${niche}</div>
-    <h1 style="background:${style.gradient}; -webkit-background-clip:text; background-clip:text; color:transparent">${brand}</h1>
-    <div class="product">${product}</div>`;
-  }
-  function imageBlock(src) { return `<div class="product-image"><img src="${src}" alt="Product"></div>`; }
-  function descriptionBlock(text) { return `<div class="description">${text}</div>`; }
-  function featuresBlock() {
-    const t = LOCALES[currentLang];
-    return `<div class="features"><div class="feature">✨ ${t.levelText === 'Текст' ? 'мінімалізм' : (t.levelText === 'Text' ? 'minimalism' : 'минимализм')}</div><div class="feature">⚡ ${t.levelText === 'Текст' ? 'швидкий старт' : (t.levelText === 'Text' ? 'quick start' : 'быстрый старт')}</div><div class="feature">🔮 ${t.levelText === 'Текст' ? 'преміальна якість' : (t.levelText === 'Text' ? 'premium quality' : 'премиальное качество')}</div></div>`;
-  }
-  function contactBlock(contact) {
-    const link = contact.startsWith('@') ? `https://t.me/${contact.slice(1)}` : contact;
-    return `<a href="${link}" class="contact-btn" target="_blank">📩 ${LOCALES[currentLang].btnShare === '📱 Поділитись' ? 'Зв\'язатися зараз' : (LOCALES[currentLang].btnShare === '📱 Share' ? 'Contact now' : 'Связаться сейчас')}</a><div class="footer">${contact}</div>`;
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
   }
 
-  function buildHTML(brand, niche, product, description, contact, imageSrc, template) {
-    const style = TEMPLATES[template];
-    const t = LOCALES[currentLang];
-    const features = `<div class="features"><div class="feature">✨ ${t.levelText === 'Текст' ? 'мінімалізм' : (t.levelText === 'Text' ? 'minimalism' : 'минимализм')}</div><div class="feature">⚡ ${t.levelText === 'Текст' ? 'швидкий старт' : (t.levelText === 'Text' ? 'quick start' : 'быстрый старт')}</div><div class="feature">🔮 ${t.levelText === 'Текст' ? 'преміальна якість' : (t.levelText === 'Text' ? 'premium quality' : 'премиальное качество')}</div></div>`;
+  function buildHTML() {
+    const brand = document.getElementById('brand').value.trim() || 'iField Studio';
+    const niche = document.getElementById('niche').value.trim() || 'вашій ніші';
+    const product = document.getElementById('product').value.trim() || 'рішення';
+    const desc = document.getElementById('description').value.trim() || 'Якісне рішення';
+    const contact = document.getElementById('contact').value.trim() || '@contact';
+    const img = uploadedImageData || document.getElementById('imageUrl').value.trim() || 'https://placehold.co/600x400/1a1f2a/7bb2ff?text=Product';
+    const t = TEMPLATES[currentTemplate];
     const contactLink = contact.startsWith('@') ? `https://t.me/${contact.slice(1)}` : contact;
-    const contactText = t.btnShare === '📱 Поділитись' ? 'Зв\'язатися зараз' : (t.btnShare === '📱 Share' ? 'Contact now' : 'Связаться сейчас');
-    
-    return `<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${brand} | ${product}</title><style>
-*{margin:0;padding:0;box-sizing:border-box}body{min-height:100vh;background:radial-gradient(circle at 20% 30%, #06080f, #010101);font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
-.glow-orb{position:fixed;width:70vw;height:70vw;background:radial-gradient(circle,rgba(20,100,255,0.2) 0%,rgba(0,0,0,0) 70%);top:-20vh;right:-20vw;border-radius:50%;filter:blur(80px);animation:pulse 4s infinite}
-@keyframes pulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
-.container{max-width:720px;width:100%;background:rgba(12,18,28,0.68);backdrop-filter:blur(24px);border-radius:56px;border:0.5px solid rgba(80,140,255,0.3);padding:48px 36px;text-align:center}
-.product{font-size:20px;color:#b0c4ff;margin:16px 0 24px}
+    const contactText = LOCALES[currentLang].btnShare === '📱 Поділитись' ? 'Зв\'язатися зараз' : (LOCALES[currentLang].btnShare === '📱 Share' ? 'Contact now' : 'Связаться сейчас');
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${brand} | ${product}</title><style>
+*{margin:0;padding:0;box-sizing:border-box}body{min-height:100vh;background:radial-gradient(circle at 20% 30%, ${t.bg === '#ffffff' ? '#f0f0f0' : '#06080f'}, ${t.bg});font-family:-apple-system,"SF Pro Text",system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
+.container{max-width:720px;width:100%;background:${t.bg === '#ffffff' ? 'rgba(255,255,255,0.95)' : 'rgba(12,18,28,0.68)'};backdrop-filter:blur(24px);border-radius:56px;border:0.5px solid rgba(80,140,255,0.3);padding:48px 36px;text-align:center}
+.badge{display:inline-block;font-size:12px;background:${t.gradient.replace('linear-gradient', '').includes('135deg') ? 'rgba(60,130,255,0.2)' : 'rgba(0,0,0,0.1)'};padding:6px 14px;border-radius:40px;color:${t.accent};margin-bottom:24px}
+h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:12px}
+.product{font-size:20px;color:${t.accent};margin-bottom:24px}
 .product-image{width:100%;max-width:400px;margin:0 auto 32px;border-radius:32px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.4)}
 .product-image img{width:100%;display:block}
-.description{color:#9aa8c5;line-height:1.6;margin-bottom:32px}
+.description{color:${t.text};line-height:1.6;margin-bottom:32px}
 .features{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px}
-.feature{background:rgba(255,255,255,0.03);padding:10px 18px;border-radius:40px;font-size:13px;color:#ccd9ff;border:0.5px solid rgba(80,140,255,0.3)}
+.feature{background:rgba(255,255,255,0.05);padding:10px 18px;border-radius:40px;font-size:13px;color:${t.text};border:0.5px solid ${t.accent}}
 .contact-btn{display:inline-block;background:linear-gradient(135deg,#fff,#eef5ff);color:#021a3b;text-decoration:none;padding:16px 32px;border-radius:44px;font-weight:600;font-size:18px}
 .footer{margin-top:48px;font-size:12px;color:#5a6a8a}
-@media(max-width:520px){.container{padding:32px 24px}}</style></head>
-<body><div class="glow-orb"></div><div class="container"><div class="badge" style="background:${style.badge}">⚡ iField Studio • ${niche}</div><h1 style="background:${style.gradient}; -webkit-background-clip:text; background-clip:text; color:transparent">${brand}</h1><div class="product">${product}</div><div class="product-image"><img src="${imageSrc}" alt="Product"></div><div class="description">${description}</div>${features}<a href="${contactLink}" class="contact-btn" target="_blank">📩 ${contactText}</a><div class="footer">${contact}</div></div></body></html>`;
+@media(max-width:520px){.container{padding:32px 24px}h1{font-size:32px}}</style></head>
+<body><div class="container"><div class="badge">⚡ iField Studio • ${niche}</div><h1>${brand}</h1><div class="product">${product}</div><div class="product-image"><img src="${img}" alt="${product}"></div><div class="description">${desc}</div><div class="features"><div class="feature">✨ мінімалізм</div><div class="feature">⚡ швидкий старт</div><div class="feature">🔮 преміальна якість</div></div><a href="${contactLink}" class="contact-btn" target="_blank">📩 ${contactText}</a><div class="footer">${contact}</div></div></body></html>`;
   }
 
-  // ========== СТАН ==========
-  let freeGenerations = load('freeGenerations', CONFIG.maxGenerations);
-  let currentHTML = '';
-  let uploadedImageData = '';
-  let currentTemplate = 'sci-fi';
-  let currentPublishLink = '';
-
   function updateBadge() {
-    const badge = document.getElementById('freeBadge');
-    if (badge) badge.innerText = `${freeGenerations} FREE`;
+    document.getElementById('freeBadge').innerText = `${freeGenerations} FREE`;
     document.getElementById('choiceBlock').style.display = freeGenerations <= 0 ? 'block' : 'none';
   }
 
-  function updateProgression() {
-    const levels = document.querySelectorAll('.level');
-    levels.forEach(level => {
-      const lvl = parseInt(level.dataset.level);
-      if (lvl === 1) level.classList.add('active');
-      if (lvl === 2 && currentHTML) level.classList.add('active');
-      if (lvl === 3 && freeGenerations <= 0) level.classList.remove('locked');
-    });
+  function showStatus(msg, isError = false) {
+    const s = document.createElement('div');
+    s.className = 'status';
+    s.textContent = msg;
+    s.style.background = isError ? 'rgba(255,70,70,0.95)' : 'rgba(60,126,255,0.95)';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 4000);
   }
-
-  function scrollToGenerator() {
-    document.querySelector('.template-selector').scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function showAILoading(callback) {
-    const loader = document.getElementById('aiLoading');
-    loader.style.display = 'block';
-    setTimeout(() => { loader.style.display = 'none'; callback(); }, 1500);
-  }
-
-  function generateWithAnimation() { showAILoading(() => generateLanding()); }
 
   function generateLanding() {
     const t = LOCALES[currentLang];
-    
     if (freeGenerations <= 0) {
       showStatus(t.statusNoLimit, true);
       document.getElementById('choiceBlock').style.display = 'block';
       return;
     }
-
-    const brand = document.getElementById('brand').value.trim() || 'iField Studio';
-    const niche = document.getElementById('niche').value.trim() || 'вашій ніші';
-    const product = document.getElementById('product').value.trim() || 'рішення';
-    const description = document.getElementById('description').value.trim() || 'Якісне рішення';
-    const contact = document.getElementById('contact').value.trim() || '@contact';
-    let imageSrc = uploadedImageData || document.getElementById('imageUrl').value.trim() || 'https://placehold.co/600x400/1a1f2a/7bb2ff?text=Your+Product';
-
     freeGenerations--;
-    save('freeGenerations', freeGenerations);
+    localStorage.setItem('freeGenerations', freeGenerations);
     updateBadge();
-
-    currentHTML = buildHTML(brand, niche, product, description, contact, imageSrc, currentTemplate);
-
+    currentHTML = buildHTML();
     document.getElementById('resultSection').style.display = 'block';
     document.getElementById('previewFrame').srcdoc = currentHTML;
     document.getElementById('nextStep').style.display = 'block';
     document.getElementById('victoryMessage').style.display = 'block';
-    updateProgression();
-    
     showStatus(`${t.statusGenerated}${freeGenerations}${t.statusFree}`);
-    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
-
-    if (freeGenerations === 1) {
-      setTimeout(() => showStatus(t.statusLimit, false), 1500);
-    }
+    if (freeGenerations === 1) setTimeout(() => showStatus(t.statusLimit, false), 1500);
   }
 
-  function editInline() {
-    const iframe = document.getElementById('previewFrame');
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
-    doc.body.contentEditable = 'true';
-    showStatus(LOCALES[currentLang].statusEdit);
+  function generateWithAnimation() {
+    document.getElementById('aiLoading').style.display = 'block';
+    setTimeout(() => { document.getElementById('aiLoading').style.display = 'none'; generateLanding(); }, 1500);
   }
 
-  async function publishLanding() {
-    const t = LOCALES[currentLang];
-    if (!currentHTML) { showStatus(t.statusNoLink, true); return; }
-    showStatus(t.statusPublish);
+  async function publishToVercel() {
+    if (!currentHTML) { showStatus('⚠️ Спочатку згенеруй лендінг', true); return; }
+    showStatus('📤 Публікація...');
     try {
-      const response = await fetch('https://api.jsonbin.io/v3/b', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Master-Key': '$2a$10$NwLqZqZqZqZqZqZqZqZqZu' },
-        body: JSON.stringify({ html: currentHTML, created: new Date().toISOString() })
-      });
-      const data = await response.json();
-      currentPublishLink = `https://ifield.site/${data.id.slice(-6)}`;
-      await navigator.clipboard.writeText(currentPublishLink);
-      showStatus(`${t.statusPublishSuccess}${currentPublishLink}`);
-      alert(`🔗 ${t.nextTitle}\n${currentPublishLink}\n\n${t.shareHint}`);
-    } catch (error) { showStatus(t.statusPublishError, true); }
-  }
-
-  function copyLink() {
-    const t = LOCALES[currentLang];
-    if (currentPublishLink) {
-      navigator.clipboard.writeText(currentPublishLink);
-      showStatus(t.statusCopyLink);
-    } else {
-      showStatus(t.statusNoLink, true);
-    }
-  }
-
-  function shareToTelegram() {
-    const t = LOCALES[currentLang];
-    const text = currentPublishLink ? `${t.nextTitle} ${currentPublishLink}` : `${t.sub} ${window.location.href}`;
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(text)}`, '_blank');
-  }
-
-  function shareToFriends() {
-    const t = LOCALES[currentLang];
-    const text = currentPublishLink ? `🚀 ${t.nextTitle} ${currentPublishLink}` : `🚀 ${t.sub} ${window.location.href}`;
-    if (navigator.share) {
-      navigator.share({ title: 'iField Landing', text: text });
-    } else {
-      navigator.clipboard.writeText(text);
-      showStatus(t.statusCopyText);
-    }
+      const formData = new FormData();
+      const blob = new Blob([currentHTML], { type: 'text/html' });
+      formData.append('file', blob, 'index.html');
+      const res = await fetch('https://api.vercel.com/v1/deployments', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (data.url) { navigator.clipboard.writeText(`https://${data.url}`); showStatus(`✅ https://${data.url}`); }
+      else throw new Error();
+    } catch(e) { showStatus('❌ Помилка публікації', true); }
   }
 
   function downloadLanding() {
-    if (!currentHTML) { showStatus(LOCALES[currentLang].statusNoLink, true); return; }
+    if (!currentHTML) return;
     const blob = new Blob([currentHTML], { type: 'text/html' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -768,48 +722,54 @@
   }
 
   async function copyHTML() {
-    if (!currentHTML) { showStatus(LOCALES[currentLang].statusNoLink, true); return; }
+    if (!currentHTML) return;
     await navigator.clipboard.writeText(currentHTML);
     showStatus(LOCALES[currentLang].statusCopyCode);
   }
 
-  function buyUnlimit() { window.open('https://t.me/ifield_lab?text=Хочу+доступ+за+$9', '_blank'); showStatus(LOCALES[currentLang].statusTelegram); }
-  function buyPro() { window.open('https://t.me/ifield_lab?text=Хочу+PRO+доступ+за+$29', '_blank'); showStatus(LOCALES[currentLang].statusTelegram); }
-  function buyPremium() { window.open('https://t.me/ifield_lab?text=Хочу+лендінг+під+ключ', '_blank'); showStatus(LOCALES[currentLang].statusTelegram); }
-
-  function showStatus(msg, isError = false) {
-    const el = document.querySelector('.status');
-    if (el) el.remove();
-    const status = document.createElement('div');
-    status.className = 'status';
-    status.textContent = msg;
-    status.style.background = isError ? 'rgba(255,70,70,0.95)' : 'rgba(60,126,255,0.95)';
-    document.body.appendChild(status);
-    setTimeout(() => status.remove(), 4000);
+  function editInline() {
+    const iframe = document.getElementById('previewFrame');
+    iframe.contentDocument.body.contentEditable = 'true';
+    showStatus(LOCALES[currentLang].statusEdit);
   }
 
-  document.querySelectorAll('.template-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentTemplate = btn.dataset.template;
-      showStatus(`${LOCALES[currentLang].statusTemplate}${TEMPLATES[currentTemplate].name}${LOCALES[currentLang].statusActivated}`);
-    });
-  });
+  function shareToFriends() {
+    const text = window.location.href;
+    if (navigator.share) navigator.share({ title: 'iField Landing', text });
+    else { navigator.clipboard.writeText(text); showStatus('📋 Посилання скопійовано'); }
+  }
 
-  window.uploadImage = (input) => {
+  function payWithStars(amount, plan) {
+    window.open(`https://t.me/ifield_studio_bot?start=pay_${amount}_${plan}`, '_blank');
+    showStatus(`📱 Оплата ${amount} Stars через Telegram`);
+  }
+
+  function contactForStudio() { window.open('https://t.me/ifield_lab?text=Хочу+Studio+доступ+1000+Stars', '_blank'); }
+  function contactForAgency() { window.open('https://t.me/ifield_lab?text=Хочу+Agency+доступ+3000+Stars', '_blank'); }
+  function scrollToGenerator() { document.querySelector('.template-selector').scrollIntoView({ behavior: 'smooth' }); }
+  function setTemplate(t) {
+    currentTemplate = t;
+    document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    showStatus(`${LOCALES[currentLang].statusTemplate}${TEMPLATES[t].name}${LOCALES[currentLang].statusActivated}`);
+  }
+  function uploadImage(input) {
     if (input.files?.[0]) {
-      const reader = new FileReader();
-      reader.onload = e => {
+      const r = new FileReader();
+      r.onload = e => {
         uploadedImageData = e.target.result;
         document.getElementById('imagePreview').innerHTML = `<img src="${uploadedImageData}" class="preview-img">`;
         document.getElementById('imageUrl').value = '';
         showStatus(LOCALES[currentLang].statusPhoto);
       };
-      reader.readAsDataURL(input.files[0]);
+      r.readAsDataURL(input.files[0]);
     }
-  };
+  }
 
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+  document.querySelectorAll('.template-btn').forEach(btn => btn.addEventListener('click', () => setTemplate(btn.dataset.template)));
+  setLanguage(currentLang);
+  document.querySelectorAll('.template-btn')[0].classList.add('active');
   updateBadge();
 </script>
 </body>
