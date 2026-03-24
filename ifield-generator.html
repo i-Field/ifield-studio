@@ -13,14 +13,14 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     min-height: 100vh;
-    background: #05070c;
+    background: radial-gradient(circle at 20% 30%, #06080f, #010101);
     font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
     padding: 20px;
     position: relative;
     overflow-x: hidden;
   }
 
-  /* ========== КІНЕМАТОГРАФІЧНИЙ SCI-FI ФОН ========== */
+  /* ========== КІНЕМАТОГРАФІЧНИЙ SCI-FI ФОН З ПЛАВНИМИ АНІМАЦІЯМИ ========== */
   .cinematic-bg {
     position: fixed;
     top: 0;
@@ -29,16 +29,10 @@
     height: 100%;
     z-index: 0;
     overflow: hidden;
-  }
-
-  /* Глибинні шари */
-  .depth-layer {
-    position: absolute;
-    inset: 0;
     pointer-events: none;
   }
 
-  /* Плинні лінії (енергетичне поле) */
+  /* Плинні лінії — ПЛАВНО РУХАЮТЬСЯ */
   .flow-lines {
     position: absolute;
     width: 100%;
@@ -50,24 +44,24 @@
         transparent 2px,
         transparent 8px),
       repeating-linear-gradient(0deg, 
-        rgba(255, 100, 150, 0.05) 0px,
-        rgba(255, 100, 150, 0.05) 1px,
+        rgba(255, 100, 150, 0.06) 0px,
+        rgba(255, 100, 150, 0.06) 1px,
         transparent 1px,
         transparent 12px);
     background-size: 60px 100%, 100% 80px;
-    animation: flowHorizontal 20s linear infinite, flowVertical 15s linear infinite;
+    animation: flowHorizontal 25s linear infinite, flowVertical 20s linear infinite;
   }
 
   @keyframes flowHorizontal {
     0% { background-position: 0 0, 0 0; }
-    100% { background-position: 200px 0, 0 0; }
+    100% { background-position: 300px 0, 0 0; }
   }
   @keyframes flowVertical {
     0% { background-position: 0 0, 0 0; }
-    100% { background-position: 0 0, 0 200px; }
+    100% { background-position: 0 0, 0 300px; }
   }
 
-  /* Партикули (частинки) */
+  /* Партикули — ПЛАВНО ЛІТАЮТЬ */
   .particles {
     position: absolute;
     width: 100%;
@@ -77,82 +71,120 @@
     position: absolute;
     background: radial-gradient(circle, rgba(44, 110, 255, 0.6), transparent);
     border-radius: 50%;
-    animation: floatParticle 8s infinite ease-in-out;
+    animation: floatParticle 10s infinite ease-in-out;
     pointer-events: none;
   }
   @keyframes floatParticle {
-    0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
-    50% { transform: translateY(-30px) translateX(20px) scale(1.2); opacity: 0.8; }
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
+    25% { transform: translateY(-40px) translateX(30px) scale(1.3); opacity: 0.7; }
+    50% { transform: translateY(20px) translateX(-20px) scale(0.8); opacity: 0.4; }
+    75% { transform: translateY(-20px) translateX(40px) scale(1.1); opacity: 0.6; }
+    100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
   }
 
-  /* Голографічні шари */
+  /* Голографічний шар — ПУЛЬСУЄ */
   .hologram-layer {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse at 30% 40%, rgba(44, 110, 255, 0.08), transparent 60%);
-    animation: hologramPulse 6s ease-in-out infinite;
+    animation: hologramPulse 8s ease-in-out infinite;
   }
   @keyframes hologramPulse {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.05); }
+    0% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.08); }
+    100% { opacity: 0.2; transform: scale(1); }
   }
 
-  /* Паралакс-ефект (рух за мишею/пальцем) */
-  .parallax-layer {
-    position: absolute;
-    inset: 0;
-    transition: transform 0.1s ease-out;
-  }
-
-  /* Кінематографічне світіння */
+  /* Кінематографічне світіння — ПЛАВНО ПУЛЬСУЄ */
   .cinematic-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(44, 110, 255, 0.15), transparent 70%);
-    animation: glowPulse 4s infinite;
+    background: radial-gradient(circle at 50% 50%, rgba(44, 110, 255, 0.12), transparent 70%);
+    animation: glowPulse 6s infinite;
   }
   @keyframes glowPulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
+    0% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+    100% { opacity: 0.3; transform: scale(1); }
   }
 
-  /* Лінзовий блік */
+  /* Лінзовий блік — ПЛАВНО РУХАЄТЬСЯ ПО КОЛУ */
   .lens-flare {
     position: absolute;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255, 200, 100, 0.15), transparent 60%);
+    background: radial-gradient(circle, rgba(255, 200, 100, 0.12), transparent 60%);
     top: -50%;
     left: -50%;
-    animation: lensMove 12s infinite linear;
-    pointer-events: none;
+    animation: lensMove 20s infinite linear;
   }
   @keyframes lensMove {
-    0% { transform: translate(0%, 0%) rotate(0deg); opacity: 0.3; }
-    25% { transform: translate(10%, 5%) rotate(5deg); opacity: 0.5; }
-    50% { transform: translate(5%, 15%) rotate(10deg); opacity: 0.3; }
-    75% { transform: translate(-5%, 5%) rotate(5deg); opacity: 0.4; }
-    100% { transform: translate(0%, 0%) rotate(0deg); opacity: 0.3; }
+    0% { transform: translate(0%, 0%) rotate(0deg); opacity: 0.2; }
+    20% { transform: translate(15%, 5%) rotate(72deg); opacity: 0.5; }
+    40% { transform: translate(5%, 20%) rotate(144deg); opacity: 0.3; }
+    60% { transform: translate(-10%, 10%) rotate(216deg); opacity: 0.4; }
+    80% { transform: translate(-5%, -5%) rotate(288deg); opacity: 0.3; }
+    100% { transform: translate(0%, 0%) rotate(360deg); opacity: 0.2; }
   }
 
-  /* Основний контейнер */
+  /* Паралакс-ефект — ПЛАВНО РЕАГУЄ НА РУХ МИШІ/ПАЛЬЦЯ */
+  .parallax-layer {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.05s ease-out;
+    will-change: transform;
+  }
+
+  /* ========== ОСНОВНІ СТИЛІ (ЗБЕРЕЖЕНІ) ========== */
+  .glow-orb {
+    position: fixed;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(20, 100, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    top: -20vh;
+    right: -20vw;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: pulse-glow 4s infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .container {
     max-width: 1100px;
     margin: 0 auto;
-    background: rgba(12, 18, 28, 0.65);
-    backdrop-filter: blur(20px);
+    background: rgba(12, 18, 28, 0.75);
+    backdrop-filter: blur(24px);
     border-radius: 48px;
     border: 0.5px solid rgba(80, 140, 255, 0.3);
     padding: 28px 24px;
     position: relative;
     z-index: 10;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: floatContainer 6s ease-in-out infinite;
   }
 
-  /* Елегантна типографіка для заголовка */
+  @keyframes floatContainer {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  /* Glitch анімація для заголовка */
+  @keyframes glitch {
+    0%, 100% { transform: skew(0deg, 0deg); text-shadow: 0 0 0px #00ffff; }
+    95% { transform: skew(0deg, 0deg); }
+    96% { transform: skew(2deg, 1deg); text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+    97% { transform: skew(-1deg, -0.5deg); text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
+    98% { transform: skew(0deg, 0deg); }
+  }
+
   h1 {
     font-size: 28px;
-    background: linear-gradient(135deg, #fff, #7bb2ff, #b0cbff);
+    background: linear-gradient(135deg, #fff, #7bb2ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -162,11 +194,9 @@
     flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 8px;
-    letter-spacing: -0.5px;
-    text-shadow: 0 0 20px rgba(44, 110, 255, 0.3);
+    animation: glitch 8s infinite;
   }
 
-  /* Інші стилі (збережені з попередньої версії) */
   .lang-switcher { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 20px; }
   .lang-btn {
     background: rgba(30, 40, 58, 0.6);
@@ -200,6 +230,11 @@
   .badge { font-size: 12px; background: rgba(60, 130, 255, 0.2); padding: 4px 12px; border-radius: 40px; color: #7bb2ff; }
   .free-badge { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; font-weight: bold; animation: pulse-glow 2s infinite; }
   .sub { color: #8e9ab0; margin-bottom: 28px; border-left: 2px solid #2c6eff; padding-left: 14px; font-size: 13px; position: relative; overflow: hidden; }
+  .sub::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(44,110,255,0.2), transparent); transform: translateX(-100%); animation: hologramWave 3s infinite; }
+  @keyframes hologramWave {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
   
   .input-group { margin-bottom: 20px; }
   label { display: block; font-size: 11px; text-transform: uppercase; color: #8aa0cf; margin-bottom: 6px; letter-spacing: 0.5px; }
@@ -245,7 +280,22 @@
     text-align: center;
     font-size: 11px;
     transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
   }
+  .template-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(44,110,255,0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+  .template-btn:active::after { width: 200%; height: 200%; }
   .template-btn.active { background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; animation: pulse-glow 2s infinite; }
   
   .generate-btn {
@@ -259,7 +309,20 @@
     cursor: pointer;
     margin-top: 12px;
     transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
   }
+  .generate-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+  }
+  .generate-btn:hover::before { left: 100%; }
   .generate-btn:active { transform: scale(0.98); }
   
   .limit-info {
@@ -279,7 +342,11 @@
   .limit-paid { color: #ffd700; }
   
   .result-section { margin-top: 32px; display: none; }
-  .preview-frame { width: 100%; height: 500px; border: none; border-radius: 24px; background: #05070c; animation: float 4s infinite; }
+  .preview-frame { width: 100%; height: 500px; border: none; border-radius: 24px; background: #05070c; animation: floatFrame 4s ease-in-out infinite; }
+  @keyframes floatFrame {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
+  }
   .action-buttons { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
   .action-buttons button {
     flex: 1;
@@ -290,7 +357,20 @@
     border-radius: 40px;
     cursor: pointer;
     transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
   }
+  .action-buttons button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.4s;
+  }
+  .action-buttons button:hover::before { left: 100%; }
   .action-buttons button:first-child { background: linear-gradient(135deg, #2c6eff, #1a4fcc); border: none; }
   
   .next-step { margin-top: 20px; padding: 20px; background: rgba(44, 110, 255, 0.15); border-radius: 24px; text-align: center; display: none; }
@@ -367,14 +447,6 @@
     animation: fadeSlide 0.3s;
   }
   @keyframes fadeSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 5px rgba(44,110,255,0.3); }
-    50% { box-shadow: 0 0 20px rgba(44,110,255,0.6); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-  }
   
   @media (max-width: 600px) {
     .container { padding: 20px 16px; }
@@ -385,17 +457,16 @@
 </style>
 </head>
 <body>
-<!-- КІНЕМАТОГРАФІЧНИЙ SCI-FI ФОН -->
+<!-- КІНЕМАТОГРАФІЧНИЙ SCI-FI ФОН З ПЛАВНИМИ АНІМАЦІЯМИ -->
 <div class="cinematic-bg">
-  <div class="depth-layer">
-    <div class="flow-lines"></div>
-  </div>
+  <div class="flow-lines"></div>
   <div class="particles" id="particles"></div>
   <div class="hologram-layer"></div>
   <div class="cinematic-glow"></div>
   <div class="lens-flare"></div>
   <div class="parallax-layer" id="parallaxLayer"></div>
 </div>
+<div class="glow-orb"></div>
 
 <div class="container">
   <div class="lang-switcher">
@@ -571,23 +642,31 @@
     ru: ["🔍 Анализ ниши...", "🎨 Подбор дизайна...", "🧠 Генерация структуры...", "⚡ Оптимизация под клиентов...", "🌐 Формирование сайта..."]
   };
 
-  // ========== ПАРАЛАКС-ЕФЕКТ ДЛЯ ФОНУ ==========
+  // ========== ПАРАЛАКС-ЕФЕКТ ДЛЯ ФОНУ (ПЛАВНИЙ) ==========
   function initParallax() {
     const parallaxLayer = document.getElementById('parallaxLayer');
     if (!parallaxLayer) return;
     
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+    
+    function updateParallax() {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      parallaxLayer.style.transform = `translate(${currentX}px, ${currentY}px)`;
+      requestAnimationFrame(updateParallax);
+    }
+    updateParallax();
+    
     document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      parallaxLayer.style.transform = `translate(${x}px, ${y}px)`;
+      targetX = (e.clientX / window.innerWidth - 0.5) * 25;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 25;
     });
     
-    // Для тач-пристроїв (iPhone)
     document.addEventListener('touchmove', (e) => {
       const touch = e.touches[0];
-      const x = (touch.clientX / window.innerWidth - 0.5) * 15;
-      const y = (touch.clientY / window.innerHeight - 0.5) * 15;
-      parallaxLayer.style.transform = `translate(${x}px, ${y}px)`;
+      targetX = (touch.clientX / window.innerWidth - 0.5) * 20;
+      targetY = (touch.clientY / window.innerHeight - 0.5) * 20;
     });
   }
 
@@ -596,17 +675,17 @@
     const container = document.getElementById('particles');
     if (!container) return;
     
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 80; i++) {
       const particle = document.createElement('div');
       particle.className = 'particle';
-      const size = Math.random() * 3 + 1;
+      const size = Math.random() * 4 + 1;
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
       particle.style.left = `${Math.random() * 100}%`;
       particle.style.top = `${Math.random() * 100}%`;
-      particle.style.animationDelay = `${Math.random() * 8}s`;
-      particle.style.animationDuration = `${5 + Math.random() * 5}s`;
-      particle.style.background = `radial-gradient(circle, ${Math.random() > 0.7 ? 'rgba(255, 100, 150, 0.5)' : 'rgba(44, 110, 255, 0.5)'}, transparent)`;
+      particle.style.animationDelay = `${Math.random() * 10}s`;
+      particle.style.animationDuration = `${8 + Math.random() * 8}s`;
+      particle.style.background = `radial-gradient(circle, ${Math.random() > 0.7 ? 'rgba(255, 100, 150, 0.6)' : 'rgba(44, 110, 255, 0.6)'}, transparent)`;
       container.appendChild(particle);
     }
   }
