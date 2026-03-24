@@ -16,21 +16,52 @@
     overflow-x: hidden;
   }
 
-  /* ========== ГЛИБОКИЙ КОСМІЧНИЙ ФОН ========== */
-  .cosmic-bg {
+  /* ========== РАЙДУЖНЕ СЯЙВО ПО КРАЯХ ========== */
+  .rainbow-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    animation: rainbowRotate 12s linear infinite;
+  }
+  .rainbow-glow::before,
+  .rainbow-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+  }
+  .rainbow-glow::before {
+    background: conic-gradient(from 0deg, #ff0066, #ff6600, #ffcc00, #33ff33, #00ccff, #6600ff, #ff0066);
+    animation: rainbowSpin 8s linear infinite;
+  }
+  .rainbow-glow::after {
+    background: conic-gradient(from 180deg, #ff44aa, #ffaa44, #ffff44, #44ff44, #44aaff, #aa44ff, #ff44aa);
+    animation: rainbowSpinReverse 10s linear infinite;
+  }
+  @keyframes rainbowSpin {
+    0% { transform: rotate(0deg) scale(1.2); opacity: 0.3; }
+    100% { transform: rotate(360deg) scale(1.3); opacity: 0.6; }
+  }
+  @keyframes rainbowSpinReverse {
+    0% { transform: rotate(0deg) scale(1.1); opacity: 0.2; }
+    100% { transform: rotate(-360deg) scale(1.2); opacity: 0.5; }
+  }
+
+  /* Космічний фон */
+  .stars {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-    background: radial-gradient(ellipse at 30% 40%, #0f1222, #060714);
-  }
-  /* Зоряне поле */
-  .stars {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    background: radial-gradient(ellipse at center, #0f1222, #03051a);
   }
   .star {
     position: absolute;
@@ -43,63 +74,49 @@
     0% { opacity: 0; transform: scale(0.5); }
     100% { opacity: 0.7; transform: scale(1); }
   }
-  /* ДНК-спіраль */
-  .dna-helix {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.08"><path fill="none" stroke="%239b4dff" stroke-width="0.8" d="M30 20 L170 20 M30 180 L170 180 M40 30 L160 30 M40 170 L160 170 M50 40 L150 40 M50 160 L150 160 M60 50 L140 50 M60 150 L140 150 M70 60 L130 60 M70 140 L130 140 M80 70 L120 70 M80 130 L120 130 M90 80 L110 80 M90 120 L110 120 M100 90 L100 110"/><circle cx="100" cy="30" r="3" fill="%239b4dff" opacity="0.2"/><circle cx="100" cy="170" r="3" fill="%2340e0d0" opacity="0.2"/></svg>');
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    pointer-events: none;
-  }
-  /* iField візерунок */
-  .ifield-pattern {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" opacity="0.04"><text x="10" y="40" font-family="monospace" font-size="20" fill="%2340e0d0">iField</text><text x="200" y="100" font-family="monospace" font-size="20" fill="%239b4dff">iField</text><text x="50" y="160" font-family="monospace" font-size="20" fill="%2340e0d0">iField</text></svg>');
-    background-repeat: repeat;
-    background-size: 300px 150px;
-    pointer-events: none;
-  }
-  .nebula {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 70% 20%, rgba(155,77,255,0.08), transparent 60%);
-    animation: nebulaMove 20s infinite;
-  }
-  @keyframes nebulaMove {
-    0% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.1); }
-    100% { opacity: 0.3; transform: scale(1); }
-  }
-  /* Сяйво по краях */
-  .edge-glow {
+  .dna-pattern {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.05"><path fill="none" stroke="%239b4dff" stroke-width="0.6" d="M20 50 L180 50 M20 70 L180 70 M20 90 L180 90 M20 110 L180 110 M20 130 L180 130 M20 150 L180 150"/><circle cx="100" cy="40" r="2" fill="%239b4dff"/><circle cx="100" cy="160" r="2" fill="%2340e0d0"/></svg>');
+    background-repeat: repeat;
+    background-size: 200px 200px;
     pointer-events: none;
-    z-index: 2;
-    box-shadow: inset 0 0 50px rgba(64,224,208,0.2), inset 0 0 100px rgba(155,77,255,0.15);
+    z-index: 1;
   }
 
   .container {
-    max-width: 680px;
+    max-width: 720px;
     margin: 0 auto;
     position: relative;
-    z-index: 10;
+    z-index: 20;
   }
 
-  /* ПЕРЕМИКАЧ МОВ (менший, зручний) */
+  /* ========== ЛІВИЙ ВЕРХНІЙ КУТ (iField) ========== */
+  .corner-logo {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+    font-size: 20px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #40E0D0, #9b4dff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.5px;
+    text-shadow: 0 0 20px rgba(64,224,208,0.3);
+    pointer-events: none;
+  }
+
+  /* ПЕРЕМИКАЧ МОВ */
   .lang-switcher {
     display: flex;
     justify-content: flex-end;
     gap: 6px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
   .lang-btn {
     background: rgba(30,40,58,0.5);
@@ -110,46 +127,44 @@
     cursor: pointer;
     font-size: 11px;
     font-weight: 500;
-    transition: all 0.2s;
     backdrop-filter: blur(4px);
   }
   .lang-btn.active {
     background: linear-gradient(135deg, #40E0D0, #9b4dff);
     color: white;
-    border-color: transparent;
   }
 
-  /* БІГУЧІ СТРІЧКИ */
+  /* БІГУЧІ СТРІЧКИ (ширші) */
   .marquee {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.25);
     backdrop-filter: blur(8px);
-    padding: 10px 0;
-    border-radius: 40px;
+    padding: 14px 0;
+    border-radius: 60px;
     overflow: hidden;
     white-space: nowrap;
-    border: 0.5px solid rgba(155,77,255,0.3);
-    margin-bottom: 20px;
+    border: 0.5px solid rgba(155,77,255,0.4);
+    margin: 16px 0;
   }
   .marquee-bottom {
-    margin-top: 20px;
-    margin-bottom: 0;
+    margin-top: 24px;
   }
   .marquee-content {
     display: inline-block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 2px;
     color: #b07cff;
     cursor: pointer;
   }
   .marquee-content span {
-    margin: 0 20px;
+    margin: 0 24px;
     display: inline-block;
     transition: all 0.2s;
   }
   .marquee-content span:hover {
     color: #fff;
     text-shadow: 0 0 8px #9b4dff;
+    transform: scale(1.05);
   }
   @keyframes marqueeLeft {
     0% { transform: translateX(0%); }
@@ -162,7 +177,7 @@
   .marquee .marquee-content { animation: marqueeLeft 40s linear infinite; }
   .marquee-bottom .marquee-content { animation: marqueeRight 50s linear infinite; }
 
-  /* ГОЛОВНА КНОПКА (Apple Intelligence стиль) */
+  /* ГОЛОВНА КНОПКА */
   .hero-btn {
     width: 100%;
     background: linear-gradient(135deg, #40E0D0, #9b4dff, #2c6eff);
@@ -172,13 +187,11 @@
     padding: 18px;
     font-size: 22px;
     font-weight: 600;
-    letter-spacing: -0.3px;
     cursor: pointer;
-    margin: 32px 0;
+    margin: 24px 0;
     color: white;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s;
     animation: gradientShift 3s ease infinite;
     box-shadow: 0 0 20px rgba(64,224,208,0.3);
   }
@@ -187,7 +200,6 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  /* Біжуче світло */
   .hero-btn::after {
     content: '';
     position: absolute;
@@ -202,21 +214,19 @@
     0% { left: -100%; }
     100% { left: 100%; }
   }
-  .hero-btn:active { transform: scale(0.98); }
   .hero-btn.disabled {
     opacity: 0.5;
     pointer-events: none;
-    filter: grayscale(0.3);
   }
 
   /* ФОРМА */
-  .field { margin-bottom: 16px; }
+  .field { margin-bottom: 20px; }
   .field input, .field textarea {
     width: 100%;
-    background: rgba(20, 28, 40, 0.6);
+    background: rgba(20, 28, 40, 0.7);
     border: 1px solid rgba(155,77,255,0.3);
-    border-radius: 14px;
-    padding: 14px 16px;
+    border-radius: 16px;
+    padding: 14px 18px;
     color: white;
     font-size: 15px;
     font-family: inherit;
@@ -224,15 +234,14 @@
   .field input:focus, .field textarea:focus {
     outline: none;
     border-color: #40E0D0;
-    background: rgba(20, 28, 40, 0.8);
   }
   .field label {
     display: block;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     color: #b07cff;
-    margin-bottom: 6px;
-    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
   }
 
   .additional-toggle {
@@ -249,40 +258,39 @@
   .image-upload-area {
     background: rgba(20,28,40,0.5);
     border: 1px dashed rgba(155,77,255,0.4);
-    border-radius: 14px;
+    border-radius: 16px;
     padding: 12px;
     text-align: center;
     cursor: pointer;
     margin-bottom: 16px;
   }
-  .image-preview { display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; }
+  .image-preview { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
   .preview-img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; }
 
+  /* ЛІМІТИ ТА ЦІНИ */
   .limits {
-    background: rgba(0,0,0,0.3);
-    border-radius: 30px;
-    padding: 12px 20px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 40px;
+    padding: 16px 20px;
     margin: 24px 0;
     text-align: center;
     display: flex;
     justify-content: center;
     gap: 24px;
     flex-wrap: wrap;
-    font-size: 12px;
+    font-size: 13px;
   }
   .limit-free { color: #22c55e; font-weight: bold; }
   .limit-paid { color: #40E0D0; }
-
-  .back-btn {
-    background: rgba(255,255,255,0.08);
-    border: 0.5px solid rgba(155,77,255,0.5);
-    color: white;
-    padding: 8px 18px;
+  .pro-buy-btn {
+    background: linear-gradient(135deg, #ffd700, #ffb347);
+    color: #1a1a2e;
+    border: none;
+    padding: 8px 20px;
     border-radius: 40px;
     cursor: pointer;
-    margin-bottom: 20px;
-    display: inline-block;
-    font-size: 13px;
+    font-weight: bold;
+    font-size: 12px;
   }
 
   .result-section { display: none; margin-top: 32px; }
@@ -356,9 +364,7 @@
   footer a {
     color: #b07cff;
     text-decoration: none;
-    transition: all 0.2s;
   }
-  footer a:hover { color: #fff; }
   .status {
     position: fixed;
     bottom: 20px;
@@ -374,70 +380,67 @@
 
   @media (max-width: 600px) {
     .hero-btn { font-size: 18px; padding: 14px; }
-    .marquee-content { font-size: 11px; }
-    .stats { gap: 15px; }
+    .corner-logo { font-size: 16px; top: 16px; left: 16px; }
   }
 </style>
 </head>
 <body>
-<div class="cosmic-bg"></div>
+<div class="rainbow-glow"></div>
 <div class="stars" id="stars"></div>
-<div class="dna-helix"></div>
-<div class="ifield-pattern"></div>
-<div class="nebula"></div>
-<div class="edge-glow"></div>
+<div class="dna-pattern"></div>
+<div class="corner-logo">⚡ iField</div>
 
 <div class="container" id="app">
   <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="en">EN</button>
-    <button class="lang-btn" data-lang="ua">UA</button>
+    <button class="lang-btn active" data-lang="ua">UA</button>
+    <button class="lang-btn" data-lang="en">EN</button>
     <button class="lang-btn" data-lang="ru">RU</button>
   </div>
 
+  <!-- Верхня бігуча строка -->
   <div class="marquee">
     <div class="marquee-content" id="templateMarqueeTop">
       <span data-template="sci-fi">🎬 SCI-FI</span> <span data-template="luxury">💎 LUXURY</span> <span data-template="nature">🌿 NATURE</span> <span data-template="neon">🚀 NEON</span>
       <span data-template="dark-glass">🔮 DARK GLASS</span> <span data-template="holographic">✨ HOLOGRAPHIC</span> <span data-template="cyberpunk">⚡ CYBERPUNK</span> <span data-template="minimal-white">🤍 MINIMAL WHITE</span>
       <span data-template="sci-fi">🎬 SCI-FI</span> <span data-template="luxury">💎 LUXURY</span> <span data-template="nature">🌿 NATURE</span> <span data-template="neon">🚀 NEON</span>
-      <span data-template="dark-glass">🔮 DARK GLASS</span> <span data-template="holographic">✨ HOLOGRAPHIC</span> <span data-template="cyberpunk">⚡ CYBERPUNK</span> <span data-template="minimal-white">🤍 MINIMAL WHITE</span>
     </div>
   </div>
 
   <button class="hero-btn" id="generateBtn">✨ CREATE YOUR SITE ✨</button>
 
   <div id="formArea">
-    <div class="field"><label id="labelBrand">BRAND NAME</label><input id="brand" placeholder="iField Studio" value="iField Studio"></div>
-    <div class="field"><label id="labelNiche">NICHE / SPHERE</label><input id="niche" placeholder="manicure, coffee, IT" value="premium manicure"></div>
-    <div class="field"><label id="labelProduct">MAIN OFFER</label><input id="product" placeholder="Crystal Shell coating" value="Crystal Shell"></div>
+    <div class="field"><label id="labelBrand">🏷️ YOUR COMPANY / BRAND</label><input id="brand" placeholder="e.g. iField Studio" value="iField Studio"></div>
+    <div class="field"><label id="labelNiche">🎯 YOUR NICHE / SPHERE</label><input id="niche" placeholder="e.g. manicure, coffee, IT" value="premium manicure"></div>
+    <div class="field"><label id="labelProduct">✨ YOUR MAIN OFFER</label><input id="product" placeholder="e.g. Crystal Shell coating" value="Crystal Shell"></div>
 
     <div class="additional-toggle" id="additionalToggle" onclick="toggleAdditional()">▼ ADDITIONAL OPTIONS ▼</div>
     <div id="additionalOptions" class="additional-options">
-      <div class="field"><label id="labelDesc">DESCRIPTION</label><textarea id="description" rows="3">Long-lasting coating up to 4 weeks. Safe formula, European quality.</textarea></div>
-      <div class="field"><label id="labelPhoto">PHOTO URL</label><input id="imageUrl" placeholder="https://..."></div>
+      <div class="field"><label id="labelDesc">📝 DESCRIPTION</label><textarea id="description" rows="3">Long-lasting coating up to 4 weeks. Safe formula, European quality.</textarea></div>
+      <div class="field"><label id="labelPhoto">🖼️ PHOTO URL</label><input id="imageUrl" placeholder="https://..."></div>
       <div class="image-upload-area" onclick="document.getElementById('imageFile').click()">📸 Click to upload photo<input type="file" id="imageFile" accept="image/*" style="display:none" onchange="uploadImage(this)"></div>
       <div class="image-preview" id="imagePreview"></div>
-      <div class="field"><label id="labelContact">CONTACTS</label><input id="contact" placeholder="@username" value="@ifield_studio"></div>
+      <div class="field"><label id="labelContact">📡 CONTACTS</label><input id="contact" placeholder="@username" value="@ifield_studio"></div>
     </div>
 
     <div class="limits">
-      <span>🎁 <span class="limit-free" id="limitCount">3</span> <span id="limitFreeText">free</span> — <strong id="ctaText">Try now!</strong></span>
+      <span>🎁 <span class="limit-free" id="limitCount">3</span> <span id="limitFreeText">free tries</span></span>
       <span>💎 Unlimited — <span class="limit-paid">50 Stars</span></span>
       <span>⭐ Public link — <span class="limit-paid">200 Stars</span></span>
+      <button class="pro-buy-btn" onclick="buyProNow()">🚀 GET PRO NOW →</button>
     </div>
   </div>
 
+  <!-- Нижня бігуча строка -->
   <div class="marquee marquee-bottom">
     <div class="marquee-content" id="templateMarqueeBottom">
       <span data-template="sci-fi">🎬 SCI-FI</span> <span data-template="luxury">💎 LUXURY</span> <span data-template="nature">🌿 NATURE</span> <span data-template="neon">🚀 NEON</span>
       <span data-template="dark-glass">🔮 DARK GLASS</span> <span data-template="holographic">✨ HOLOGRAPHIC</span> <span data-template="cyberpunk">⚡ CYBERPUNK</span> <span data-template="minimal-white">🤍 MINIMAL WHITE</span>
       <span data-template="sci-fi">🎬 SCI-FI</span> <span data-template="luxury">💎 LUXURY</span> <span data-template="nature">🌿 NATURE</span> <span data-template="neon">🚀 NEON</span>
-      <span data-template="dark-glass">🔮 DARK GLASS</span> <span data-template="holographic">✨ HOLOGRAPHIC</span> <span data-template="cyberpunk">⚡ CYBERPUNK</span> <span data-template="minimal-white">🤍 MINIMAL WHITE</span>
     </div>
   </div>
 
   <div id="aiLoading" class="ai-loading">🤖 Analyzing...</div>
   <div class="result-section" id="resultSection">
-    <button class="back-btn" onclick="goBack()">← BACK</button>
     <div id="victoryMessage" class="victory-message"><div style="font-size:28px;">🎉</div><div style="font-weight:bold; font-size:17px;" id="victoryTitle">Site created!</div><div style="font-size:12px;" id="victorySub">You are one step closer to clients</div></div>
     <iframe class="preview-frame" id="previewFrame"></iframe>
     <div class="action-buttons">
@@ -452,9 +455,9 @@
       <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:14px 0;">
         <button onclick="downloadLanding()" style="background:linear-gradient(135deg,#2c6eff,#1a4fcc); color:white; border:none; padding:10px 18px; border-radius:40px;">📥 Download</button>
         <button onclick="editInline()" style="background:rgba(255,255,255,0.08); color:white; border:1px solid #3c7eff; padding:10px 18px; border-radius:40px;" id="editBtn">✏️ Edit</button>
-        <button onclick="unlockAndPublish()" style="background:linear-gradient(135deg,#ffd700,#ffb347); color:#1a1a2e; border:none; padding:10px 18px; border-radius:40px;" id="getLinkBtn">⭐ Get public link — 200 Stars</button>
+        <button onclick="buyProNow()" style="background:linear-gradient(135deg,#ffd700,#ffb347); color:#1a1a2e; border:none; padding:10px 18px; border-radius:40px;" id="getLinkBtn">⭐ GET PRO — 200 Stars</button>
       </div>
-      <p id="shareHint" style="font-size:11px; color:#aaa;">💡 Click "Get public link" — pay in Telegram and get a link to your site!</p>
+      <p id="shareHint" style="font-size:11px; color:#aaa;">💡 Get PRO — unlimited generations + public link</p>
     </div>
   </div>
 
@@ -462,10 +465,7 @@
     <div class="review-stars">★★★★★</div>
     <div class="review-text" id="reviewText">"I made a landing in 5 minutes! Shared with friends — already got my first client"</div>
     <div class="review-author" id="reviewAuthor">— Anna, nail studio owner</div>
-    <div class="stats">
-      <span id="statLandings">🏆 1500+ landings created</span>
-      <span id="statRecommend">⭐ 98% recommend</span>
-    </div>
+    <div class="stats"><span id="statLandings">🏆 1500+ landings created</span><span id="statRecommend">⭐ 98% recommend</span></div>
   </div>
 
   <footer>
@@ -479,40 +479,40 @@
 <script>
   const LANG = {
     en: {
-      brand: 'BRAND NAME', niche: 'NICHE / SPHERE', product: 'MAIN OFFER',
-      desc: 'DESCRIPTION', photo: 'PHOTO URL', contact: 'CONTACTS', addToggle: '▼ ADDITIONAL OPTIONS ▼',
-      limitFree: 'free', ctaText: 'Try now!', victoryTitle: 'Site created!', victorySub: 'You are one step closer to clients',
-      nextTitle: 'Your site is ready!', editBtn: '✏️ Edit', getLinkBtn: '⭐ Get public link — 200 Stars',
-      shareHint: '💡 Click "Get public link" — pay in Telegram and get a link to your site!',
+      brand: '🏷️ YOUR COMPANY / BRAND', niche: '🎯 YOUR NICHE / SPHERE', product: '✨ YOUR MAIN OFFER',
+      desc: '📝 DESCRIPTION', photo: '🖼️ PHOTO URL', contact: '📡 CONTACTS', addToggle: '▼ ADDITIONAL OPTIONS ▼',
+      limitFree: 'free tries', victoryTitle: 'Site created!', victorySub: 'You are one step closer to clients',
+      nextTitle: 'Your site is ready!', editBtn: '✏️ Edit', getLinkBtn: '⭐ GET PRO — 200 Stars',
+      shareHint: '💡 Get PRO — unlimited generations + public link',
       reviewText: '"I made a landing in 5 minutes! Shared with friends — already got my first client"',
       reviewAuthor: '— Anna, nail studio owner',
       statLandings: '🏆 1500+ landings created', statRecommend: '⭐ 98% recommend',
       footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Portfolio',
-      generateBtn: '✨ CREATE YOUR SITE ✨', backBtn: '← BACK', download: '📥 Download', copy: '📋 Copy code', share: '📱 Share', publish: '▲ Publish'
+      generateBtn: '✨ CREATE YOUR SITE ✨'
     },
     ua: {
-      brand: 'НАЗВА БРЕНДУ', niche: 'НІША / СФЕРА', product: 'ГОЛОВНИЙ ОФФЕР',
-      desc: 'ОПИС', photo: 'URL ФОТО', contact: 'КОНТАКТИ', addToggle: '▼ ДОДАТКОВІ ОПЦІЇ ▼',
-      limitFree: 'безкоштовно', ctaText: 'Спробуй!', victoryTitle: 'Сайт створено!', victorySub: 'Ти вже на крок ближче до клієнтів',
-      nextTitle: 'Твій сайт готовий!', editBtn: '✏️ Редагувати', getLinkBtn: '⭐ Отримати публічне посилання — 200 Stars',
-      shareHint: '💡 Натисни "Отримати публічне посилання" — оплати в Telegram і отримай посилання на свій сайт!',
+      brand: '🏷️ ВАША КОМПАНІЯ / БРЕНД', niche: '🎯 ВАША НІША / СФЕРА', product: '✨ ВАША ГОЛОВНА ПРОПОЗИЦІЯ',
+      desc: '📝 ОПИС', photo: '🖼️ URL ФОТО', contact: '📡 КОНТАКТИ', addToggle: '▼ ДОДАТКОВІ ОПЦІЇ ▼',
+      limitFree: 'безкоштовних спроб', victoryTitle: 'Сайт створено!', victorySub: 'Ти вже на крок ближче до клієнтів',
+      nextTitle: 'Твій сайт готовий!', editBtn: '✏️ Редагувати', getLinkBtn: '⭐ ОТРИМАТИ PRO — 200 Stars',
+      shareHint: '💡 Отримай PRO — безліміт генерацій + публічне посилання',
       reviewText: '"Зробив лендінг за 5 хвилин! Поділився з друзями — вже є перший клієнт"',
       reviewAuthor: '— Анна, власниця студії манікюру',
       statLandings: '🏆 1500+ лендінгів створено', statRecommend: '⭐ 98% рекомендують',
       footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Портфоліо',
-      generateBtn: '✨ СТВОРИТИ САЙТ ✨', backBtn: '← НАЗАД', download: '📥 Завантажити', copy: '📋 Копіювати код', share: '📱 Поділитись', publish: '▲ Опублікувати'
+      generateBtn: '✨ СТВОРИТИ САЙТ ✨'
     },
     ru: {
-      brand: 'НАЗВАНИЕ БРЕНДА', niche: 'НИША / СФЕРА', product: 'ГЛАВНОЕ ПРЕДЛОЖЕНИЕ',
-      desc: 'ОПИСАНИЕ', photo: 'URL ФОТО', contact: 'КОНТАКТЫ', addToggle: '▼ ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ ▼',
-      limitFree: 'бесплатно', ctaText: 'Попробуй!', victoryTitle: 'Сайт создан!', victorySub: 'Ты на шаг ближе к клиентам',
-      nextTitle: 'Твой сайт готов!', editBtn: '✏️ Редактировать', getLinkBtn: '⭐ Получить публичную ссылку — 200 Stars',
-      shareHint: '💡 Нажми "Получить публичную ссылку" — оплати в Telegram и получи ссылку на свой сайт!',
+      brand: '🏷️ ВАША КОМПАНИЯ / БРЕНД', niche: '🎯 ВАША НИША / СФЕРА', product: '✨ ВАШЕ ГЛАВНОЕ ПРЕДЛОЖЕНИЕ',
+      desc: '📝 ОПИСАНИЕ', photo: '🖼️ URL ФОТО', contact: '📡 КОНТАКТЫ', addToggle: '▼ ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ ▼',
+      limitFree: 'бесплатных попыток', victoryTitle: 'Сайт создан!', victorySub: 'Ты на шаг ближе к клиентам',
+      nextTitle: 'Твой сайт готов!', editBtn: '✏️ Редактировать', getLinkBtn: '⭐ ПОЛУЧИТЬ PRO — 200 Stars',
+      shareHint: '💡 Получи PRO — безлимит генераций + публичная ссылка',
       reviewText: '"Сделал лендинг за 5 минут! Поделился с друзьями — уже есть первый клиент"',
       reviewAuthor: '— Анна, владелица студии маникюра',
       statLandings: '🏆 1500+ лендингов создано', statRecommend: '⭐ 98% рекомендуют',
       footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Портфолио',
-      generateBtn: '✨ СОЗДАТЬ САЙТ ✨', backBtn: '← НАЗАД', download: '📥 Скачать', copy: '📋 Копировать код', share: '📱 Поделиться', publish: '▲ Опубликовать'
+      generateBtn: '✨ СОЗДАТЬ САЙТ ✨'
     }
   };
 
@@ -534,7 +534,7 @@
   let freeGenerations = localStorage.getItem('freeGenerations') ? parseInt(localStorage.getItem('freeGenerations')) : 3;
 
   function createStars() {
-    const container = document.getElementById('stars');
+    const stars = document.getElementById('stars');
     for (let i = 0; i < 300; i++) {
       const star = document.createElement('div');
       star.className = 'star';
@@ -544,8 +544,7 @@
       star.style.left = `${Math.random() * 100}%`;
       star.style.top = `${Math.random() * 100}%`;
       star.style.animationDelay = `${Math.random() * 5}s`;
-      star.style.animationDuration = `${2 + Math.random() * 3}s`;
-      container.appendChild(star);
+      stars.appendChild(star);
     }
   }
 
@@ -599,23 +598,12 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
   function showStatus(msg, isError = false) {
     const s = document.createElement('div'); s.className = 'status'; s.textContent = msg;
     s.style.background = isError ? 'rgba(255,70,70,0.95)' : 'rgba(64,224,208,0.95)';
-    s.style.color = isError ? 'white' : '#010101';
     document.body.appendChild(s); setTimeout(() => s.remove(), 4000);
-  }
-
-  function playClickSound() {
-    try { new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3").play().catch(()=>{}); } catch(e) {}
-  }
-
-  function animateBuild(callback) {
-    const loader = document.getElementById('aiLoading');
-    loader.style.display = 'block';
-    setTimeout(() => { loader.style.display = 'none'; callback(); }, 1600);
   }
 
   function generateLanding() {
     if (freeGenerations <= 0) {
-      showStatus('⚠️ Limit reached! Get unlimited for 50 Stars', true);
+      showStatus('⚠️ Limit reached! Get PRO for unlimited', true);
       return;
     }
     freeGenerations--; localStorage.setItem('freeGenerations', freeGenerations); updateBadge();
@@ -631,28 +619,21 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
 
   function startGeneration() {
     if (freeGenerations <= 0) {
-      showStatus('⚠️ Limit reached! Get unlimited for 50 Stars', true);
+      showStatus('⚠️ Get PRO for unlimited generations!', true);
       return;
     }
-    playClickSound();
-    animateBuild(() => generateLanding());
+    document.getElementById('aiLoading').style.display = 'block';
+    setTimeout(() => { document.getElementById('aiLoading').style.display = 'none'; generateLanding(); }, 1500);
   }
 
   function goBack() {
     document.getElementById('resultSection').style.display = 'none';
     document.getElementById('formArea').style.display = 'block';
-    document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
   }
 
-  function checkAccess() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('paid') === 'true') {
-      showStatus('✅ Payment confirmed! Unlimited access granted!');
-      freeGenerations = 999;
-      localStorage.setItem('freeGenerations', freeGenerations);
-      updateBadge();
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
+  function buyProNow() {
+    window.open('https://t.me/ifield_studio_bot?start=pay_200_pro', '_blank');
+    showStatus('📱 Opening Telegram for PRO payment — 200 Stars');
   }
 
   async function publishToGitHubPages() {
@@ -693,7 +674,6 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
     if (navigator.share) navigator.share({ title: 'My landing', files: [file] }).catch(()=>navigator.clipboard.writeText(window.location.href));
     else navigator.clipboard.writeText(window.location.href);
   }
-  function unlockAndPublish() { window.open('https://t.me/ifield_studio_bot?start=publish_200', '_blank'); showStatus('📱 Opening Telegram for 200 Stars'); }
   function uploadImage(input) {
     if (input.files?.[0]) {
       const r = new FileReader();
@@ -719,7 +699,6 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
     document.getElementById('labelContact').innerText = t.contact;
     document.getElementById('additionalToggle').innerText = t.addToggle;
     document.getElementById('limitFreeText').innerText = t.limitFree;
-    document.getElementById('ctaText').innerHTML = t.ctaText;
     document.getElementById('victoryTitle').innerText = t.victoryTitle;
     document.getElementById('victorySub').innerText = t.victorySub;
     document.getElementById('nextTitle').innerText = t.nextTitle;
@@ -735,24 +714,16 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
     document.getElementById('footerGitHub').innerHTML = t.footerGitHub;
     document.getElementById('footerPortfolio').innerHTML = t.footerPortfolio;
     document.getElementById('generateBtn').innerHTML = t.generateBtn;
-    document.querySelector('.back-btn').innerHTML = t.backBtn;
-    document.getElementById('btnDownload').innerHTML = t.download;
-    document.getElementById('btnCopy').innerHTML = t.copy;
-    document.getElementById('btnShare').innerHTML = t.share;
-    document.getElementById('btnPublish').innerHTML = t.publish;
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
   }
 
   function initMarqueeClicks() {
     const allSpans = document.querySelectorAll('#templateMarqueeTop span, #templateMarqueeBottom span');
-    allSpans.forEach(span => {
-      span.addEventListener('click', () => setTemplate(span.dataset.template));
-    });
+    allSpans.forEach(span => span.addEventListener('click', () => setTemplate(span.dataset.template)));
   }
 
   createStars();
   updateBadge();
-  checkAccess();
   initMarqueeClicks();
   document.getElementById('generateBtn').addEventListener('click', startGeneration);
   document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
