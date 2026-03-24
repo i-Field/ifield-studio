@@ -9,14 +9,31 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     min-height: 100vh;
-    background: #0a0c1a;
+    background: #03050c;
     font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
     padding: 20px;
     position: relative;
     overflow-x: hidden;
   }
 
-  /* ========== РАЙДУЖНЕ СЯЙВО ПО КРАЯХ ========== */
+  /* ========== М'ЯКЕ СЯЙВО ПО КРАЯХ ========== */
+  .edge-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: inset 0 0 80px rgba(64,224,208,0.2), inset 0 0 120px rgba(155,77,255,0.15);
+    animation: edgePulse 8s ease-in-out infinite;
+  }
+  @keyframes edgePulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* Райдужне сяйво (повільне) */
   .rainbow-glow {
     position: fixed;
     top: 0;
@@ -25,7 +42,7 @@
     height: 100%;
     pointer-events: none;
     z-index: 1;
-    animation: rainbowRotate 12s linear infinite;
+    animation: rainbowSlow 20s linear infinite;
   }
   .rainbow-glow::before,
   .rainbow-glow::after {
@@ -33,27 +50,27 @@
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.5;
+    filter: blur(70px);
+    opacity: 0.3;
   }
   .rainbow-glow::before {
     background: conic-gradient(from 0deg, #ff0066, #ff6600, #ffcc00, #33ff33, #00ccff, #6600ff, #ff0066);
-    animation: rainbowSpin 8s linear infinite;
+    animation: rainbowSpin 25s linear infinite;
   }
   .rainbow-glow::after {
     background: conic-gradient(from 180deg, #ff44aa, #ffaa44, #ffff44, #44ff44, #44aaff, #aa44ff, #ff44aa);
-    animation: rainbowSpinReverse 10s linear infinite;
+    animation: rainbowSpinReverse 30s linear infinite;
   }
   @keyframes rainbowSpin {
-    0% { transform: rotate(0deg) scale(1.2); opacity: 0.3; }
-    100% { transform: rotate(360deg) scale(1.3); opacity: 0.6; }
+    0% { transform: rotate(0deg) scale(1.2); opacity: 0.2; }
+    100% { transform: rotate(360deg) scale(1.3); opacity: 0.4; }
   }
   @keyframes rainbowSpinReverse {
-    0% { transform: rotate(0deg) scale(1.1); opacity: 0.2; }
-    100% { transform: rotate(-360deg) scale(1.2); opacity: 0.5; }
+    0% { transform: rotate(0deg) scale(1.1); opacity: 0.15; }
+    100% { transform: rotate(-360deg) scale(1.2); opacity: 0.35; }
   }
 
-  /* Космічний фон */
+  /* Зоряне небо */
   .stars {
     position: fixed;
     top: 0;
@@ -61,30 +78,81 @@
     width: 100%;
     height: 100%;
     z-index: 0;
-    background: radial-gradient(ellipse at center, #0f1222, #03051a);
+    background: radial-gradient(ellipse at center, #070a16, #010108);
   }
   .star {
     position: absolute;
     background: white;
     border-radius: 50%;
     opacity: 0;
-    animation: twinkle 3s infinite alternate;
+    animation: twinkle 4s infinite alternate;
   }
   @keyframes twinkle {
     0% { opacity: 0; transform: scale(0.5); }
     100% { opacity: 0.7; transform: scale(1); }
   }
+
+  /* ДНК-спіраль (ледь помітна) */
   .dna-pattern {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.05"><path fill="none" stroke="%239b4dff" stroke-width="0.6" d="M20 50 L180 50 M20 70 L180 70 M20 90 L180 90 M20 110 L180 110 M20 130 L180 130 M20 150 L180 150"/><circle cx="100" cy="40" r="2" fill="%239b4dff"/><circle cx="100" cy="160" r="2" fill="%2340e0d0"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.04"><path fill="none" stroke="%239b4dff" stroke-width="0.5" d="M20 50 L180 50 M20 70 L180 70 M20 90 L180 90 M20 110 L180 110 M20 130 L180 130 M20 150 L180 150"/><circle cx="100" cy="40" r="2" fill="%239b4dff"/><circle cx="100" cy="160" r="2" fill="%2340e0d0"/></svg>');
     background-repeat: repeat;
-    background-size: 200px 200px;
+    background-size: 180px 180px;
     pointer-events: none;
     z-index: 1;
+  }
+
+  /* Пролітаючі супутники та комети */
+  .satellite {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: radial-gradient(circle, #40e0d0, #9b4dff);
+    border-radius: 50%;
+    filter: blur(1px);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .comet {
+    position: fixed;
+    width: 12px;
+    height: 3px;
+    background: linear-gradient(90deg, #ffd700, transparent);
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Логотип iField з джекулом */
+  .glitch-logo {
+    position: fixed;
+    top: 28px;
+    left: 28px;
+    z-index: 100;
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #40E0D0, #9b4dff, #ff44aa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -1px;
+    text-shadow: 0 0 15px rgba(64,224,208,0.5), 0 0 25px rgba(155,77,255,0.4);
+    animation: glitchLogo 4s infinite;
+    pointer-events: none;
+  }
+  @keyframes glitchLogo {
+    0%, 100% { transform: skew(0deg, 0deg); text-shadow: 0 0 15px #40e0d0; }
+    95% { transform: skew(0deg, 0deg); }
+    96% { transform: skew(2deg, 1deg); text-shadow: -2px 0 #ff44aa, 2px 0 #9b4dff; }
+    97% { transform: skew(-1deg, -0.5deg); text-shadow: 2px 0 #ff44aa, -2px 0 #40e0d0; }
+    98% { transform: skew(0deg, 0deg); }
   }
 
   .container {
@@ -94,24 +162,6 @@
     z-index: 20;
   }
 
-  /* ========== ЛІВИЙ ВЕРХНІЙ КУТ (iField) ========== */
-  .corner-logo {
-    position: fixed;
-    top: 24px;
-    left: 24px;
-    z-index: 100;
-    font-size: 20px;
-    font-weight: 600;
-    background: linear-gradient(135deg, #40E0D0, #9b4dff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: -0.5px;
-    text-shadow: 0 0 20px rgba(64,224,208,0.3);
-    pointer-events: none;
-  }
-
-  /* ПЕРЕМИКАЧ МОВ */
   .lang-switcher {
     display: flex;
     justify-content: flex-end;
@@ -134,7 +184,6 @@
     color: white;
   }
 
-  /* БІГУЧІ СТРІЧКИ (ширші) */
   .marquee {
     background: rgba(0,0,0,0.25);
     backdrop-filter: blur(8px);
@@ -145,9 +194,7 @@
     border: 0.5px solid rgba(155,77,255,0.4);
     margin: 16px 0;
   }
-  .marquee-bottom {
-    margin-top: 24px;
-  }
+  .marquee-bottom { margin-top: 24px; }
   .marquee-content {
     display: inline-block;
     font-size: 14px;
@@ -164,7 +211,6 @@
   .marquee-content span:hover {
     color: #fff;
     text-shadow: 0 0 8px #9b4dff;
-    transform: scale(1.05);
   }
   @keyframes marqueeLeft {
     0% { transform: translateX(0%); }
@@ -174,10 +220,9 @@
     0% { transform: translateX(-50%); }
     100% { transform: translateX(0%); }
   }
-  .marquee .marquee-content { animation: marqueeLeft 40s linear infinite; }
-  .marquee-bottom .marquee-content { animation: marqueeRight 50s linear infinite; }
+  .marquee .marquee-content { animation: marqueeLeft 55s linear infinite; }
+  .marquee-bottom .marquee-content { animation: marqueeRight 70s linear infinite; }
 
-  /* ГОЛОВНА КНОПКА */
   .hero-btn {
     width: 100%;
     background: linear-gradient(135deg, #40E0D0, #9b4dff, #2c6eff);
@@ -192,8 +237,9 @@
     color: white;
     position: relative;
     overflow: hidden;
-    animation: gradientShift 3s ease infinite;
-    box-shadow: 0 0 20px rgba(64,224,208,0.3);
+    animation: gradientShift 5s ease infinite;
+    box-shadow: 0 0 25px rgba(64,224,208,0.3);
+    transition: all 0.3s ease;
   }
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
@@ -207,8 +253,8 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-    animation: lightRun 2s infinite;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: lightRun 3.5s infinite;
   }
   @keyframes lightRun {
     0% { left: -100%; }
@@ -219,7 +265,6 @@
     pointer-events: none;
   }
 
-  /* ФОРМА */
   .field { margin-bottom: 20px; }
   .field input, .field textarea {
     width: 100%;
@@ -267,7 +312,6 @@
   .image-preview { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
   .preview-img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; }
 
-  /* ЛІМІТИ ТА ЦІНИ */
   .limits {
     background: rgba(0,0,0,0.35);
     border-radius: 40px;
@@ -294,7 +338,7 @@
   }
 
   .result-section { display: none; margin-top: 32px; }
-  .preview-frame { width: 100%; height: 460px; border: none; border-radius: 24px; background: #05070c; }
+  .preview-frame { width: 100%; height: 460px; border: none; border-radius: 24px; background: #05070c; transition: all 0.3s ease; }
   .action-buttons {
     display: flex;
     gap: 10px;
@@ -361,10 +405,7 @@
     gap: 24px;
     flex-wrap: wrap;
   }
-  footer a {
-    color: #b07cff;
-    text-decoration: none;
-  }
+  footer a { color: #b07cff; text-decoration: none; }
   .status {
     position: fixed;
     bottom: 20px;
@@ -380,24 +421,24 @@
 
   @media (max-width: 600px) {
     .hero-btn { font-size: 18px; padding: 14px; }
-    .corner-logo { font-size: 16px; top: 16px; left: 16px; }
+    .glitch-logo { font-size: 20px; top: 18px; left: 18px; }
   }
 </style>
 </head>
 <body>
 <div class="rainbow-glow"></div>
+<div class="edge-glow"></div>
 <div class="stars" id="stars"></div>
 <div class="dna-pattern"></div>
-<div class="corner-logo">⚡ iField</div>
+<div class="glitch-logo">⚡ iField</div>
 
 <div class="container" id="app">
   <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="ua">UA</button>
-    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="ua">UA</button>
     <button class="lang-btn" data-lang="ru">RU</button>
   </div>
 
-  <!-- Верхня бігуча строка -->
   <div class="marquee">
     <div class="marquee-content" id="templateMarqueeTop">
       <span data-template="sci-fi">🎬 SCI-FI</span> <span data-template="luxury">💎 LUXURY</span> <span data-template="nature">🌿 NATURE</span> <span data-template="neon">🚀 NEON</span>
@@ -409,17 +450,17 @@
   <button class="hero-btn" id="generateBtn">✨ CREATE YOUR SITE ✨</button>
 
   <div id="formArea">
-    <div class="field"><label id="labelBrand">🏷️ YOUR COMPANY / BRAND</label><input id="brand" placeholder="e.g. iField Studio" value="iField Studio"></div>
-    <div class="field"><label id="labelNiche">🎯 YOUR NICHE / SPHERE</label><input id="niche" placeholder="e.g. manicure, coffee, IT" value="premium manicure"></div>
-    <div class="field"><label id="labelProduct">✨ YOUR MAIN OFFER</label><input id="product" placeholder="e.g. Crystal Shell coating" value="Crystal Shell"></div>
+    <div class="field"><label id="labelBrand">🏷️ YOUR COMPANY / BRAND</label><input id="brand" placeholder="Your brand name" value="iField Studio"></div>
+    <div class="field"><label id="labelNiche">🎯 YOUR NICHE / SPHERE</label><input id="niche" placeholder="e.g. beauty, tech, coffee" value="premium beauty"></div>
+    <div class="field"><label id="labelProduct">✨ YOUR MAIN OFFER</label><input id="product" placeholder="What do you sell?" value="Crystal Shell"></div>
 
     <div class="additional-toggle" id="additionalToggle" onclick="toggleAdditional()">▼ ADDITIONAL OPTIONS ▼</div>
     <div id="additionalOptions" class="additional-options">
-      <div class="field"><label id="labelDesc">📝 DESCRIPTION</label><textarea id="description" rows="3">Long-lasting coating up to 4 weeks. Safe formula, European quality.</textarea></div>
+      <div class="field"><label id="labelDesc">📝 DESCRIPTION</label><textarea id="description" rows="3">High-quality solution for your business. Fast, reliable, professional.</textarea></div>
       <div class="field"><label id="labelPhoto">🖼️ PHOTO URL</label><input id="imageUrl" placeholder="https://..."></div>
       <div class="image-upload-area" onclick="document.getElementById('imageFile').click()">📸 Click to upload photo<input type="file" id="imageFile" accept="image/*" style="display:none" onchange="uploadImage(this)"></div>
       <div class="image-preview" id="imagePreview"></div>
-      <div class="field"><label id="labelContact">📡 CONTACTS</label><input id="contact" placeholder="@username" value="@ifield_studio"></div>
+      <div class="field"><label id="labelContact">📡 CONTACTS</label><input id="contact" placeholder="@username or link" value="@ifield_studio"></div>
     </div>
 
     <div class="limits">
@@ -430,7 +471,6 @@
     </div>
   </div>
 
-  <!-- Нижня бігуча строка -->
   <div class="marquee marquee-bottom">
     <div class="marquee-content" id="templateMarqueeBottom">
       <span data-template="sci-fi">🎬 SCI-FI</span> <span data-template="luxury">💎 LUXURY</span> <span data-template="nature">🌿 NATURE</span> <span data-template="neon">🚀 NEON</span>
@@ -464,7 +504,7 @@
   <div class="reviews">
     <div class="review-stars">★★★★★</div>
     <div class="review-text" id="reviewText">"I made a landing in 5 minutes! Shared with friends — already got my first client"</div>
-    <div class="review-author" id="reviewAuthor">— Anna, nail studio owner</div>
+    <div class="review-author" id="reviewAuthor">— Anna, studio owner</div>
     <div class="stats"><span id="statLandings">🏆 1500+ landings created</span><span id="statRecommend">⭐ 98% recommend</span></div>
   </div>
 
@@ -485,7 +525,7 @@
       nextTitle: 'Your site is ready!', editBtn: '✏️ Edit', getLinkBtn: '⭐ GET PRO — 200 Stars',
       shareHint: '💡 Get PRO — unlimited generations + public link',
       reviewText: '"I made a landing in 5 minutes! Shared with friends — already got my first client"',
-      reviewAuthor: '— Anna, nail studio owner',
+      reviewAuthor: '— Anna, studio owner',
       statLandings: '🏆 1500+ landings created', statRecommend: '⭐ 98% recommend',
       footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Portfolio',
       generateBtn: '✨ CREATE YOUR SITE ✨'
@@ -497,7 +537,7 @@
       nextTitle: 'Твій сайт готовий!', editBtn: '✏️ Редагувати', getLinkBtn: '⭐ ОТРИМАТИ PRO — 200 Stars',
       shareHint: '💡 Отримай PRO — безліміт генерацій + публічне посилання',
       reviewText: '"Зробив лендінг за 5 хвилин! Поділився з друзями — вже є перший клієнт"',
-      reviewAuthor: '— Анна, власниця студії манікюру',
+      reviewAuthor: '— Анна, власниця студії',
       statLandings: '🏆 1500+ лендінгів створено', statRecommend: '⭐ 98% рекомендують',
       footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Портфоліо',
       generateBtn: '✨ СТВОРИТИ САЙТ ✨'
@@ -509,7 +549,7 @@
       nextTitle: 'Твой сайт готов!', editBtn: '✏️ Редактировать', getLinkBtn: '⭐ ПОЛУЧИТЬ PRO — 200 Stars',
       shareHint: '💡 Получи PRO — безлимит генераций + публичная ссылка',
       reviewText: '"Сделал лендинг за 5 минут! Поделился с друзьями — уже есть первый клиент"',
-      reviewAuthor: '— Анна, владелица студии маникюра',
+      reviewAuthor: '— Анна, владелица студии',
       statLandings: '🏆 1500+ лендингов создано', statRecommend: '⭐ 98% рекомендуют',
       footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Портфолио',
       generateBtn: '✨ СОЗДАТЬ САЙТ ✨'
@@ -533,19 +573,47 @@
   let uploadedImageData = '';
   let freeGenerations = localStorage.getItem('freeGenerations') ? parseInt(localStorage.getItem('freeGenerations')) : 3;
 
+  // Створення зірок
   function createStars() {
     const stars = document.getElementById('stars');
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 400; i++) {
       const star = document.createElement('div');
       star.className = 'star';
-      const size = Math.random() * 2.5 + 0.8;
+      const size = Math.random() * 2.5 + 0.6;
       star.style.width = `${size}px`;
       star.style.height = `${size}px`;
       star.style.left = `${Math.random() * 100}%`;
       star.style.top = `${Math.random() * 100}%`;
-      star.style.animationDelay = `${Math.random() * 5}s`;
+      star.style.animationDelay = `${Math.random() * 6}s`;
+      star.style.animationDuration = `${3 + Math.random() * 4}s`;
       stars.appendChild(star);
     }
+  }
+
+  // Супутники та комети
+  function createFlyingObjects() {
+    const body = document.body;
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        const obj = document.createElement('div');
+        obj.className = Math.random() > 0.6 ? 'comet' : 'satellite';
+        const startY = Math.random() * window.innerHeight;
+        obj.style.left = '-50px';
+        obj.style.top = `${startY}px`;
+        obj.style.opacity = '0.8';
+        body.appendChild(obj);
+        let pos = -50;
+        const interval = setInterval(() => {
+          pos += 5;
+          obj.style.left = `${pos}px`;
+          if (pos > window.innerWidth + 100) {
+            clearInterval(interval);
+            obj.remove();
+          }
+        }, 50);
+        setTimeout(() => obj.remove(), 8000);
+      }
+    }, 4000);
   }
 
   function updateBadge() {
@@ -624,11 +692,6 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
     }
     document.getElementById('aiLoading').style.display = 'block';
     setTimeout(() => { document.getElementById('aiLoading').style.display = 'none'; generateLanding(); }, 1500);
-  }
-
-  function goBack() {
-    document.getElementById('resultSection').style.display = 'none';
-    document.getElementById('formArea').style.display = 'block';
   }
 
   function buyProNow() {
@@ -723,6 +786,7 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
   }
 
   createStars();
+  createFlyingObjects();
   updateBadge();
   initMarqueeClicks();
   document.getElementById('generateBtn').addEventListener('click', startGeneration);
