@@ -3,16 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Створи готовий HTML лендінг за 2 хвилини. 8 шаблонів, завантаження фото. 3 безкоштовно">
-<title>iField — Landing Builder Pro</title>
+<title>iField — Landing Builder</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%237bb2ff'><animateTransform attributeName='transform' type='rotate' from='0 50 50' to='360 50 50' dur='2s' repeatCount='indefinite'/>⚡</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%237bb2ff'>⚡</text></svg>">
-<meta name="theme-color" content="#06080f">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     min-height: 100vh;
-    background: radial-gradient(circle at 20% 30%, #06080f, #010101);
+    background: #05070c;
     font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
     padding: 20px;
     position: relative;
@@ -27,7 +24,6 @@
     width: 100%;
     height: 100%;
     z-index: 0;
-    overflow: hidden;
     pointer-events: none;
   }
   .flow-lines {
@@ -42,26 +38,25 @@
   }
   @keyframes flowHorizontal { 0% { background-position: 0 0, 0 0; } 100% { background-position: 300px 0, 0 0; } }
   @keyframes flowVertical { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 0, 0 300px; } }
-  
   .particles { position: absolute; width: 100%; height: 100%; }
   .particle {
     position: absolute;
     background: radial-gradient(circle, rgba(44,110,255,0.5), transparent);
     border-radius: 50%;
-    animation: floatParticle 10s infinite ease-in-out;
+    animation: floatParticle 12s infinite ease-in-out;
   }
   @keyframes floatParticle {
     0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
-    50% { transform: translateY(-40px) translateX(30px) scale(1.3); opacity: 0.6; }
+    50% { transform: translateY(-40px) translateX(30px) scale(1.3); opacity: 0.5; }
     100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
   }
   .hologram-layer {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse at 30% 40%, rgba(44,110,255,0.08), transparent 60%);
-    animation: hologramPulse 8s ease-in-out infinite;
+    animation: hologramPulse 8s infinite;
   }
-  @keyframes hologramPulse { 0% { opacity: 0.2; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.08); } 100% { opacity: 0.2; transform: scale(1); } }
+  @keyframes hologramPulse { 0% { opacity: 0.2; } 50% { opacity: 0.5; } 100% { opacity: 0.2; } }
   .cinematic-glow {
     position: absolute;
     inset: 0;
@@ -69,207 +64,114 @@
     animation: glowPulse 6s infinite;
   }
   @keyframes glowPulse { 0% { opacity: 0.3; } 50% { opacity: 0.7; } 100% { opacity: 0.3; } }
-  .lens-flare {
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,200,100,0.1), transparent 60%);
-    top: -50%;
-    left: -50%;
-    animation: lensMove 20s infinite linear;
-  }
-  @keyframes lensMove { 0% { transform: translate(0%,0%) rotate(0deg); } 100% { transform: translate(0%,0%) rotate(360deg); } }
-  .parallax-layer { position: absolute; inset: 0; transition: transform 0.05s ease-out; will-change: transform; }
-
-  .glow-orb {
-    position: fixed;
-    width: 70vw;
-    height: 70vw;
-    background: radial-gradient(circle, rgba(20,100,255,0.2) 0%, rgba(0,0,0,0) 70%);
-    top: -20vh;
-    right: -20vw;
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: pulse-glow 4s infinite;
-    pointer-events: none;
-    z-index: 1;
-  }
-  @keyframes pulse-glow { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+  .parallax-layer { position: absolute; inset: 0; transition: transform 0.05s ease-out; }
 
   .container {
-    max-width: 1100px;
+    max-width: 680px;
     margin: 0 auto;
-    background: rgba(12, 18, 28, 0.7);
-    backdrop-filter: blur(20px);
-    border-radius: 48px;
-    border: 0.5px solid rgba(80, 140, 255, 0.3);
-    padding: 32px 28px;
     position: relative;
     z-index: 10;
-    animation: floatContainer 6s ease-in-out infinite;
-  }
-  @keyframes floatContainer { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-3px); } }
-
-  /* ========== APPLE-СТИЛЬ: МІНІМАЛІЗМ, БЕЗ ЗАЙВОГО ========== */
-  .apple-header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-  .apple-badge {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: #2c6eff;
-    background: rgba(44, 110, 255, 0.15);
-    padding: 6px 14px;
-    border-radius: 30px;
-    margin-bottom: 16px;
-  }
-  .apple-title {
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    background: linear-gradient(135deg, #ffffff, #8aabff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 12px;
-  }
-  .apple-sub {
-    font-size: 17px;
-    color: #8e9ab0;
-    max-width: 500px;
-    margin: 0 auto;
-    line-height: 1.4;
-  }
-  .apple-stats {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    margin-top: 24px;
-  }
-  .stat {
-    text-align: center;
-  }
-  .stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: white;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: #5a6a8a;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
 
-  /* Мінімалістичний перемикач мов */
-  .lang-switcher {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-  .lang-btn {
-    background: transparent;
-    border: none;
-    color: #6a7a9a;
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.2s;
-  }
-  .lang-btn.active {
-    color: white;
-    background: rgba(255,255,255,0.1);
-  }
-
-  /* ========== ФОРМА ========== */
-  .input-group { margin-bottom: 20px; }
-  label {
-    display: block;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    color: #8a9ac0;
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-  }
-  input, textarea {
-    width: 100%;
-    background: rgba(20, 28, 40, 0.8);
-    border: 1px solid rgba(70, 120, 220, 0.3);
-    border-radius: 14px;
-    padding: 14px 16px;
-    color: white;
-    font-family: inherit;
-    font-size: 16px;
-    transition: all 0.2s;
-  }
-  input:focus, textarea:focus {
-    outline: none;
-    border-color: #2c6eff;
-    background: rgba(20, 28, 40, 0.95);
-  }
-
-  .image-upload-area {
-    background: rgba(20, 28, 40, 0.6);
-    border-radius: 14px;
-    padding: 16px;
-    border: 1px dashed rgba(80, 140, 255, 0.4);
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .image-upload-area:hover { background: rgba(40, 60, 100, 0.4); }
-  .image-preview { display: flex; gap: 12px; margin-top: 12px; justify-content: center; }
-  .preview-img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; border: 2px solid rgba(80, 140, 255, 0.5); }
-
-  .template-selector {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 8px;
-    margin-bottom: 24px;
-  }
-  .template-btn {
-    background: rgba(30, 40, 58, 0.5);
-    border: 1px solid rgba(70, 130, 255, 0.3);
-    color: #b0c4ff;
-    padding: 10px 6px;
+  /* ========== БІГУЧА СТРОКА ========== */
+  .marquee {
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    padding: 12px 0;
     border-radius: 40px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 12px;
-    transition: all 0.2s;
+    margin-bottom: 32px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0.5px solid rgba(80,140,255,0.2);
   }
-  .template-btn.active { background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border-color: transparent; }
+  .marquee-content {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #7bb2ff;
+  }
+  .marquee-content span {
+    margin: 0 20px;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
 
-  .generate-btn {
+  /* ========== ГОЛОВНА КНОПКА ========== */
+  .hero-btn {
     width: 100%;
     background: linear-gradient(135deg, #ffffff, #f0f4ff);
     border: none;
-    border-radius: 44px;
-    padding: 16px;
+    border-radius: 60px;
+    padding: 20px;
+    font-size: 24px;
     font-weight: 600;
-    font-size: 17px;
+    letter-spacing: -0.5px;
     cursor: pointer;
-    margin-top: 12px;
+    margin: 24px 0 32px;
+    transition: all 0.2s;
+    box-shadow: 0 10px 30px rgba(44,110,255,0.2);
+  }
+  .hero-btn:active { transform: scale(0.98); }
+
+  /* ========== ОСНОВНІ ПОЛЯ (Apple стиль) ========== */
+  .field {
+    margin-bottom: 16px;
+  }
+  .field input {
+    width: 100%;
+    background: rgba(20, 28, 40, 0.7);
+    border: 1px solid rgba(80, 140, 255, 0.2);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: white;
+    font-size: 17px;
+    font-family: inherit;
     transition: all 0.2s;
   }
-  .generate-btn:active { transform: scale(0.98); }
+  .field input:focus {
+    outline: none;
+    border-color: #2c6eff;
+    background: rgba(20, 28, 40, 0.9);
+  }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #8a9ac0;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
 
-  .limit-info {
-    margin-top: 20px;
-    padding: 12px;
-    background: rgba(0,0,0,0.3);
-    border-radius: 40px;
+  /* Додаткові опції (згорнуті) */
+  .additional-toggle {
     text-align: center;
-    font-size: 12px;
+    margin: 16px 0;
+    color: #6a7a9a;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 40px;
+    background: rgba(255,255,255,0.03);
+  }
+  .additional-options {
+    display: none;
+    margin-bottom: 24px;
+  }
+  .additional-options.open { display: block; }
+
+  /* Ліміти та ціни */
+  .limits {
+    background: rgba(0,0,0,0.3);
+    border-radius: 30px;
+    padding: 16px 20px;
+    margin: 24px 0;
+    text-align: center;
+    font-size: 13px;
     display: flex;
-    align-items: center;
     justify-content: center;
     gap: 24px;
     flex-wrap: wrap;
@@ -277,20 +179,26 @@
   .limit-free { color: #22c55e; font-weight: bold; }
   .limit-paid { color: #ffd700; }
 
-  .result-section { margin-top: 40px; display: none; }
-  .preview-frame { width: 100%; height: 500px; border: none; border-radius: 24px; background: #05070c; }
-  .action-buttons { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+  /* Результат */
+  .result-section { display: none; margin-top: 32px; }
+  .preview-frame { width: 100%; height: 480px; border: none; border-radius: 24px; background: #05070c; }
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
   .action-buttons button {
     flex: 1;
-    background: rgba(30, 40, 58, 0.8);
+    background: rgba(30,40,58,0.8);
     color: white;
-    border: 1px solid rgba(70, 130, 255, 0.4);
+    border: 1px solid rgba(70,130,255,0.3);
     padding: 12px;
     border-radius: 40px;
     cursor: pointer;
+    font-size: 14px;
   }
   .action-buttons button:first-child { background: linear-gradient(135deg, #2c6eff, #1a4fcc); border: none; }
-
   .next-step { margin-top: 20px; padding: 20px; background: rgba(44,110,255,0.1); border-radius: 24px; text-align: center; display: none; }
   .victory-message {
     background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(34,197,94,0.05));
@@ -301,46 +209,16 @@
     margin-bottom: 20px;
     display: none;
   }
-  .progression {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-    padding: 16px;
-    background: rgba(0,0,0,0.3);
-    border-radius: 40px;
-  }
-  .level { text-align: center; flex: 1; opacity: 0.5; cursor: pointer; transition: all 0.3s; }
-  .level.active { opacity: 1; transform: scale(1.05); }
-  .level .emoji { font-size: 24px; display: block; }
-  .level .name { font-size: 10px; color: #aaa; margin-top: 4px; }
   .ai-loading {
     text-align: center;
     padding: 16px;
     background: rgba(44,110,255,0.1);
     border-radius: 40px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-size: 14px;
     color: #7bb2ff;
     display: none;
   }
-  .landing-info { margin-top: 16px; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 24px; text-align: center; display: none; }
-  .reviews { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
-  .review-stars { color: #ffd700; font-size: 18px; margin-bottom: 12px; }
-  .stats { margin-top: 16px; display: flex; justify-content: center; gap: 24px; font-size: 11px; color: #aaa; }
-  footer {
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    text-align: center;
-    font-size: 10px;
-    color: #4a5568;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  footer a { color: #7bb2ff; text-decoration: none; transition: all 0.2s; }
-  footer a:hover { color: #fff; }
   .status {
     position: fixed;
     bottom: 20px;
@@ -354,11 +232,8 @@
   }
 
   @media (max-width: 600px) {
-    .container { padding: 20px 16px; }
-    .preview-frame { height: 400px; }
-    .apple-title { font-size: 32px; }
-    .apple-stats { gap: 20px; }
-    .template-selector { grid-template-columns: repeat(4, 1fr); }
+    .hero-btn { font-size: 20px; padding: 16px; }
+    .marquee-content { font-size: 12px; }
   }
 </style>
 </head>
@@ -368,133 +243,67 @@
   <div class="particles" id="particles"></div>
   <div class="hologram-layer"></div>
   <div class="cinematic-glow"></div>
-  <div class="lens-flare"></div>
   <div class="parallax-layer" id="parallaxLayer"></div>
 </div>
-<div class="glow-orb"></div>
 
 <div class="container">
-  <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="ua">UA</button>
-    <button class="lang-btn" data-lang="en">EN</button>
-    <button class="lang-btn" data-lang="ru">RU</button>
-  </div>
-
-  <!-- APPLE-СТИЛЬ: МІНІМАЛІЗМ, ФУНКЦІОНАЛЬНІСТЬ -->
-  <div class="apple-header">
-    <div class="apple-badge">⚡ iField Generator</div>
-    <div class="apple-title">Create landing page<br>in 2 minutes</div>
-    <div class="apple-sub">8 templates. Upload photo. Export HTML.</div>
-    <div class="apple-stats">
-      <div class="stat"><div class="stat-value">3</div><div class="stat-label">Free tries</div></div>
-      <div class="stat"><div class="stat-value">8</div><div class="stat-label">Templates</div></div>
-      <div class="stat"><div class="stat-value">1500+</div><div class="stat-label">Landings created</div></div>
+  <!-- БІГУЧА СТРОКА З НАЗВАМИ ШАБЛОНІВ -->
+  <div class="marquee">
+    <div class="marquee-content">
+      <span>🎬 SCI-FI</span> <span>💎 LUXURY</span> <span>🌿 NATURE</span> <span>🚀 NEON</span>
+      <span>🔮 DARK GLASS</span> <span>✨ HOLOGRAPHIC</span> <span>⚡ CYBERPUNK</span> <span>🤍 MINIMAL WHITE</span>
+      <span>🎬 SCI-FI</span> <span>💎 LUXURY</span> <span>🌿 NATURE</span> <span>🚀 NEON</span>
+      <span>🔮 DARK GLASS</span> <span>✨ HOLOGRAPHIC</span> <span>⚡ CYBERPUNK</span> <span>🤍 MINIMAL WHITE</span>
     </div>
   </div>
 
-  <div id="aiLoading" class="ai-loading">🤖 Analyzing niche...</div>
+  <!-- ГОЛОВНА КНОПКА -->
+  <button class="hero-btn" onclick="startGeneration()">✨ CREATE YOUR SITE ✨</button>
 
-  <div class="template-selector">
-    <button class="template-btn" data-template="sci-fi">🎬 Sci-Fi</button>
-    <button class="template-btn" data-template="luxury">💎 Luxury</button>
-    <button class="template-btn" data-template="nature">🌿 Nature</button>
-    <button class="template-btn" data-template="neon">🚀 Neon</button>
-    <button class="template-btn" data-template="dark-glass">🔮 Dark Glass</button>
-    <button class="template-btn" data-template="holographic">✨ Holographic</button>
-    <button class="template-btn" data-template="cyberpunk">⚡ Cyberpunk</button>
-    <button class="template-btn" data-template="minimal-white">🤍 Minimal White</button>
-  </div>
+  <!-- ОСНОВНІ ПОЛЯ (всього 3) -->
+  <div class="field"><label>BRAND NAME</label><input id="brand" placeholder="iField Studio" value="iField Studio"></div>
+  <div class="field"><label>NICHE / SPHERE</label><input id="niche" placeholder="manicure, coffee, IT" value="premium manicure"></div>
+  <div class="field"><label>MAIN OFFER</label><input id="product" placeholder="Crystal Shell coating" value="Crystal Shell"></div>
 
-  <div class="input-group">
-    <label id="labelBrand">BRAND NAME</label>
-    <input id="brand" placeholder="iField Studio" value="iField Studio">
-  </div>
-  <div class="input-group">
-    <label id="labelNiche">NICHE / SPHERE</label>
-    <input id="niche" placeholder="manicure, coffee, IT" value="premium manicure">
-  </div>
-  <div class="input-group">
-    <label id="labelProduct">MAIN OFFER</label>
-    <input id="product" placeholder="Crystal Shell coating" value="Crystal Shell">
-  </div>
-  <div class="input-group">
-    <label id="labelDesc">DESCRIPTION</label>
-    <textarea id="description">Long-lasting coating up to 4 weeks. Safe formula, European quality.</textarea>
-  </div>
-  <div class="input-group">
-    <label id="labelPhoto">PRODUCT PHOTO</label>
-    <div class="image-upload-area" onclick="document.getElementById('imageFile').click()">
-      <span id="uploadText">📸 Click to upload photo</span>
-      <input type="file" id="imageFile" accept="image/*" style="display:none" onchange="uploadImage(this)">
-    </div>
-    <div class="image-preview" id="imagePreview"></div>
-    <input id="imageUrl" placeholder="Or paste image URL" style="margin-top: 10px;">
-  </div>
-  <div class="input-group">
-    <label id="labelContact">CONTACTS</label>
-    <input id="contact" placeholder="@username" value="@ifield_studio">
+  <!-- ДОДАТКОВІ ОПЦІЇ (розгортаються) -->
+  <div class="additional-toggle" onclick="toggleAdditional()">▼ ADDITIONAL OPTIONS ▼</div>
+  <div id="additionalOptions" class="additional-options">
+    <div class="field"><label>DESCRIPTION</label><textarea id="description" rows="3" style="width:100%; background:rgba(20,28,40,0.7); border:1px solid rgba(80,140,255,0.2); border-radius:14px; padding:14px; color:white;">Long-lasting coating up to 4 weeks. Safe formula, European quality.</textarea></div>
+    <div class="field"><label>PHOTO URL</label><input id="imageUrl" placeholder="https://... or upload below"></div>
+    <div class="image-upload-area" onclick="document.getElementById('imageFile').click()" style="background:rgba(20,28,40,0.6); border:1px dashed rgba(80,140,255,0.4); border-radius:14px; padding:12px; text-align:center; cursor:pointer; margin-bottom:16px;">📸 Click to upload photo<input type="file" id="imageFile" accept="image/*" style="display:none" onchange="uploadImage(this)"></div>
+    <div class="image-preview" id="imagePreview" style="display:flex; gap:10px; justify-content:center; margin-bottom:16px;"></div>
+    <div class="field"><label>CONTACTS</label><input id="contact" placeholder="@username or link" value="@ifield_studio"></div>
   </div>
 
-  <button class="generate-btn" onclick="startAnimation()">✨ Generate Landing ✨</button>
-
-  <div class="limit-info">
-    <span>🎁 <span class="limit-free" id="limitCount">3</span> free generations</span>
-    <span>💎 Then <span class="limit-paid">50 Stars</span> (~$0.50) — unlimited</span>
-    <span>⭐ Or <span class="limit-paid">200 Stars</span> (~$2) — public link</span>
+  <!-- ЛІМІТИ ТА ЦІНИ -->
+  <div class="limits">
+    <span>🎁 <span class="limit-free" id="limitCount">3</span> free</span>
+    <span>💎 Unlimited — <span class="limit-paid">50 Stars</span></span>
+    <span>⭐ Public link — <span class="limit-paid">200 Stars</span></span>
   </div>
+
+  <div id="aiLoading" class="ai-loading">🤖 Analyzing...</div>
 
   <div class="result-section" id="resultSection">
-    <div id="victoryMessage" class="victory-message">
-      <div style="font-size: 32px;">🎉</div>
-      <div id="victoryTitle" style="font-weight: bold; font-size: 18px;">Site created!</div>
-      <div id="victorySub" style="font-size: 13px; margin-top: 8px;">You are one step closer to clients</div>
-    </div>
-
-    <div class="landing-info" id="landingInfo">
-      💡 <strong>What is a landing page?</strong>
-      <p>A single page designed to convert visitors into customers. Perfect for ads and product launches.</p>
-    </div>
-
-    <div class="progression" id="progression">
-      <div class="level active" data-level="1" onclick="scrollToGenerator()"><span class="emoji">📝</span><span class="name" id="levelText">Text</span></div>
-      <div class="level" data-level="2"><span class="emoji">🎨</span><span class="name" id="levelSite">Site</span></div>
-      <div class="level locked" data-level="3"><span class="emoji">🚀</span><span class="name" id="levelTraffic">Traffic 🔒</span></div>
-    </div>
-
+    <div id="victoryMessage" class="victory-message"><div style="font-size:32px;">🎉</div><div style="font-weight:bold; font-size:18px;">Site created!</div><div style="font-size:13px;">You are one step closer to clients</div></div>
     <iframe class="preview-frame" id="previewFrame"></iframe>
-
     <div class="action-buttons">
-      <button id="btnDownload" onclick="downloadLanding()">📥 Download</button>
-      <button id="btnCopy" onclick="copyHTML()">📋 Copy code</button>
-      <button id="btnShare" onclick="simpleShare()">📱 Share</button>
-      <button id="btnPublish" onclick="publishToGitHubPages()" style="background: linear-gradient(135deg, #24292e, #0a0c10);">▲ Publish</button>
+      <button onclick="downloadLanding()">📥 Download</button>
+      <button onclick="copyHTML()">📋 Copy code</button>
+      <button onclick="simpleShare()">📱 Share</button>
+      <button onclick="publishToGitHubPages()" style="background:linear-gradient(135deg,#24292e,#0a0c10);">▲ Publish</button>
     </div>
-
     <div id="nextStep" class="next-step">
-      <div style="font-size: 24px;">🚀</div>
-      <div id="nextTitle" style="font-weight: bold; margin-bottom: 12px;">Your site is ready!</div>
-      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 16px 0;">
-        <button onclick="downloadLanding()" style="background: linear-gradient(135deg, #2c6eff, #1a4fcc); color: white; border: none; padding: 12px 20px; border-radius: 40px;">📥 Download</button>
-        <button onclick="editInline()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid #3c7eff; padding: 12px 20px; border-radius: 40px;">✏️ Edit</button>
-        <button onclick="simpleShare()" style="background: #2AABEE; color: white; border: none; padding: 12px 20px; border-radius: 40px;">📱 Share</button>
-        <button onclick="unlockAndPublish()" style="background: linear-gradient(135deg, #ffd700, #ffb347); color: #1a1a2e; border: none; padding: 12px 20px; border-radius: 40px;">⭐ Get public link — 200 Stars</button>
+      <div style="font-size:24px;">🚀</div>
+      <div style="font-weight:bold; margin-bottom:12px;">Your site is ready!</div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:16px 0;">
+        <button onclick="downloadLanding()" style="background:linear-gradient(135deg,#2c6eff,#1a4fcc); color:white; border:none; padding:12px 20px; border-radius:40px;">📥 Download</button>
+        <button onclick="editInline()" style="background:rgba(255,255,255,0.1); color:white; border:1px solid #3c7eff; padding:12px 20px; border-radius:40px;">✏️ Edit</button>
+        <button onclick="unlockAndPublish()" style="background:linear-gradient(135deg,#ffd700,#ffb347); color:#1a1a2e; border:none; padding:12px 20px; border-radius:40px;">⭐ Get public link — 200 Stars</button>
       </div>
-      <p id="shareHint" style="font-size: 11px; color: #aaa;">💡 Click "Get public link" — pay in Telegram and get a link to your site!</p>
+      <p style="font-size:11px; color:#aaa;">💡 Click "Get public link" — pay in Telegram and get a link to your site!</p>
     </div>
   </div>
-
-  <div class="reviews">
-    <div class="review-stars">★★★★★</div>
-    <p id="reviewText" style="font-size: 13px; color: #aaa; font-style: italic;">"Made a landing in 5 minutes! Shared with friends — already got my first client"</p>
-    <p id="reviewAuthor" style="font-size: 11px; color: #7bb2ff; margin-top: 8px;">— Anna, nail studio owner</p>
-    <div class="stats"><span>🏆 1500+ landings created</span><span>⭐ 98% recommend</span></div>
-  </div>
-
-  <footer>
-    <div>© 2025 iField Studio</div>
-    <div>⚡ Built on iPhone 16 Pro</div>
-    <div><a href="https://t.me/ifield_lab">Telegram</a> • <a href="http://fiverr.com/s/2KRdzKN">Fiverr</a> • <a href="https://i-field.github.io/ifield-studio">Portfolio</a></div>
-  </footer>
 </div>
 
 <script>
@@ -509,114 +318,13 @@
     'minimal-white': { gradient: 'linear-gradient(135deg, #ffffff, #f5f5f5)', bg: '#ffffff', text: '#111111', accent: '#000000', name: 'Minimal White' }
   };
 
-  const LOCALES = {
-    ua: {
-      labelBrand: 'НАЗВА БРЕНДУ', labelNiche: 'НІША / СФЕРА', labelProduct: 'ГОЛОВНИЙ ОФФЕР',
-      labelDesc: 'ОПИС', labelPhoto: 'ФОТО ПРОДУКТУ', uploadText: '📸 Натисни, щоб завантажити фото',
-      labelContact: 'КОНТАКТИ', victoryTitle: 'Сайт створено!', victorySub: 'Ти вже на 1 крок ближче до клієнтів',
-      levelText: 'Текст', levelSite: 'Сайт', levelTraffic: 'Трафік 🔒', nextTitle: 'Твій сайт готовий!',
-      shareHint: '💡 Натисни "Отримати публічне посилання" — оплати в Telegram і отримай посилання на свій сайт!',
-      reviewText: '"Зробив лендінг за 5 хвилин! Поділився з друзями — вже є перший клієнт"',
-      reviewAuthor: '— Анна, власниця студії манікюру'
-    },
-    en: {
-      labelBrand: 'BRAND NAME', labelNiche: 'NICHE / SPHERE', labelProduct: 'MAIN OFFER',
-      labelDesc: 'DESCRIPTION', labelPhoto: 'PRODUCT PHOTO', uploadText: '📸 Click to upload photo',
-      labelContact: 'CONTACTS', victoryTitle: 'Site created!', victorySub: 'You are one step closer to clients',
-      levelText: 'Text', levelSite: 'Site', levelTraffic: 'Traffic 🔒', nextTitle: 'Your site is ready!',
-      shareHint: '💡 Click "Get public link" — pay in Telegram and get a link to your site!',
-      reviewText: '"I made a landing in 5 minutes! Shared with friends — already got my first client"',
-      reviewAuthor: '— Anna, nail studio owner'
-    },
-    ru: {
-      labelBrand: 'НАЗВАНИЕ БРЕНДА', labelNiche: 'НИША / СФЕРА', labelProduct: 'ГЛАВНОЕ ПРЕДЛОЖЕНИЕ',
-      labelDesc: 'ОПИСАНИЕ', labelPhoto: 'ФОТО ПРОДУКТА', uploadText: '📸 Нажми, чтобы загрузить фото',
-      labelContact: 'КОНТАКТЫ', victoryTitle: 'Сайт создан!', victorySub: 'Ты на шаг ближе к клиентам',
-      levelText: 'Текст', levelSite: 'Сайт', levelTraffic: 'Трафик 🔒', nextTitle: 'Твой сайт готов!',
-      shareHint: '💡 Нажми "Получить публичную ссылку" — оплати в Telegram и получи ссылку на свой сайт!',
-      reviewText: '"Сделал лендинг за 5 минут! Поделился с друзьями — уже есть первый клиент"',
-      reviewAuthor: '— Анна, владелица студии маникюра'
-    }
-  };
-
-  let currentLang = 'en';
   let currentTemplate = 'sci-fi';
   let currentHTML = '';
   let uploadedImageData = '';
   let freeGenerations = localStorage.getItem('freeGenerations') ? parseInt(localStorage.getItem('freeGenerations')) : 3;
 
-  const generationSteps = {
-    ua: ["🔍 Аналіз ніші...", "🎨 Підбір дизайну...", "🧠 Генерація структури...", "⚡ Оптимізація...", "🌐 Формування сайту..."],
-    en: ["🔍 Analyzing niche...", "🎨 Selecting design...", "🧠 Generating structure...", "⚡ Optimizing...", "🌐 Building site..."],
-    ru: ["🔍 Анализ ниши...", "🎨 Подбор дизайна...", "🧠 Генерация структуры...", "⚡ Оптимизация...", "🌐 Формирование сайта..."]
-  };
-
-  function initParallax() {
-    const parallax = document.getElementById('parallaxLayer');
-    if (!parallax) return;
-    let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-    function update() {
-      currentX += (targetX - currentX) * 0.08;
-      currentY += (targetY - currentY) * 0.08;
-      parallax.style.transform = `translate(${currentX}px, ${currentY}px)`;
-      requestAnimationFrame(update);
-    }
-    update();
-    document.addEventListener('mousemove', (e) => {
-      targetX = (e.clientX / window.innerWidth - 0.5) * 20;
-      targetY = (e.clientY / window.innerHeight - 0.5) * 20;
-    });
-    document.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      targetX = (touch.clientX / window.innerWidth - 0.5) * 15;
-      targetY = (touch.clientY / window.innerHeight - 0.5) * 15;
-    });
-  }
-
-  function createParticles() {
-    const container = document.getElementById('particles');
-    if (!container) return;
-    for (let i = 0; i < 60; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const size = Math.random() * 3 + 1;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.top = `${Math.random() * 100}%`;
-      p.style.animationDelay = `${Math.random() * 10}s`;
-      p.style.animationDuration = `${8 + Math.random() * 8}s`;
-      container.appendChild(p);
-    }
-  }
-
-  function updateBadge() {
-    document.getElementById('freeBadge') && (document.getElementById('freeBadge').innerText = `${freeGenerations} FREE`);
-    document.getElementById('limitCount').innerText = freeGenerations;
-  }
-
-  function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('ifield_lang', lang);
-    const t = LOCALES[lang];
-    document.getElementById('labelBrand').innerText = t.labelBrand;
-    document.getElementById('labelNiche').innerText = t.labelNiche;
-    document.getElementById('labelProduct').innerText = t.labelProduct;
-    document.getElementById('labelDesc').innerText = t.labelDesc;
-    document.getElementById('labelPhoto').innerText = t.labelPhoto;
-    document.getElementById('uploadText').innerText = t.uploadText;
-    document.getElementById('labelContact').innerText = t.labelContact;
-    document.getElementById('victoryTitle').innerText = t.victoryTitle;
-    document.getElementById('victorySub').innerText = t.victorySub;
-    document.getElementById('levelText').innerText = t.levelText;
-    document.getElementById('levelSite').innerText = t.levelSite;
-    document.getElementById('levelTraffic').innerHTML = t.levelTraffic;
-    document.getElementById('nextTitle').innerText = t.nextTitle;
-    document.getElementById('shareHint').innerHTML = t.shareHint;
-    document.getElementById('reviewText').innerText = t.reviewText;
-    document.getElementById('reviewAuthor').innerText = t.reviewAuthor;
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
-  }
+  function updateBadge() { document.getElementById('limitCount').innerText = freeGenerations; }
+  function toggleAdditional() { document.getElementById('additionalOptions').classList.toggle('open'); }
 
   function buildHTML() {
     const brand = document.getElementById('brand').value.trim() || 'iField Studio';
@@ -645,84 +353,38 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
   }
 
   function showStatus(msg, isError = false) {
-    const s = document.createElement('div');
-    s.className = 'status';
-    s.textContent = msg;
+    const s = document.createElement('div'); s.className = 'status'; s.textContent = msg;
     s.style.background = isError ? 'rgba(255,70,70,0.95)' : 'rgba(60,126,255,0.95)';
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 4000);
+    document.body.appendChild(s); setTimeout(() => s.remove(), 4000);
   }
 
-  function playClickSound() {
-    try {
-      const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3");
-      audio.volume = 0.1;
-      audio.play().catch(() => {});
-    } catch(e) {}
-  }
+  function playClickSound() { try { new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3").play().catch(()=>{}); } catch(e){} }
 
   function animateBuild(callback) {
-    const steps = generationSteps[currentLang];
     const loader = document.getElementById('aiLoading');
-    let i = 0;
     loader.style.display = 'block';
-    const interval = setInterval(() => {
-      loader.innerHTML = `🤖 ${steps[i]}`;
-      i++;
-      if (i >= steps.length) {
-        clearInterval(interval);
-        setTimeout(() => { loader.style.display = 'none'; callback(); }, 300);
-      }
-    }, 700);
+    setTimeout(() => { loader.style.display = 'none'; callback(); }, 1800);
   }
 
   function generateLanding() {
-    if (freeGenerations <= 0) {
-      showStatus('⚠️ Limit reached! Get unlimited for 50 Stars', true);
-      return;
-    }
-    freeGenerations--;
-    localStorage.setItem('freeGenerations', freeGenerations);
-    updateBadge();
+    if (freeGenerations <= 0) { showStatus('⚠️ Limit reached! Get unlimited for 50 Stars', true); return; }
+    freeGenerations--; localStorage.setItem('freeGenerations', freeGenerations); updateBadge();
     currentHTML = buildHTML();
     document.getElementById('resultSection').style.display = 'block';
     document.getElementById('previewFrame').srcdoc = currentHTML;
     document.getElementById('nextStep').style.display = 'block';
     document.getElementById('victoryMessage').style.display = 'block';
-    document.getElementById('landingInfo').style.display = 'block';
     showStatus(`✅ Landing created! ${freeGenerations} free left`);
-    if (freeGenerations === 1) showStatus('⚠️ 1 free generation left!', false);
     document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
   }
 
-  function startAnimation() {
-    playClickSound();
-    animateBuild(() => generateLanding());
-  }
-
-  function checkAccess() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('paid') === 'true') {
-      showStatus('✅ Payment confirmed! Unlimited access granted!');
-      freeGenerations = 999;
-      localStorage.setItem('freeGenerations', freeGenerations);
-      updateBadge();
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }
-
-  function unlockAndPublish() {
-    playClickSound();
-    window.open('https://t.me/ifield_studio_bot?start=publish_200', '_blank');
-    showStatus('📱 Opening Telegram for 200 Stars payment');
-  }
+  function startGeneration() { playClickSound(); animateBuild(() => generateLanding()); }
 
   async function publishToGitHubPages() {
-    if (!currentHTML) { alert('⚠️ Generate landing first!'); return; }
-    showStatus('📤 Publishing to GitHub Pages...');
+    if (!currentHTML) { alert('Generate first!'); return; }
     let token = localStorage.getItem('github_token');
     if (!token) {
-      token = prompt('🔑 Enter GitHub token:\n\n1. Go to: https://github.com/settings/tokens/new\n2. Name: iField Generator\n3. Select only "gist"\n4. Copy and paste here');
+      token = prompt('🔑 Enter GitHub token (gist only):\nhttps://github.com/settings/tokens/new');
       if (!token) return;
       localStorage.setItem('github_token', token);
     }
@@ -730,86 +392,55 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
     const fileName = `${brand.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${Date.now()}.html`;
     try {
       const res = await fetch('https://api.github.com/gists', {
-        method: 'POST',
-        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ description: `Landing: ${brand}`, public: true, files: { [fileName]: { content: currentHTML } } })
       });
       const data = await res.json();
-      if (data.html_url) {
-        const url = `https://htmlpreview.github.io/?https://gist.githubusercontent.com/${data.owner.login}/${data.id}/raw/${fileName}`;
-        await navigator.clipboard.writeText(url);
-        showStatus(`✅ Link copied: ${url}`);
-        alert(`🎉 Your landing is live!\n\n${url}\n\nLink copied to clipboard!`);
-      } else throw new Error();
-    } catch(e) {
-      showStatus('❌ Publish failed. Check token', true);
-      localStorage.removeItem('github_token');
-    }
+      const url = `https://htmlpreview.github.io/?https://gist.githubusercontent.com/${data.owner.login}/${data.id}/raw/${fileName}`;
+      await navigator.clipboard.writeText(url);
+      showStatus(`✅ Link copied: ${url}`);
+      alert(`🎉 Your landing is live!\n${url}\nLink copied!`);
+    } catch(e) { showStatus('❌ Publish failed', true); localStorage.removeItem('github_token'); }
   }
 
   function downloadLanding() {
     if (!currentHTML) return;
     const blob = new Blob([currentHTML], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `landing-${Date.now()}.html`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-    showStatus('📥 File downloaded!');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `landing-${Date.now()}.html`; a.click(); URL.revokeObjectURL(a.href);
+    showStatus('📥 Downloaded!');
   }
-
-  async function copyHTML() {
-    if (!currentHTML) return;
-    await navigator.clipboard.writeText(currentHTML);
-    showStatus('📋 Code copied!');
-  }
-
-  function editInline() {
-    const iframe = document.getElementById('previewFrame');
-    iframe.contentDocument.body.contentEditable = 'true';
-    showStatus('✏️ Edit mode: change text directly on site!');
-  }
-
+  async function copyHTML() { if (!currentHTML) return; await navigator.clipboard.writeText(currentHTML); showStatus('📋 Code copied!'); }
+  function editInline() { document.getElementById('previewFrame').contentDocument.body.contentEditable = 'true'; showStatus('✏️ Edit mode: change text directly!'); }
   function simpleShare() {
-    if (!currentHTML) { alert('⚠️ Generate landing first!'); return; }
+    if (!currentHTML) { alert('Generate first!'); return; }
     const blob = new Blob([currentHTML], { type: 'text/html' });
     const file = new File([blob], `landing-${Date.now()}.html`, { type: 'text/html' });
-    if (navigator.share) {
-      navigator.share({ title: 'My landing', files: [file] }).catch(() => {
-        navigator.clipboard.writeText(window.location.href);
-        alert('🔗 Generator link copied!');
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('🔗 Link copied! Send to friend.');
-    }
+    if (navigator.share) navigator.share({ title: 'My landing', files: [file] }).catch(()=>navigator.clipboard.writeText(window.location.href));
+    else navigator.clipboard.writeText(window.location.href);
   }
-
-  function scrollToGenerator() { document.querySelector('.template-selector').scrollIntoView({ behavior: 'smooth' }); }
-  function setTemplate(t) {
-    currentTemplate = t;
-    document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-  }
+  function unlockAndPublish() { window.open('https://t.me/ifield_studio_bot?start=publish_200', '_blank'); showStatus('📱 Opening Telegram for 200 Stars'); }
   function uploadImage(input) {
     if (input.files?.[0]) {
       const r = new FileReader();
-      r.onload = e => {
-        uploadedImageData = e.target.result;
-        document.getElementById('imagePreview').innerHTML = `<img src="${uploadedImageData}" class="preview-img">`;
-        document.getElementById('imageUrl').value = '';
-        showStatus('✅ Photo uploaded!');
-      };
+      r.onload = e => { uploadedImageData = e.target.result; document.getElementById('imagePreview').innerHTML = `<img src="${uploadedImageData}" style="width:80px; height:80px; border-radius:12px;">`; document.getElementById('imageUrl').value = ''; showStatus('✅ Photo uploaded!'); };
       r.readAsDataURL(input.files[0]);
     }
   }
 
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
-  document.querySelectorAll('.template-btn').forEach(btn => btn.addEventListener('click', () => setTemplate(btn.dataset.template)));
-  document.querySelectorAll('.template-btn')[0].classList.add('active');
-  setLanguage('en');
+  function initParallax() {
+    const pl = document.getElementById('parallaxLayer'); if (!pl) return;
+    let tx=0, ty=0, cx=0, cy=0;
+    function update() { cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08; pl.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(update); }
+    update();
+    document.addEventListener('mousemove', e => { tx = (e.clientX/window.innerWidth-0.5)*20; ty = (e.clientY/window.innerHeight-0.5)*20; });
+    document.addEventListener('touchmove', e => { const t = e.touches[0]; tx = (t.clientX/window.innerWidth-0.5)*15; ty = (t.clientY/window.innerHeight-0.5)*15; });
+  }
+  function createParticles() {
+    const c = document.getElementById('particles'); if (!c) return;
+    for (let i=0;i<60;i++) { const p = document.createElement('div'); p.className = 'particle'; const s = Math.random()*3+1; p.style.width=`${s}px`; p.style.height=`${s}px`; p.style.left=`${Math.random()*100}%`; p.style.top=`${Math.random()*100}%`; p.style.animationDelay=`${Math.random()*10}s`; p.style.animationDuration=`${8+Math.random()*8}s`; c.appendChild(p); }
+  }
+
   updateBadge();
-  checkAccess();
   createParticles();
   initParallax();
 </script>
