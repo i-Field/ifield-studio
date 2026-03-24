@@ -9,23 +9,28 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     min-height: 100vh;
-    background: #010101;
+    background: #0a0c1a;
     font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
     padding: 20px;
     position: relative;
     overflow-x: hidden;
   }
 
-  /* ========== КОСМІЧНИЙ ФОН ========== */
-  .stars {
+  /* ========== ГЛИБОКИЙ КОСМІЧНИЙ ФОН ========== */
+  .cosmic-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-    pointer-events: none;
-    background: radial-gradient(ellipse at center, #03050a 0%, #000000 100%);
+    background: radial-gradient(ellipse at 30% 40%, #0f1222, #060714);
+  }
+  /* Зоряне поле */
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
   .star {
     position: absolute;
@@ -36,50 +41,50 @@
   }
   @keyframes twinkle {
     0% { opacity: 0; transform: scale(0.5); }
-    100% { opacity: 0.8; transform: scale(1); }
+    100% { opacity: 0.7; transform: scale(1); }
   }
-  .dna-pattern {
+  /* ДНК-спіраль */
+  .dna-helix {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.08"><path fill="none" stroke="%239b4dff" stroke-width="0.8" d="M30 20 L170 20 M30 180 L170 180 M40 30 L160 30 M40 170 L160 170 M50 40 L150 40 M50 160 L150 160 M60 50 L140 50 M60 150 L140 150 M70 60 L130 60 M70 140 L130 140 M80 70 L120 70 M80 130 L120 130 M90 80 L110 80 M90 120 L110 120 M100 90 L100 110"/><circle cx="100" cy="30" r="3" fill="%239b4dff" opacity="0.2"/><circle cx="100" cy="170" r="3" fill="%2340e0d0" opacity="0.2"/></svg>');
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    pointer-events: none;
+  }
+  /* iField візерунок */
+  .ifield-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" opacity="0.04"><text x="10" y="40" font-family="monospace" font-size="20" fill="%2340e0d0">iField</text><text x="200" y="100" font-family="monospace" font-size="20" fill="%239b4dff">iField</text><text x="50" y="160" font-family="monospace" font-size="20" fill="%2340e0d0">iField</text></svg>');
+    background-repeat: repeat;
+    background-size: 300px 150px;
+    pointer-events: none;
+  }
+  .nebula {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 20%, rgba(155,77,255,0.08), transparent 60%);
+    animation: nebulaMove 20s infinite;
+  }
+  @keyframes nebulaMove {
+    0% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+    100% { opacity: 0.3; transform: scale(1); }
+  }
+  /* Сяйво по краях */
+  .edge-glow {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.08"><path fill="none" stroke="%239b4dff" stroke-width="0.5" d="M20 50 L180 50 M20 60 L180 60 M20 70 L180 70 M20 80 L180 80 M20 90 L180 90 M20 100 L180 100 M20 110 L180 110 M20 120 L180 120 M20 130 L180 130 M20 140 L180 140 M20 150 L180 150"/><path fill="none" stroke="%2340e0d0" stroke-width="0.3" d="M40 30 L160 30 M40 170 L160 170"/><circle cx="100" cy="40" r="2" fill="%239b4dff" opacity="0.3"/><circle cx="100" cy="160" r="2" fill="%2340e0d0" opacity="0.3"/></svg>');
-    background-repeat: repeat;
-    background-size: 200px 200px;
     pointer-events: none;
-    z-index: 1;
-  }
-  .nebula {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 30% 40%, rgba(155,77,255,0.08), transparent 60%);
-    animation: nebulaPulse 12s infinite;
-    pointer-events: none;
-    z-index: 1;
-  }
-  @keyframes nebulaPulse {
-    0% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.1); }
-    100% { opacity: 0.3; transform: scale(1); }
-  }
-  .glow-orb {
-    position: fixed;
-    width: 70vw;
-    height: 70vw;
-    background: radial-gradient(circle, rgba(155,77,255,0.15), transparent);
-    top: -20vh;
-    right: -20vw;
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: pulseGlow 8s infinite;
-    pointer-events: none;
-    z-index: 1;
-  }
-  @keyframes pulseGlow {
-    0%,100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.2); }
+    z-index: 2;
+    box-shadow: inset 0 0 50px rgba(64,224,208,0.2), inset 0 0 100px rgba(155,77,255,0.15);
   }
 
   .container {
@@ -89,36 +94,36 @@
     z-index: 10;
   }
 
-  /* ПЕРЕМИКАЧ МОВ */
+  /* ПЕРЕМИКАЧ МОВ (менший, зручний) */
   .lang-switcher {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 20px;
   }
   .lang-btn {
-    background: rgba(30,40,58,0.6);
-    border: 1px solid rgba(155,77,255,0.4);
+    background: rgba(30,40,58,0.5);
+    border: 0.5px solid rgba(155,77,255,0.4);
     color: #b07cff;
-    padding: 6px 14px;
-    border-radius: 30px;
+    padding: 4px 12px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 500;
     transition: all 0.2s;
+    backdrop-filter: blur(4px);
   }
   .lang-btn.active {
     background: linear-gradient(135deg, #40E0D0, #9b4dff);
     color: white;
     border-color: transparent;
-    box-shadow: 0 0 10px rgba(64,224,208,0.3);
   }
 
   /* БІГУЧІ СТРІЧКИ */
   .marquee {
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(12px);
-    padding: 12px 0;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+    padding: 10px 0;
     border-radius: 40px;
     overflow: hidden;
     white-space: nowrap;
@@ -131,12 +136,11 @@
   }
   .marquee-content {
     display: inline-block;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: 2px;
     color: #b07cff;
     cursor: pointer;
-    transition: all 0.2s;
   }
   .marquee-content span {
     margin: 0 20px;
@@ -146,7 +150,6 @@
   .marquee-content span:hover {
     color: #fff;
     text-shadow: 0 0 8px #9b4dff;
-    transform: scale(1.05);
   }
   @keyframes marqueeLeft {
     0% { transform: translateX(0%); }
@@ -166,10 +169,10 @@
     background-size: 200% 200%;
     border: none;
     border-radius: 60px;
-    padding: 20px;
-    font-size: 24px;
+    padding: 18px;
+    font-size: 22px;
     font-weight: 600;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
     cursor: pointer;
     margin: 32px 0;
     color: white;
@@ -177,30 +180,29 @@
     overflow: hidden;
     transition: all 0.3s;
     animation: gradientShift 3s ease infinite;
-    box-shadow: 0 0 15px rgba(64,224,208,0.3), 0 0 5px rgba(155,77,255,0.5);
+    box-shadow: 0 0 20px rgba(64,224,208,0.3);
   }
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  /* Іскра на кнопці */
-  .hero-btn::before {
+  /* Біжуче світло */
+  .hero-btn::after {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-    transition: left 0.5s;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: lightRun 2s infinite;
   }
-  .hero-btn:hover::before {
-    left: 100%;
+  @keyframes lightRun {
+    0% { left: -100%; }
+    100% { left: 100%; }
   }
-  .hero-btn:active {
-    transform: scale(0.98);
-  }
+  .hero-btn:active { transform: scale(0.98); }
   .hero-btn.disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -211,22 +213,22 @@
   .field { margin-bottom: 16px; }
   .field input, .field textarea {
     width: 100%;
-    background: rgba(20, 28, 40, 0.7);
+    background: rgba(20, 28, 40, 0.6);
     border: 1px solid rgba(155,77,255,0.3);
     border-radius: 14px;
     padding: 14px 16px;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-family: inherit;
   }
   .field input:focus, .field textarea:focus {
     outline: none;
     border-color: #40E0D0;
-    background: rgba(20, 28, 40, 0.9);
+    background: rgba(20, 28, 40, 0.8);
   }
   .field label {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: #b07cff;
     margin-bottom: 6px;
@@ -236,8 +238,8 @@
   .additional-toggle {
     text-align: center;
     margin: 16px 0;
-    color: #6a7a9a;
-    font-size: 13px;
+    color: #8a9ac0;
+    font-size: 12px;
     cursor: pointer;
     padding: 8px;
   }
@@ -245,8 +247,8 @@
   .additional-options.open { display: block; }
 
   .image-upload-area {
-    background: rgba(20,28,40,0.6);
-    border: 1px dashed rgba(155,77,255,0.5);
+    background: rgba(20,28,40,0.5);
+    border: 1px dashed rgba(155,77,255,0.4);
     border-radius: 14px;
     padding: 12px;
     text-align: center;
@@ -254,39 +256,37 @@
     margin-bottom: 16px;
   }
   .image-preview { display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; }
-  .preview-img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; }
+  .preview-img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; }
 
   .limits {
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.3);
     border-radius: 30px;
-    padding: 14px 20px;
+    padding: 12px 20px;
     margin: 24px 0;
     text-align: center;
     display: flex;
     justify-content: center;
     gap: 24px;
     flex-wrap: wrap;
-    font-size: 13px;
+    font-size: 12px;
   }
   .limit-free { color: #22c55e; font-weight: bold; }
   .limit-paid { color: #40E0D0; }
 
   .back-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(155,77,255,0.5);
+    background: rgba(255,255,255,0.08);
+    border: 0.5px solid rgba(155,77,255,0.5);
     color: white;
-    padding: 10px 20px;
+    padding: 8px 18px;
     border-radius: 40px;
     cursor: pointer;
     margin-bottom: 20px;
     display: inline-block;
-    font-size: 14px;
-    transition: all 0.2s;
+    font-size: 13px;
   }
-  .back-btn:hover { background: rgba(155,77,255,0.2); }
 
   .result-section { display: none; margin-top: 32px; }
-  .preview-frame { width: 100%; height: 480px; border: none; border-radius: 24px; background: #05070c; }
+  .preview-frame { width: 100%; height: 460px; border: none; border-radius: 24px; background: #05070c; }
   .action-buttons {
     display: flex;
     gap: 10px;
@@ -295,31 +295,32 @@
   }
   .action-buttons button {
     flex: 1;
-    background: rgba(30,40,58,0.8);
+    background: rgba(30,40,58,0.7);
     color: white;
     border: 1px solid rgba(155,77,255,0.4);
-    padding: 12px;
+    padding: 10px;
     border-radius: 40px;
     cursor: pointer;
+    font-size: 13px;
   }
   .action-buttons button:first-child { background: linear-gradient(135deg, #2c6eff, #1a4fcc); border: none; }
-  .next-step { margin-top: 20px; padding: 20px; background: rgba(155,77,255,0.1); border-radius: 24px; text-align: center; display: none; }
+  .next-step { margin-top: 20px; padding: 18px; background: rgba(155,77,255,0.08); border-radius: 24px; text-align: center; display: none; }
   .victory-message {
-    background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(34,197,94,0.05));
-    border: 1px solid #22c55e;
+    background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.04));
+    border: 0.5px solid #22c55e;
     border-radius: 24px;
-    padding: 20px;
+    padding: 18px;
     text-align: center;
     margin-bottom: 20px;
     display: none;
   }
   .ai-loading {
     text-align: center;
-    padding: 16px;
-    background: rgba(155,77,255,0.1);
+    padding: 14px;
+    background: rgba(155,77,255,0.08);
     border-radius: 40px;
     margin-bottom: 20px;
-    font-size: 14px;
+    font-size: 13px;
     color: #40E0D0;
     display: none;
   }
@@ -327,29 +328,29 @@
     margin-top: 40px;
     text-align: center;
     padding: 20px 0;
-    border-top: 1px solid rgba(155,77,255,0.3);
+    border-top: 0.5px solid rgba(155,77,255,0.3);
   }
-  .review-stars { color: #ffd700; font-size: 20px; margin-bottom: 10px; }
-  .review-text { font-size: 14px; color: #aaa; font-style: italic; max-width: 400px; margin: 0 auto; }
-  .review-author { margin-top: 8px; font-size: 12px; color: #b07cff; }
+  .review-stars { color: #ffd700; font-size: 18px; margin-bottom: 8px; }
+  .review-text { font-size: 13px; color: #aaa; font-style: italic; max-width: 400px; margin: 0 auto; }
+  .review-author { margin-top: 6px; font-size: 11px; color: #b07cff; }
   .stats {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin-top: 20px;
-    font-size: 12px;
+    gap: 24px;
+    margin-top: 16px;
+    font-size: 11px;
     color: #8a9ac0;
   }
   footer {
     margin-top: 40px;
-    padding: 20px 0;
-    border-top: 1px solid rgba(155,77,255,0.3);
+    padding: 16px 0;
+    border-top: 0.5px solid rgba(155,77,255,0.3);
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     color: #6a7a9a;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 24px;
     flex-wrap: wrap;
   }
   footer a {
@@ -357,38 +358,39 @@
     text-decoration: none;
     transition: all 0.2s;
   }
-  footer a:hover { color: #fff; text-shadow: 0 0 4px #9b4dff; }
+  footer a:hover { color: #fff; }
   .status {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: rgba(64,224,208,0.95);
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 40px;
     color: #010101;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
     z-index: 1000;
   }
 
   @media (max-width: 600px) {
-    .hero-btn { font-size: 20px; padding: 16px; }
-    .marquee-content { font-size: 12px; }
+    .hero-btn { font-size: 18px; padding: 14px; }
+    .marquee-content { font-size: 11px; }
     .stats { gap: 15px; }
-    footer { gap: 15px; }
   }
 </style>
 </head>
 <body>
+<div class="cosmic-bg"></div>
 <div class="stars" id="stars"></div>
-<div class="dna-pattern"></div>
+<div class="dna-helix"></div>
+<div class="ifield-pattern"></div>
 <div class="nebula"></div>
-<div class="glow-orb"></div>
+<div class="edge-glow"></div>
 
 <div class="container" id="app">
   <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="ua">UA</button>
-    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="ua">UA</button>
     <button class="lang-btn" data-lang="ru">RU</button>
   </div>
 
@@ -418,7 +420,7 @@
     </div>
 
     <div class="limits">
-      <span>🎁 <span class="limit-free" id="limitCount">3</span> <span id="limitFreeText">free</span></span>
+      <span>🎁 <span class="limit-free" id="limitCount">3</span> <span id="limitFreeText">free</span> — <strong id="ctaText">Try now!</strong></span>
       <span>💎 Unlimited — <span class="limit-paid">50 Stars</span></span>
       <span>⭐ Public link — <span class="limit-paid">200 Stars</span></span>
     </div>
@@ -436,7 +438,7 @@
   <div id="aiLoading" class="ai-loading">🤖 Analyzing...</div>
   <div class="result-section" id="resultSection">
     <button class="back-btn" onclick="goBack()">← BACK</button>
-    <div id="victoryMessage" class="victory-message"><div style="font-size:32px;">🎉</div><div style="font-weight:bold; font-size:18px;" id="victoryTitle">Site created!</div><div style="font-size:13px;" id="victorySub">You are one step closer to clients</div></div>
+    <div id="victoryMessage" class="victory-message"><div style="font-size:28px;">🎉</div><div style="font-weight:bold; font-size:17px;" id="victoryTitle">Site created!</div><div style="font-size:12px;" id="victorySub">You are one step closer to clients</div></div>
     <iframe class="preview-frame" id="previewFrame"></iframe>
     <div class="action-buttons">
       <button id="btnDownload" onclick="downloadLanding()">📥 Download</button>
@@ -445,12 +447,12 @@
       <button id="btnPublish" onclick="publishToGitHubPages()" style="background:linear-gradient(135deg,#24292e,#0a0c10);">▲ Publish</button>
     </div>
     <div id="nextStep" class="next-step">
-      <div style="font-size:24px;">🚀</div>
-      <div style="font-weight:bold; margin-bottom:12px;" id="nextTitle">Your site is ready!</div>
-      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:16px 0;">
-        <button onclick="downloadLanding()" style="background:linear-gradient(135deg,#2c6eff,#1a4fcc); color:white; border:none; padding:12px 20px; border-radius:40px;">📥 Download</button>
-        <button onclick="editInline()" style="background:rgba(255,255,255,0.1); color:white; border:1px solid #3c7eff; padding:12px 20px; border-radius:40px;" id="editBtn">✏️ Edit</button>
-        <button onclick="unlockAndPublish()" style="background:linear-gradient(135deg,#ffd700,#ffb347); color:#1a1a2e; border:none; padding:12px 20px; border-radius:40px;" id="getLinkBtn">⭐ Get public link — 200 Stars</button>
+      <div style="font-size:22px;">🚀</div>
+      <div style="font-weight:bold; margin-bottom:10px;" id="nextTitle">Your site is ready!</div>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:14px 0;">
+        <button onclick="downloadLanding()" style="background:linear-gradient(135deg,#2c6eff,#1a4fcc); color:white; border:none; padding:10px 18px; border-radius:40px;">📥 Download</button>
+        <button onclick="editInline()" style="background:rgba(255,255,255,0.08); color:white; border:1px solid #3c7eff; padding:10px 18px; border-radius:40px;" id="editBtn">✏️ Edit</button>
+        <button onclick="unlockAndPublish()" style="background:linear-gradient(135deg,#ffd700,#ffb347); color:#1a1a2e; border:none; padding:10px 18px; border-radius:40px;" id="getLinkBtn">⭐ Get public link — 200 Stars</button>
       </div>
       <p id="shareHint" style="font-size:11px; color:#aaa;">💡 Click "Get public link" — pay in Telegram and get a link to your site!</p>
     </div>
@@ -475,24 +477,11 @@
 </div>
 
 <script>
-  // ========== ЛОКАЛІЗАЦІЯ ==========
   const LANG = {
-    ua: {
-      brand: 'НАЗВА БРЕНДУ', niche: 'НІША / СФЕРА', product: 'ГОЛОВНИЙ ОФФЕР',
-      desc: 'ОПИС', photo: 'URL ФОТО', contact: 'КОНТАКТИ', addToggle: '▼ ДОДАТКОВІ ОПЦІЇ ▼',
-      limitFree: 'безкоштовно', victoryTitle: 'Сайт створено!', victorySub: 'Ти вже на 1 крок ближче до клієнтів',
-      nextTitle: 'Твій сайт готовий!', editBtn: '✏️ Редагувати', getLinkBtn: '⭐ Отримати публічне посилання — 200 Stars',
-      shareHint: '💡 Натисни "Отримати публічне посилання" — оплати в Telegram і отримай посилання на свій сайт!',
-      reviewText: '"Зробив лендінг за 5 хвилин! Поділився з друзями — вже є перший клієнт"',
-      reviewAuthor: '— Анна, власниця студії манікюру',
-      statLandings: '🏆 1500+ лендінгів створено', statRecommend: '⭐ 98% рекомендують',
-      footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Портфоліо',
-      generateBtn: '✨ СТВОРИТИ САЙТ ✨', backBtn: '← НАЗАД', download: '📥 Завантажити', copy: '📋 Копіювати код', share: '📱 Поділитись', publish: '▲ Опублікувати'
-    },
     en: {
       brand: 'BRAND NAME', niche: 'NICHE / SPHERE', product: 'MAIN OFFER',
       desc: 'DESCRIPTION', photo: 'PHOTO URL', contact: 'CONTACTS', addToggle: '▼ ADDITIONAL OPTIONS ▼',
-      limitFree: 'free', victoryTitle: 'Site created!', victorySub: 'You are one step closer to clients',
+      limitFree: 'free', ctaText: 'Try now!', victoryTitle: 'Site created!', victorySub: 'You are one step closer to clients',
       nextTitle: 'Your site is ready!', editBtn: '✏️ Edit', getLinkBtn: '⭐ Get public link — 200 Stars',
       shareHint: '💡 Click "Get public link" — pay in Telegram and get a link to your site!',
       reviewText: '"I made a landing in 5 minutes! Shared with friends — already got my first client"',
@@ -501,10 +490,22 @@
       footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Portfolio',
       generateBtn: '✨ CREATE YOUR SITE ✨', backBtn: '← BACK', download: '📥 Download', copy: '📋 Copy code', share: '📱 Share', publish: '▲ Publish'
     },
+    ua: {
+      brand: 'НАЗВА БРЕНДУ', niche: 'НІША / СФЕРА', product: 'ГОЛОВНИЙ ОФФЕР',
+      desc: 'ОПИС', photo: 'URL ФОТО', contact: 'КОНТАКТИ', addToggle: '▼ ДОДАТКОВІ ОПЦІЇ ▼',
+      limitFree: 'безкоштовно', ctaText: 'Спробуй!', victoryTitle: 'Сайт створено!', victorySub: 'Ти вже на крок ближче до клієнтів',
+      nextTitle: 'Твій сайт готовий!', editBtn: '✏️ Редагувати', getLinkBtn: '⭐ Отримати публічне посилання — 200 Stars',
+      shareHint: '💡 Натисни "Отримати публічне посилання" — оплати в Telegram і отримай посилання на свій сайт!',
+      reviewText: '"Зробив лендінг за 5 хвилин! Поділився з друзями — вже є перший клієнт"',
+      reviewAuthor: '— Анна, власниця студії манікюру',
+      statLandings: '🏆 1500+ лендінгів створено', statRecommend: '⭐ 98% рекомендують',
+      footerTelegram: '💬 Telegram', footerFiverr: '🎯 Fiverr', footerGitHub: '🐙 GitHub', footerPortfolio: '🌐 Портфоліо',
+      generateBtn: '✨ СТВОРИТИ САЙТ ✨', backBtn: '← НАЗАД', download: '📥 Завантажити', copy: '📋 Копіювати код', share: '📱 Поділитись', publish: '▲ Опублікувати'
+    },
     ru: {
       brand: 'НАЗВАНИЕ БРЕНДА', niche: 'НИША / СФЕРА', product: 'ГЛАВНОЕ ПРЕДЛОЖЕНИЕ',
       desc: 'ОПИСАНИЕ', photo: 'URL ФОТО', contact: 'КОНТАКТЫ', addToggle: '▼ ДОПОЛНИТЕЛЬНЫЕ ОПЦИИ ▼',
-      limitFree: 'бесплатно', victoryTitle: 'Сайт создан!', victorySub: 'Ты на шаг ближе к клиентам',
+      limitFree: 'бесплатно', ctaText: 'Попробуй!', victoryTitle: 'Сайт создан!', victorySub: 'Ты на шаг ближе к клиентам',
       nextTitle: 'Твой сайт готов!', editBtn: '✏️ Редактировать', getLinkBtn: '⭐ Получить публичную ссылку — 200 Stars',
       shareHint: '💡 Нажми "Получить публичную ссылку" — оплати в Telegram и получи ссылку на свой сайт!',
       reviewText: '"Сделал лендинг за 5 минут! Поделился с друзьями — уже есть первый клиент"',
@@ -515,7 +516,6 @@
     }
   };
 
-  // ========== ШАБЛОНИ ==========
   const TEMPLATES = {
     'sci-fi': { gradient: 'linear-gradient(135deg, #ffffff, #7bb2ff)', bg: '#0a0c1a', text: '#e2e8f0', accent: '#2c6eff', name: 'Sci-Fi' },
     'luxury': { gradient: 'linear-gradient(135deg, #FFD700, #FFA500)', bg: '#1a1610', text: '#f5f2ed', accent: '#c8a96e', name: 'Luxury' },
@@ -533,20 +533,19 @@
   let uploadedImageData = '';
   let freeGenerations = localStorage.getItem('freeGenerations') ? parseInt(localStorage.getItem('freeGenerations')) : 3;
 
-  // ========== ЗОРЯНЕ НЕБО ==========
   function createStars() {
-    const starsContainer = document.getElementById('stars');
-    for (let i = 0; i < 350; i++) {
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 300; i++) {
       const star = document.createElement('div');
       star.className = 'star';
-      const size = Math.random() * 3 + 1;
+      const size = Math.random() * 2.5 + 0.8;
       star.style.width = `${size}px`;
       star.style.height = `${size}px`;
       star.style.left = `${Math.random() * 100}%`;
       star.style.top = `${Math.random() * 100}%`;
       star.style.animationDelay = `${Math.random() * 5}s`;
       star.style.animationDuration = `${2 + Math.random() * 3}s`;
-      starsContainer.appendChild(star);
+      container.appendChild(star);
     }
   }
 
@@ -560,8 +559,6 @@
       btn.classList.remove('disabled');
       btn.disabled = false;
     }
-    const limitFreeText = document.getElementById('limitFreeText');
-    if (limitFreeText) limitFreeText.innerText = LANG[currentLang].limitFree;
   }
 
   function toggleAdditional() {
@@ -613,7 +610,7 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
   function animateBuild(callback) {
     const loader = document.getElementById('aiLoading');
     loader.style.display = 'block';
-    setTimeout(() => { loader.style.display = 'none'; callback(); }, 1800);
+    setTimeout(() => { loader.style.display = 'none'; callback(); }, 1600);
   }
 
   function generateLanding() {
@@ -722,6 +719,7 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
     document.getElementById('labelContact').innerText = t.contact;
     document.getElementById('additionalToggle').innerText = t.addToggle;
     document.getElementById('limitFreeText').innerText = t.limitFree;
+    document.getElementById('ctaText').innerHTML = t.ctaText;
     document.getElementById('victoryTitle').innerText = t.victoryTitle;
     document.getElementById('victorySub').innerText = t.victorySub;
     document.getElementById('nextTitle').innerText = t.nextTitle;
@@ -746,9 +744,7 @@ h1{font-size:48px;font-weight:700;background:${t.gradient};-webkit-background-cl
   }
 
   function initMarqueeClicks() {
-    const topSpans = document.querySelectorAll('#templateMarqueeTop span');
-    const bottomSpans = document.querySelectorAll('#templateMarqueeBottom span');
-    const allSpans = [...topSpans, ...bottomSpans];
+    const allSpans = document.querySelectorAll('#templateMarqueeTop span, #templateMarqueeBottom span');
     allSpans.forEach(span => {
       span.addEventListener('click', () => setTemplate(span.dataset.template));
     });
