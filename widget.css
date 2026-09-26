@@ -1,0 +1,65 @@
+.ifw-root {
+  --ifw-bg: #12140F;
+  --ifw-card: #1A1D16;
+  --ifw-line: #2A2E22;
+  --ifw-text: #EDEAE0;
+  --ifw-muted: #9B9A8C;
+  --ifw-moss: #7A9B6B;
+  --ifw-moss-strong: #5DBE52;
+  --ifw-amber: #C98A4B;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  position: fixed;
+  z-index: 999999;
+  bottom: 20px;
+  right: 20px;
+}
+.ifw-root * { box-sizing: border-box; }
+.ifw-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--ifw-card); border: 1px solid var(--ifw-line);
+  color: var(--ifw-text); padding: 10px 16px; border-radius: 999px;
+  cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  font-size: 14px; transition: transform .15s ease, border-color .15s ease;
+}
+.ifw-pill:hover { transform: translateY(-2px); border-color: var(--ifw-moss); }
+.ifw-pill-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ifw-moss-strong); box-shadow: 0 0 0 3px rgba(93,190,82,0.18);
+}
+.ifw-panel {
+  display: none; position: absolute; bottom: 56px; right: 0; width: 280px;
+  background: var(--ifw-card); border: 1px solid var(--ifw-line); border-radius: 14px;
+  padding: 18px; box-shadow: 0 16px 40px rgba(0,0,0,0.45); color: var(--ifw-text);
+}
+.ifw-panel.ifw-open { display: block; }
+.ifw-panel-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ifw-logo-mark {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #A8C99A, var(--ifw-moss) 70%);
+  display: flex; align-items: center; justify-content: center; font-size: 13px;
+}
+.ifw-panel-title { font-size: 15px; font-weight: 600; }
+.ifw-panel-sub { font-size: 12px; color: var(--ifw-muted); margin-top: 2px; }
+.ifw-panel-body { font-size: 13px; color: #D8D5C8; line-height: 1.5; margin: 12px 0 16px; }
+.ifw-buy-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+  background: var(--ifw-moss-strong); color: #0B0F0A; font-weight: 600; font-size: 14px;
+  padding: 11px 14px; border-radius: 8px; border: none; text-decoration: none;
+  cursor: pointer; transition: filter .15s ease;
+}
+.ifw-buy-btn:hover { filter: brightness(1.08); }
+.ifw-close {
+  position: absolute; top: 12px; right: 12px; background: none; border: none;
+  color: var(--ifw-muted); cursor: pointer; font-size: 16px; line-height: 1; padding: 2px;
+}
+.ifw-close:hover { color: var(--ifw-text); }
+.ifw-footer {
+  margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--ifw-line);
+  font-size: 10px; color: var(--ifw-muted); display: flex; justify-content: space-between;
+  align-items: center; font-family: ui-monospace, "JetBrains Mono", monospace;
+}
+.ifw-footer a { color: var(--ifw-amber); text-decoration: none; }
+@media (max-width: 480px) {
+  .ifw-root { bottom: 14px; right: 14px; }
+  .ifw-panel { width: calc(100vw - 40px); right: 0; }
+}
